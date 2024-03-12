@@ -1,11 +1,12 @@
 ﻿namespace BootcampApp.Core.Models
 {
-    public class Post : BaseEntity
+    public class Post 
     {
         public int PostId { get; set; }
         public string? Title { get; set; }
         public string? Content { get; set; }
         public string? Image { get; set; }
+        public int LikeCount { get; set; }
         public DateTime PublishedDate { get; set; }
         public bool IsActive { get; set; }
         public int UserId { get; set; }
