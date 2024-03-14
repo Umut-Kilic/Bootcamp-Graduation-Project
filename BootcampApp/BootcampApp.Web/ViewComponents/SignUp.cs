@@ -3,13 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BootcampApp.Web.ViewComponents
 {
-    public class SignUp:ViewComponent
+    public class SignUp : ViewComponent
     {
-        
+
 
         public SignUp(IPostRepository postRepository)
         {
-           
+
         }
 
         public async Task<IViewComponentResult> InvokeAsync()

@@ -1,9 +1,12 @@
 using AutoMapper;
+using Azure.Core;
 using BootcampApp.Core.Models;
 using BootcampApp.Core.Services;
 using BootcampApp.Core.ViewModels;
+using BootcampApp.Web.Extenisons;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace BootcampApp.Web.Controllers
 {
@@ -13,9 +16,10 @@ namespace BootcampApp.Web.Controllers
         private readonly ICommentService _commentService;
         private IUserService _userService;
         private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
         private readonly IMapper _mapper;
         private readonly IWebHostEnvironment _hostEnvironment;
-        public HomeController(IPostService postService, ICommentService commentService, IUserService userService, UserManager<User> userManager, IMapper mapper, IWebHostEnvironment hostEnvironment)
+        public HomeController(IPostService postService, ICommentService commentService, IUserService userService, UserManager<User> userManager, IMapper mapper, IWebHostEnvironment hostEnvironment, SignInManager<User> signInManager)
         {
             _postService = postService;
             _commentService = commentService;
@@ -23,6 +27,7 @@ namespace BootcampApp.Web.Controllers
             _userManager = userManager;
             _mapper = mapper;
             _hostEnvironment = hostEnvironment;
+            _signInManager = signInManager;
         }
 
         public async Task<IActionResult> Index()
@@ -40,16 +45,88 @@ namespace BootcampApp.Web.Controllers
             return View(new PostViewModel
             {
                 Posts = posts.ToList(),
-                SliderViewModel=sliderViewModel
+                SliderViewModel = sliderViewModel
             });
         }
 
-      
+
         [HttpPost]
-        public async Task<IActionResult> SignUp()
+        public async Task<IActionResult> SignUp(SignUpViewModel request)
         {
-            return RedirectToAction("Index");
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            var identityResult = await _userManager.CreateAsync(new() { UserName = request.UserName, Email = request.Email }, request.PasswordConfirm);
+
+
+            if (!identityResult.Succeeded)
+            {
+                ModelState.AddModelErrorList(identityResult.Errors.Select(x => x.Description).ToList());
+                return View();
+            }        
+
+            var user = await _userManager.FindByNameAsync(request.UserName);
+
+            var posts = await _postService.GetAllAsync();
+            //var postViewModel = _mapper.Map<PostViewModel>(products);
+            var sliderImagePath = Path.Combine(_hostEnvironment.WebRootPath, "img", "sliderimages");
+            var imageNames = Directory.GetFiles(sliderImagePath)
+                                       .Select(Path.GetFileName)
+                                       .ToList();
+            var sliderViewModel = new SliderViewModel
+            {
+                Images = imageNames
+            };
+            return RedirectToAction(nameof(HomeController.Index), new PostViewModel
+            {
+                Posts = posts.ToList(),
+                SliderViewModel = sliderViewModel
+            });
         }
+
+        [HttpPost]
+        public async Task<IActionResult> SignIn(SignInViewModel model, string? returnUrl = null)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            returnUrl ??= Url.Action("Index", "Home");
+
+            var hasUser = await _userManager.FindByEmailAsync(model.Email);
+
+            if (hasUser == null)
+            {
+                ModelState.AddModelError(string.Empty, "Email veya þifre yanlýþ");
+                return View();
+            }
+
+            var signInResult = await _signInManager.PasswordSignInAsync(hasUser, model.Password, model.RememberMe, true);
+
+
+            if (signInResult.IsLockedOut)
+            {
+                ModelState.AddModelErrorList(new List<string>() { "3 dakika boyunca giriþ yapamazsýnýz." });
+                return View();
+            }
+
+            if (!signInResult.Succeeded)
+            {
+                ModelState.AddModelErrorList(new List<string>() { $"Email veya þifre yanlýþ", $"Baþarýsýz giriþ sayýsý = {await _userManager.GetAccessFailedCountAsync(hasUser)}" });
+                return View();
+            }
+
+            if (hasUser.BirthDate.HasValue)
+            {
+                await _signInManager.SignInWithClaimsAsync(hasUser, model.RememberMe, new[] { new Claim("birthdate", hasUser.BirthDate.Value.ToString()) });
+            }
+            return Redirect(returnUrl!);
+
+        }
+
 
 
         public IActionResult Privacy()

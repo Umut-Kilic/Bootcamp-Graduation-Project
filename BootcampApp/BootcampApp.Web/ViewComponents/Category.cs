@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BootcampApp.Web.ViewComponents
 {
-    public class Category:ViewComponent
+    public class Category : ViewComponent
     {
         private readonly IWebHostEnvironment _hostEnvironment;
 

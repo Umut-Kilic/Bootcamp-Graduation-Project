@@ -1,4 +1,5 @@
 ﻿@using System.Security.Claims;
+@model PostViewModel
 @if (User.Identity!.IsAuthenticated)
 {
     <ul class="navbar-nav me-0">
@@ -32,45 +33,131 @@
 else
 
 {
-    <a class="btn btn-outline-success mx-1" asp-controller="Home" asp-action="SignIn">Üye Giriş</a>
-    <a class="btn btn-outline-success ml-auto" href="#" data-bs-toggle="modal" data-bs-target="#signUpModal">Üye Kayıt</a>
+    
 
+    <div class="modal fade" id="signInModal" tabindex="-1" aria-labelledby="signInModal" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content border-0">
+                    <form asp-controller="Home" asp-action="SignIn" method="post">
+                        <div class="row">
+                            <div class="col-2 d-flex align-items-center">
+                                <img src="~/img/avatar1.png" class="w-100" style="height: auto;" alt="Alternate Text" />
+                            </div>
 
-    <div class="modal fade  modal-lg" id="signUpModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">Recipient:</label>
-                            <input type="text" class="form-control" id="recipient-name">
+                            <div class="col-10">
+                                <div class="modal-header border-0 mb-0">
+
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body border-0">
+
+                                    <div class="d-flex  justify-content-between  align-items-center mb-4">
+                                        <h1 class="modal-title fs-5" style="font-size: 2rem !important;">Giriş Yap</h1>
+
+                                        <a href="" data-bs-toggle="modal" data-bs-target="#signUpModal" id="signInLink">Hesabın Henüz Yok mu?</a>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <input class="form-control form-control-lg rounded-pill" asp-for="SignInViewModel.Email" placeholder="E-posta adresiniz">
+                                        <span class="text-danger" asp-validation-for="SignInViewModel.Email"></span>
+                                    </div>
+                                    <div class="mb-3">
+                                        <input class="form-control form-control-lg rounded-pill" asp-for="SignInViewModel.Password" placeholder="Şifreniz"></input>
+                                        <span class="text-danger" asp-validation-for="SignInViewModel.Password"></span>
+                                    </div>
+                                    <div class="form-check">
+                                        <input asp-for="SignInViewModel.RememberMe" class="form-check-input ms-1" style=" transform: scale(1.5);">
+                                        <label class="form-check-label ms-3" asp-for="SignInViewModel.RememberMe"></label>
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer border-0">
+                                    <button type="submit" class="btn btn-success w-100">Giriş Yap</button>
+
+                                </div>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="message-text" class="col-form-label">Message:</label>
-                            <textarea class="form-control" id="message-text"></textarea>
-                        </div>
+                       
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Send message</button>
                 </div>
             </div>
         </div>
-    </div>
 
+        <div class="modal fade" id="signUpModal" aria-hidden="true" aria-labelledby="signUpModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content border-0">
+                    <form asp-controller="Home" asp-action="SignUp" method="post">
+                        <div class="row">
+                            <div class="col-2 d-flex align-items-center">
+                                <img src="~/img/avatar1.png" class="w-100" style="height: auto;" alt="Alternate Text" />
+                            </div>
+                            <div class="col-10">
+                                <div class="modal-header border-0">
+
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body border-0">
+                                    <div class="d-flex justify-content-between  align-items-center mb-4">
+
+                                        <h1 class="modal-title fs-5" style="font-size: 2rem !important;">Üye Ol</h1>
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#signInModal" id="signUpLink">Hesabın Var mı?</a>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <input class="form-control form-control-lg rounded-pill" asp-for="SignUpViewModel.UserName" placeholder="Kullanıcı Adı">
+                                        <span class="text-danger" asp-validation-for="SignUpViewModel.UserName"></span>
+                                    </div>
+                                    <div class="mb-3">
+                                        <input class="form-control form-control-lg rounded-pill" asp-for="SignInViewModel.Email" placeholder="E-posta Adresi">
+                                        <span class="text-danger" asp-validation-for="SignUpViewModel.Email"></span>
+                                    </div>
+                                    <div class="mb-3">
+                                        <input class="form-control form-control-lg rounded-pill" asp-for="SignInViewModel.Password" placeholder="Şifre">
+                                        <span class="text-danger" asp-validation-for="SignUpViewModel.Password"></span>
+                                    </div>
+                                    <div class="mb-3">
+                                        <input class="form-control form-control-lg rounded-pill" asp-for="SignUpViewModel.PasswordConfirm" placeholder="Şifreyi Onayla">
+                                        <span class="text-danger" asp-validation-for="SignUpViewModel.PasswordConfirm"></span>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input asp-for="SignUpViewModel.PermissionAllow" class="form-check-input ms-1" style=" transform: scale(1.5);">
+                                        <label class="form-check-label ms-3" asp-for="SignUpViewModel.PermissionAllow"></label>
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer border-0">
+                                    <button type="submit" class="btn btn-success w-100">Üye Ol</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-outline-dark" data-bs-target="#signInModal" data-bs-toggle="modal"><i class="fa-solid fa-right-to-bracket" style="font-size:1rem; margin-right:0.5rem"></i> <span style="font-size:1.2rem;">Giriş Yap / Üye Ol</span> <i class="fa-solid fa-user-plus" style="font-size:1rem; margin-left:0.5rem"></i></button>
+
+    
         <script>
-            var btn = document.getElementById("closeModalButton");
+            document.addEventListener('DOMContentLoaded', function () {
+                var signInLink = document.getElementById('signInLink');
+                var signUpLink = document.getElementById('signUpLink');
 
-            btn.addEventListener("click", () => {
-                $('#signupModal').modal('hide')
+                var signInModal = new bootstrap.Modal(document.getElementById('signInModal'));
+                var signUpModal = new bootstrap.Modal(document.getElementById('signUpModal'));
+
+                signUpLink.addEventListener('click', function () {
+                    signInModal.show();
+                    signUpModal.hide();
+                });
+
+                signInLink.addEventListener('click', function () {
+                    signUpModal.show();
+                    signInModal.hide();
+                });
             });
         </script>
-    
+
 }
 
 

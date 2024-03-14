@@ -1,8 +1,5 @@
 ﻿using BootcampApp.Core.ViewModels;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using System.IO;
-using System.Linq;
 
 namespace BootcampApp.Web.ViewComponents
 {
@@ -14,7 +11,7 @@ namespace BootcampApp.Web.ViewComponents
         {
             _hostEnvironment = hostEnvironment;
         }
-   
+
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var sliderImagePath = Path.Combine(_hostEnvironment.WebRootPath, "img", "sliderimages");
