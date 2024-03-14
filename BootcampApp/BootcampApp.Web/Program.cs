@@ -3,12 +3,10 @@ using Autofac.Extensions.DependencyInjection;
 using BootcampApp.Repository;
 using BootcampApp.Repository.Seeds;
 using BootcampApp.Service.Mapping;
+using BootcampApp.Web.Extenisons;
 using BootcampApp.Web.Filters;
 using BootcampApp.Web.Modules;
-using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
-using NLayerApp.Service.Validations;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +26,14 @@ builder.Services.AddScoped(typeof(NotFoundFilter<>));
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
 builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder => containerBuilder.RegisterModule(new RepoServiceModule()));
+
+
+
+
+
+//Identity
+
+builder.Services.AddIdentityWithExt();
 
 
 
@@ -51,8 +57,17 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+
+app.MapControllerRoute(
+    name: "areas",
+   pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
 
 app.Run();

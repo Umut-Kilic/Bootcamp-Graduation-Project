@@ -5,5 +5,6 @@ namespace BootcampApp.Core.Services
 {
     public interface IPostService : IService<Post>
     {
+
     }
 }

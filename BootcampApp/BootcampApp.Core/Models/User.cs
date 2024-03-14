@@ -1,11 +1,14 @@
-﻿namespace BootcampApp.Core.Models
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace BootcampApp.Core.Models
 {
-    public class User
+    public class User : IdentityUser
     {
-        public int UserId { get; set; }
-        public string? UserName { get; set; }
-        public string? Image { get; set; }
         public List<Post> Posts { get; set; } = new List<Post>();
         public List<Comment> Comments { get; set; } = new List<Comment>();
+        public string? Picture { get; set; }
+        public DateTime? BirthDate { get; set; }
+        public Gender? Gender { get; set; }
     }
 }
+

@@ -11,6 +11,7 @@ namespace BootcampApp.Core.Repositories
         //biz bazı durumlarda bu yazdıgımız expressionların (X=>X.Id .... vb) ustune OrderBy() gibi işlemler yapmak istersek dbye atılmadan once memoryde bunlar birleşirilir.
         //Ne zaman ToList() fonk çalışırsa o zaman bu sqller dbden verileri çekecekt ve memorye aktarıalcaktır.
         IQueryable<T> GetAll();
+        Task<IEnumerable<T>> GetAllAsync();
         IQueryable<T> Where(Expression<Func<T, bool>> expression);
         Task<bool> AnyAsync(Expression<Func<T, bool>> expression);
         Task AddAsync(T entity);

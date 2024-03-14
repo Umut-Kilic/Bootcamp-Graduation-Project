@@ -1,23 +1,28 @@
 ﻿using BootcampApp.Core.Models;
-using BootcampApp.Repository.Configuration;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
 
 namespace BootcampApp.Repository
 {
-    public class BootcampAppDbContext : DbContext
+    public class BootcampAppDbContext : IdentityDbContext<User, Role, string>
     {
         public DbSet<Category> Categories { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Post> Posts { get; set; }
-        public DbSet<User> Users { get; set; }
-      
+
         public BootcampAppDbContext(DbContextOptions<BootcampAppDbContext> options) : base(options)
         {
-
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<IdentityUserLogin<string>>().HasKey(x => x.UserId);
+            modelBuilder.Entity<IdentityUserRole<string>>().HasKey(x => x.RoleId);
+            modelBuilder.Entity<IdentityUserToken<string>>().HasKey(x => x.UserId);
+
+
+
             modelBuilder.Entity<Comment>()
         .HasOne(c => c.User)
         .WithMany(u => u.Comments)
@@ -30,11 +35,16 @@ namespace BootcampApp.Repository
                 .HasForeignKey(p => p.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<Post>()
+               .HasMany(p => p.Comments)
+               .WithOne(c => c.Post)
+               .OnDelete(DeleteBehavior.Cascade);
+
             modelBuilder.Entity<Comment>()
                 .HasOne(c => c.Post)
                 .WithMany(p => p.Comments)
                 .HasForeignKey(c => c.PostId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<User>()
                 .HasMany(u => u.Posts)

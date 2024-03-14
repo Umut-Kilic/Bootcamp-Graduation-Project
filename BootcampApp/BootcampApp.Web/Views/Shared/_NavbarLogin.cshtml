@@ -1,0 +1,79 @@
+﻿@using System.Security.Claims;
+@if (User.Identity!.IsAuthenticated)
+{
+    <ul class="navbar-nav me-0">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                @User.Identity.Name
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" asp-controller="Member" asp-action="Index">Profil</a></li>
+                <li><a class="dropdown-item" asp-controller="Member" asp-action="PasswordChange">Şifre değiştir</a></li>
+
+                <li><a class="dropdown-item" asp-controller="Member" asp-action="UserEdit">Kullanıcı güncelle</a></li>
+
+                <li><a class="dropdown-item" asp-controller="Member" asp-action="Claims">Claims</a></li>
+
+
+
+
+
+                @if (User.HasClaim(x => x.Type == ClaimTypes.Role && x.Value == "admin"))
+                {
+                    <li><a class="dropdown-item" asp-area="admin" asp-controller="Home" asp-action="Index">Admin</a></li>
+                }
+                <li><a class="dropdown-item" asp-route-returnurl="/Home/Index" asp-controller="Member" asp-action="logout">Çıkış yap</a></li>
+
+            </ul>
+        </li>
+
+    </ul>
+}
+else
+
+{
+    <a class="btn btn-outline-success mx-1" asp-controller="Home" asp-action="SignIn">Üye Giriş</a>
+    <a class="btn btn-outline-success ml-auto" href="#" data-bs-toggle="modal" data-bs-target="#signUpModal">Üye Kayıt</a>
+
+
+    <div class="modal fade  modal-lg" id="signUpModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Recipient:</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Message:</label>
+                            <textarea class="form-control" id="message-text"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Send message</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <script>
+            var btn = document.getElementById("closeModalButton");
+
+            btn.addEventListener("click", () => {
+                $('#signupModal').modal('hide')
+            });
+        </script>
+    
+}
+
+
+
+
+

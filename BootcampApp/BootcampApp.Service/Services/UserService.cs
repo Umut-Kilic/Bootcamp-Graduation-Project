@@ -6,15 +6,15 @@ using BootcampApp.Core.Services;
 
 namespace BootcampApp.Service.Services
 {
-    public class UserService : Service<Post>, IPostService
+    public class UserService : Service<User>, IUserService
     {
-        private readonly IPostRepository _postRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
 
-        public UserService(IGenericRepository<Post> repository, IUnitOfWork unitOfWork, IMapper mapper, IPostRepository postRepository) : base(repository, unitOfWork)
+        public UserService(IGenericRepository<User> repository, IUnitOfWork unitOfWork, IMapper mapper, IUserRepository userRepository) : base(repository, unitOfWork)
         {
             _mapper = mapper;
-            _postRepository = postRepository;
+            _userRepository = userRepository;
         }
     }
 }

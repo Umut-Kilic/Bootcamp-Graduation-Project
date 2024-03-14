@@ -8,13 +8,15 @@ namespace BootcampApp.Service.Services
 {
     public class PostService : Service<Post>, IPostService
     {
-        private readonly IPostRepository _postRepository;
+        private readonly IUserRepository _postRepository;
         private readonly IMapper _mapper;
 
-        public PostService(IGenericRepository<Post> repository, IUnitOfWork unitOfWork, IMapper mapper, IPostRepository postRepository) : base(repository, unitOfWork)
+        public PostService(IGenericRepository<Post> repository, IUnitOfWork unitOfWork, IMapper mapper, IUserRepository postRepository) : base(repository, unitOfWork)
         {
             _mapper = mapper;
             _postRepository = postRepository;
         }
+
+
     }
 }

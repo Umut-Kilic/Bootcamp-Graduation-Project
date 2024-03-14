@@ -6,15 +6,15 @@ using BootcampApp.Core.Services;
 
 namespace BootcampApp.Service.Services
 {
-    public class CommentService : Service<Post>, IPostService
+    public class CommentService : Service<Comment>, ICommentService
     {
-        private readonly IPostRepository _postRepository;
+        private readonly ICommentRepository _commentRepository;
         private readonly IMapper _mapper;
 
-        public CommentService(IGenericRepository<Post> repository, IUnitOfWork unitOfWork, IMapper mapper, IPostRepository postRepository) : base(repository, unitOfWork)
+        public CommentService(IGenericRepository<Comment> repository, IUnitOfWork unitOfWork, IMapper mapper, ICommentRepository commentRepository) : base(repository, unitOfWork)
         {
             _mapper = mapper;
-            _postRepository = postRepository;
+            _commentRepository = commentRepository;
         }
     }
 }

@@ -29,6 +29,22 @@
       "PackagePath": "staticwebassets\\img\\avatar4.png"
     },
     {
+      "Id": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\wwwroot\\img\\sliderimages\\avatar1.png",
+      "PackagePath": "staticwebassets\\img\\sliderimages\\avatar1.png"
+    },
+    {
+      "Id": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\wwwroot\\img\\sliderimages\\avatar2.png",
+      "PackagePath": "staticwebassets\\img\\sliderimages\\avatar2.png"
+    },
+    {
+      "Id": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\wwwroot\\img\\sliderimages\\avatar3.png",
+      "PackagePath": "staticwebassets\\img\\sliderimages\\avatar3.png"
+    },
+    {
+      "Id": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\wwwroot\\img\\sliderimages\\avatar4.png",
+      "PackagePath": "staticwebassets\\img\\sliderimages\\avatar4.png"
+    },
+    {
       "Id": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\wwwroot\\img\\unity.png",
       "PackagePath": "staticwebassets\\img\\unity.png"
     },

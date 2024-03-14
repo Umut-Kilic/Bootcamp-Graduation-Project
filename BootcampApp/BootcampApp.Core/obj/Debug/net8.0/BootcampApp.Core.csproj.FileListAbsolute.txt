@@ -1,6 +1,7 @@
 C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\BootcampApp.Core\bin\Debug\net8.0\BootcampApp.Core.deps.json
 C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\BootcampApp.Core\bin\Debug\net8.0\BootcampApp.Core.dll
 C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\BootcampApp.Core\bin\Debug\net8.0\BootcampApp.Core.pdb
+C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\BootcampApp.Core\obj\Debug\net8.0\BootcampApp.Core.csproj.AssemblyReference.cache
 C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\BootcampApp.Core\obj\Debug\net8.0\BootcampApp.Core.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\BootcampApp.Core\obj\Debug\net8.0\BootcampApp.Core.AssemblyInfoInputs.cache
 C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\BootcampApp.Core\obj\Debug\net8.0\BootcampApp.Core.AssemblyInfo.cs

@@ -1,5 +1,5 @@
 ﻿using BootcampApp.Core.Models;
-using BootcampApp.Core.ModelViews;
+using BootcampApp.Core.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using NLayer.Core.Services;

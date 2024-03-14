@@ -1,7 +1,6 @@
 ﻿using BootcampApp.Core.IUnitOfWorks;
 using BootcampApp.Core.Repositories;
 using BootcampApp.Service.Exceptions;
-using Microsoft.EntityFrameworkCore;
 using NLayer.Core.Services;
 using System.Linq.Expressions;
 
@@ -46,7 +45,7 @@ namespace BootcampApp.Service.Services
 
         public async Task<IEnumerable<T>> GetAllAsync()
         {
-            return await _repository.GetAll().ToListAsync();
+            return await _repository.GetAllAsync();
         }
 
         public async Task<T> GetByIdAsync(int? id)

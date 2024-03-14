@@ -47,6 +47,11 @@ namespace BootcampApp.Repository.Repositories
             //Track edilmesin ki memeory şişirmesin
             return _dbSet.AsNoTracking().AsQueryable();
         }
+        public async Task<IEnumerable<T>> GetAllAsync()
+        {
+            //Track edilmesin ki memeory şişirmesin
+            return await _dbSet.AsNoTracking().ToListAsync();
+        }
 
         public async Task<T> GetByIdAsync(int? id)
         {

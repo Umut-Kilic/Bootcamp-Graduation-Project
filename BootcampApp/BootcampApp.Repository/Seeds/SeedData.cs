@@ -1,5 +1,4 @@
-﻿using Azure;
-using BootcampApp.Core.Models;
+﻿using BootcampApp.Core.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,7 +16,7 @@ namespace BootcampApp.Repository.Seeds
                 {
                     throw new Exception("BootcampAppDbContext is null.");
                 }
-                
+
                 if (context != null)
                 {
                     if (context.Database.GetPendingMigrations().Any())
@@ -25,7 +24,7 @@ namespace BootcampApp.Repository.Seeds
                         context.Database.Migrate();
                     }
                 }
-                
+
 
                 if (!context.Categories.Any())
                 {
@@ -44,12 +43,12 @@ namespace BootcampApp.Repository.Seeds
                         new User()
                         {
                             UserName = "UmutBey",
-                            Image = "avatar1.png"
+                            Picture = "avatar1.png"
                         },
                           new User()
                           {
                               UserName = "AhmetKayaHoca",
-                              Image = "avatar2.png"
+                              Picture = "avatar2.png"
                           }
                    );
                     context.SaveChanges();
@@ -57,36 +56,35 @@ namespace BootcampApp.Repository.Seeds
                 // DbContext içinde herhangi bir veri var mı kontrol edin
                 if (!context.Posts.Any())
                 {
-                    // Seed verilerini ekleyin
                     context.Posts.AddRange(
                         new Post
                         {
                             Title = "Elektronik Şarj cıhazı",
                             Content = "Xiaomı şarj cihazı çalışmıyor",
-                            Image = "1.jpeg",
+                            Image = "xiaomisarj.jpg",
                             IsActive = true,
                             PublishedDate = DateTime.Now.AddDays(-5),
-                            UserId = 1
+                            UserId = context.Users.First().Id
                         },
                         new Post
                         {
                             Title = "Unity İle geliştirmek ne kadar zor",
                             Content = "Unity ile oyun yapımaya çalışıyrum durmadan hata alıyorum",
-                            Image = "2.png",
+                            Image = "unity.png",
                             IsActive = true,
                             PublishedDate = DateTime.Now.AddDays(-7),
-                            UserId = 1
+                            UserId = context.Users.First().Id
                         },
                         new Post
                         {
                             Title = "Yazılım ile Müzik",
                             Content = "Yazılım ile müzik geliştirmeyi nasıl yapıyorsunuz başım ağrıyor kod yazarken",
-                            Image = "3.png",
+                            Image = "yazilimMuzik.jpg",
                             IsActive = true,
                             PublishedDate = DateTime.Now.AddDays(-10),
-                            UserId = 2
+                            UserId = context.Users.Where(x => x.UserName.Contains("AhmetKayaHoca")).Select(x => x.Id).FirstOrDefault()
                         }
-                    );
+                    ); ;
 
                     // Değişiklikleri veritabanına kaydet
                     context.SaveChanges();
@@ -99,9 +97,9 @@ namespace BootcampApp.Repository.Seeds
                          {
                              LikeCount = 1,
                              PostId = 1,
-                             UserId = 1,
-                             Text = "Bu ne amk",
-                             PublishedDate= DateTime.Now.AddDays(-1),
+                             UserId = context.Users.First().Id,
+                             Text = "Bu nasıl yorum",
+                             PublishedDate = DateTime.Now.AddDays(-1),
                          }
                     );
                     context.SaveChanges();

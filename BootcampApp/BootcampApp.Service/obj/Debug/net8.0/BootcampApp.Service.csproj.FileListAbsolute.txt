@@ -1,9 +1,3 @@
-C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\BootcampApp.Service\obj\Debug\net8.0\BootcampApp.Service.csproj.AssemblyReference.cache
-C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\BootcampApp.Service\obj\Debug\net8.0\BootcampApp.Service.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\BootcampApp.Service\obj\Debug\net8.0\BootcampApp.Service.AssemblyInfoInputs.cache
-C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\BootcampApp.Service\obj\Debug\net8.0\BootcampApp.Service.AssemblyInfo.cs
-C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\BootcampApp.Service\obj\Debug\net8.0\BootcampApp.Service.csproj.CoreCompileInputs.cache
-C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\BootcampApp.Service\obj\Debug\net8.0\BootcampApp.Service.sourcelink.json
 C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\BootcampApp.Service\bin\Debug\net8.0\BootcampApp.Service.deps.json
 C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\BootcampApp.Service\bin\Debug\net8.0\BootcampApp.Service.dll
 C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\BootcampApp.Service\bin\Debug\net8.0\BootcampApp.Service.pdb
@@ -11,6 +5,12 @@ C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\Bootcam
 C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\BootcampApp.Service\bin\Debug\net8.0\BootcampApp.Repository.dll
 C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\BootcampApp.Service\bin\Debug\net8.0\BootcampApp.Repository.pdb
 C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\BootcampApp.Service\bin\Debug\net8.0\BootcampApp.Core.pdb
+C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\BootcampApp.Service\obj\Debug\net8.0\BootcampApp.Service.csproj.AssemblyReference.cache
+C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\BootcampApp.Service\obj\Debug\net8.0\BootcampApp.Service.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\BootcampApp.Service\obj\Debug\net8.0\BootcampApp.Service.AssemblyInfoInputs.cache
+C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\BootcampApp.Service\obj\Debug\net8.0\BootcampApp.Service.AssemblyInfo.cs
+C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\BootcampApp.Service\obj\Debug\net8.0\BootcampApp.Service.csproj.CoreCompileInputs.cache
+C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\BootcampApp.Service\obj\Debug\net8.0\BootcampApp.Service.sourcelink.json
 C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\BootcampApp.Service\obj\Debug\net8.0\Bootcamp.ECAEDE0B.Up2Date
 C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\BootcampApp.Service\obj\Debug\net8.0\BootcampApp.Service.dll
 C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\BootcampApp.Service\obj\Debug\net8.0\refint\BootcampApp.Service.dll

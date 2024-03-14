@@ -1,4 +1,4 @@
-﻿namespace BootcampApp.Core.ModelViews
+﻿namespace BootcampApp.Core.ViewModels
 {
     public class ErrorViewModel
     {

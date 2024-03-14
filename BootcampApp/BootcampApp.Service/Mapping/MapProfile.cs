@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using BootcampApp.Core.Models;
+using BootcampApp.Core.ViewModels;
 
 namespace BootcampApp.Service.Mapping
 {
@@ -6,7 +8,7 @@ namespace BootcampApp.Service.Mapping
     {
         public MapProfile()
         {
-
+            CreateMap<PostViewModel, Post>().ReverseMap();
         }
     }
 }
