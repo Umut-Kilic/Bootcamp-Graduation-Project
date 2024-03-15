@@ -1,5 +1,8 @@
-﻿using BootcampApp.Core.Models;
+﻿using AspNetCoreIdentityApp.Web.CustomValidations;
+using BootcampApp.Core.Models;
 using BootcampApp.Repository;
+using BootcampApp.Service.Validations;
+using BootcampApp.Web.Localizations;
 using Microsoft.AspNetCore.Identity;
 
 namespace BootcampApp.Web.Extenisons
@@ -25,7 +28,7 @@ namespace BootcampApp.Web.Extenisons
                   options.Password.RequireNonAlphanumeric = false;
                   options.Password.RequireLowercase = true;
                   options.Password.RequireUppercase = false;
-                  options.Password.RequireDigit = false;
+                  options.Password.RequireDigit = true;
 
 
                   options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(3);
@@ -34,13 +37,11 @@ namespace BootcampApp.Web.Extenisons
 
 
 
-              }).AddDefaultTokenProviders()
-                .AddEntityFrameworkStores<BootcampAppDbContext>();
-            /*.AddPasswordValidator<PasswordValidator>()
-            .AddUserValidator<UserValidator>()
-            .AddErrorDescriber<LocalizationIdentityErrorDescriber>()
-            ;*/
-
+              })
+               .AddUserValidator<UserValidator>()
+               .AddPasswordValidator<PasswordValidator>()
+               .AddErrorDescriber<LocalizationIdentityErrorDescriber>()
+               .AddEntityFrameworkStores<BootcampAppDbContext>();
 
         }
     }

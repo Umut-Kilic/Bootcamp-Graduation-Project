@@ -13,12 +13,6 @@
 
                 <li><a class="dropdown-item" asp-controller="Member" asp-action="UserEdit">Kullanıcı güncelle</a></li>
 
-                <li><a class="dropdown-item" asp-controller="Member" asp-action="Claims">Claims</a></li>
-
-
-
-
-
                 @if (User.HasClaim(x => x.Type == ClaimTypes.Role && x.Value == "admin"))
                 {
                     <li><a class="dropdown-item" asp-area="admin" asp-controller="Home" asp-action="Index">Admin</a></li>
@@ -40,9 +34,19 @@ else
                 <div class="modal-content border-0">
                     <form asp-controller="Home" asp-action="SignIn" method="post">
                         <div class="row">
-                            <div class="col-2 d-flex align-items-center">
-                                <img src="~/img/avatar1.png" class="w-100" style="height: auto;" alt="Alternate Text" />
+                            <div class="col-2">
+                                <div class="modal-dama">
+                                    <div class="kutu"></div>
+                                    <div class="kutu bg-dark"></div>
+                                    <div class="kutu bg-dark"></div>
+                                    <div class="kutu "></div>
+                                    <div class="kutu "></div>
+                                    <div class="kutu bg-dark"></div>
+                                    <div class="kutu bg-dark"></div>
+                                    <div class="kutu"></div>
+                                </div>
                             </div>
+
 
                             <div class="col-10">
                                 <div class="modal-header border-0 mb-0">
@@ -50,7 +54,7 @@ else
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body border-0">
-
+                                    <div class="alert alert-danger" asp-validation-summary="ModelOnly"></div>
                                     <div class="d-flex  justify-content-between  align-items-center mb-4">
                                         <h1 class="modal-title fs-5" style="font-size: 2rem !important;">Giriş Yap</h1>
 
@@ -88,15 +92,30 @@ else
                 <div class="modal-content border-0">
                     <form asp-controller="Home" asp-action="SignUp" method="post">
                         <div class="row">
-                            <div class="col-2 d-flex align-items-center">
-                                <img src="~/img/avatar1.png" class="w-100" style="height: auto;" alt="Alternate Text" />
+                            <div class="col-2">
+                                <div class="modal-dama">
+                                    <div class="kutu"></div>
+                                    <div class="kutu bg-dark"></div>
+                                    <div class="kutu bg-dark"></div>
+                                    <div class="kutu "></div>
+                                    <div class="kutu "></div>
+                                    <div class="kutu bg-dark"></div>
+                                    <div class="kutu bg-dark"></div>
+                                    <div class="kutu"></div>
+                                    <div class="kutu "></div>
+                                    <div class="kutu bg-dark"></div>
+                                    <div class="kutu bg-dark"></div>
+                                    <div class="kutu"></div>
+                                </div>
                             </div>
+
                             <div class="col-10">
                                 <div class="modal-header border-0">
 
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body border-0">
+                                    <div class="alert alert-danger" asp-validation-summary="ModelOnly"></div>
                                     <div class="d-flex justify-content-between  align-items-center mb-4">
 
                                         <h1 class="modal-title fs-5" style="font-size: 2rem !important;">Üye Ol</h1>
@@ -104,25 +123,25 @@ else
                                     </div>
 
                                     <div class="mb-3">
-                                        <input class="form-control form-control-lg rounded-pill" asp-for="SignUpViewModel.UserName" placeholder="Kullanıcı Adı">
-                                        <span class="text-danger" asp-validation-for="SignUpViewModel.UserName"></span>
+                                        <input class="form-control form-control-lg rounded-pill" asp-for="@Model.SignUpViewModel.UserName" placeholder="Kullanıcı Adı">
+                                        <span class="text-danger" asp-validation-for="@Model.SignUpViewModel.UserName"></span>
                                     </div>
                                     <div class="mb-3">
-                                        <input class="form-control form-control-lg rounded-pill" asp-for="SignInViewModel.Email" placeholder="E-posta Adresi">
-                                        <span class="text-danger" asp-validation-for="SignUpViewModel.Email"></span>
+                                        <input class="form-control form-control-lg rounded-pill" asp-for="@Model.SignUpViewModel.Email" placeholder="E-posta Adresi">
+                                        <span class="text-danger" asp-validation-for="@Model.SignUpViewModel.Email"></span>
                                     </div>
                                     <div class="mb-3">
-                                        <input class="form-control form-control-lg rounded-pill" asp-for="SignInViewModel.Password" placeholder="Şifre">
-                                        <span class="text-danger" asp-validation-for="SignUpViewModel.Password"></span>
+                                        <input class="form-control form-control-lg rounded-pill" asp-for="@Model.SignUpViewModel.Password" placeholder="Şifre">
+                                        <span class="text-danger" asp-validation-for="@Model.SignUpViewModel.Password"></span>
                                     </div>
                                     <div class="mb-3">
-                                        <input class="form-control form-control-lg rounded-pill" asp-for="SignUpViewModel.PasswordConfirm" placeholder="Şifreyi Onayla">
-                                        <span class="text-danger" asp-validation-for="SignUpViewModel.PasswordConfirm"></span>
+                                        <input class="form-control form-control-lg rounded-pill" asp-for="@Model.SignUpViewModel.PasswordConfirm" placeholder="Şifreyi Onayla">
+                                        <span class="text-danger" asp-validation-for="@Model.SignUpViewModel.PasswordConfirm"></span>
                                     </div>
 
                                     <div class="form-check">
-                                        <input asp-for="SignUpViewModel.PermissionAllow" class="form-check-input ms-1" style=" transform: scale(1.5);">
-                                        <label class="form-check-label ms-3" asp-for="SignUpViewModel.PermissionAllow"></label>
+                                        <input asp-for="@Model.SignUpViewModel.PermissionAllow" class="form-check-input ms-1" style=" transform: scale(1.5);">
+                                        <label class="form-check-label ms-3" asp-for="@Model.SignUpViewModel.PermissionAllow"></label>
                                     </div>
 
                                 </div>

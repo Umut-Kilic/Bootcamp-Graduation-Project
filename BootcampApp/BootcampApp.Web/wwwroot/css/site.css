@@ -33,7 +33,23 @@ footer .social-icons a {
 color: #ffffff;
 }
 
-    footer .list-inline-item a:hover {
-        text-decoration: underline !important;
+footer .list-inline-item a:hover {
+    text-decoration: underline !important;
        
-    }
+}
+
+.modal-dama {
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%; /* Modal yüksekliðine uyumlu olacak þekilde ayarlýyoruz */
+}
+
+.modal-dama .kutu {
+    width: 50%; /* Yarýya bölerek iki kare oluþturuyoruz */
+    padding-bottom: 50%; /* Kare olmasý için yüksekliði geniþliðine eþit olacak þekilde ayarlýyoruz */
+    height:6rem !important;
+}
+
+.modal-dama .bg-dark {
+    background-color: #000 !important; /* Siyah arka plan rengi */
+}

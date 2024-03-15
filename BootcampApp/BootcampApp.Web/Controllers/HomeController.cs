@@ -6,6 +6,8 @@ using BootcampApp.Core.ViewModels;
 using BootcampApp.Web.Extenisons;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.Hosting;
 using System.Security.Claims;
 
 namespace BootcampApp.Web.Controllers
@@ -51,26 +53,9 @@ namespace BootcampApp.Web.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> SignUp(SignUpViewModel request)
+        public async Task<IActionResult> SignUp(PostViewModel request)
         {
-            if (!ModelState.IsValid)
-            {
-                return View();
-            }
-
-            var identityResult = await _userManager.CreateAsync(new() { UserName = request.UserName, Email = request.Email }, request.PasswordConfirm);
-
-
-            if (!identityResult.Succeeded)
-            {
-                ModelState.AddModelErrorList(identityResult.Errors.Select(x => x.Description).ToList());
-                return View();
-            }        
-
-            var user = await _userManager.FindByNameAsync(request.UserName);
-
             var posts = await _postService.GetAllAsync();
-            //var postViewModel = _mapper.Map<PostViewModel>(products);
             var sliderImagePath = Path.Combine(_hostEnvironment.WebRootPath, "img", "sliderimages");
             var imageNames = Directory.GetFiles(sliderImagePath)
                                        .Select(Path.GetFileName)
@@ -79,6 +64,36 @@ namespace BootcampApp.Web.Controllers
             {
                 Images = imageNames
             };
+
+            var signUpViewModelState = ModelState.GetFieldValidationState("SignUpViewModel");
+            if (signUpViewModelState == ModelValidationState.Invalid)
+            {
+                return RedirectToAction(nameof(HomeController.Index), new PostViewModel
+                {
+                    Posts = posts.ToList(),
+                    SliderViewModel = sliderViewModel
+                });
+            }
+           // var userValidationResult = await _userValidator.ValidateAsync(_userManager, newUser);
+
+
+
+            var identityResult = await _userManager.CreateAsync(new() { UserName = request.SignUpViewModel.UserName, Email = request.SignUpViewModel.Email }, request.SignUpViewModel.PasswordConfirm);
+
+
+            if (!identityResult.Succeeded)
+            {
+                ModelState.AddModelErrorList(identityResult.Errors.Select(x => x.Description).ToList());
+                return View(nameof(HomeController.Index), new PostViewModel
+                {
+                    Posts = posts.ToList(),
+                    SliderViewModel = sliderViewModel
+                });
+            }        
+
+            var user = await _userManager.FindByNameAsync(request.SignUpViewModel.UserName);
+
+            
             return RedirectToAction(nameof(HomeController.Index), new PostViewModel
             {
                 Posts = posts.ToList(),
@@ -87,42 +102,65 @@ namespace BootcampApp.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SignIn(SignInViewModel model, string? returnUrl = null)
+        public async Task<IActionResult> SignIn(PostViewModel reguest, string? returnUrl = null)
         {
-            if (!ModelState.IsValid)
+            var posts = await _postService.GetAllAsync();
+            var sliderImagePath = Path.Combine(_hostEnvironment.WebRootPath, "img", "sliderimages");
+            var imageNames = Directory.GetFiles(sliderImagePath)
+                                       .Select(Path.GetFileName)
+                                       .ToList();
+            var sliderViewModel = new SliderViewModel
             {
-                return View();
+                Images = imageNames
+            };
+
+            var signInViewModelState = ModelState.GetFieldValidationState("SignInViewModel");
+            if (signInViewModelState == ModelValidationState.Invalid)
+            {
+                return RedirectToAction(nameof(HomeController.Index), new PostViewModel
+                {
+                    Posts = posts.ToList(),
+                    SliderViewModel = sliderViewModel
+                });
             }
 
             returnUrl ??= Url.Action("Index", "Home");
 
-            var hasUser = await _userManager.FindByEmailAsync(model.Email);
+            var hasUser = await _userManager.FindByEmailAsync(reguest.SignInViewModel.Email);
 
             if (hasUser == null)
             {
                 ModelState.AddModelError(string.Empty, "Email veya þifre yanlýþ");
-                return View();
+                return RedirectToAction(nameof(HomeController.Index), new PostViewModel
+                {
+                    Posts = posts.ToList(),
+                    SliderViewModel = sliderViewModel
+                });
             }
 
-            var signInResult = await _signInManager.PasswordSignInAsync(hasUser, model.Password, model.RememberMe, true);
+            var signInResult = await _signInManager.PasswordSignInAsync(hasUser, reguest.SignInViewModel.Password, reguest.SignInViewModel.RememberMe, true);
 
 
             if (signInResult.IsLockedOut)
             {
                 ModelState.AddModelErrorList(new List<string>() { "3 dakika boyunca giriþ yapamazsýnýz." });
-                return View();
+                return RedirectToAction(nameof(HomeController.Index), new PostViewModel
+                {
+                    Posts = posts.ToList(),
+                    SliderViewModel = sliderViewModel
+                });
             }
 
             if (!signInResult.Succeeded)
             {
                 ModelState.AddModelErrorList(new List<string>() { $"Email veya þifre yanlýþ", $"Baþarýsýz giriþ sayýsý = {await _userManager.GetAccessFailedCountAsync(hasUser)}" });
-                return View();
+                return RedirectToAction(nameof(HomeController.Index), new PostViewModel
+                {
+                    Posts = posts.ToList(),
+                    SliderViewModel = sliderViewModel
+                });
             }
 
-            if (hasUser.BirthDate.HasValue)
-            {
-                await _signInManager.SignInWithClaimsAsync(hasUser, model.RememberMe, new[] { new Claim("birthdate", hasUser.BirthDate.Value.ToString()) });
-            }
             return Redirect(returnUrl!);
 
         }

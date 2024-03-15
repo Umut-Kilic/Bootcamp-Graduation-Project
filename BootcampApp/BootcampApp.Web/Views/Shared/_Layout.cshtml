@@ -6,7 +6,8 @@
     <title>@ViewData["Title"] - ŞikayetimizVar!</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/BootcampApp.Web.styles.css" asp-append-version="true" />  
+    <link rel="stylesheet" href="~/BootcampApp.Web.styles.css" asp-append-version="true" />
+    @await RenderSectionAsync("Css", required: false)
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js" integrity="sha512-GWzVrcGlo0TxTRvz9ttioyYJ+Wwk9Ck0G81D+eO63BaqHaJ3YZX9wuqjwgfcV/MrB2PhaVX9DkYVhbFpStnqpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>

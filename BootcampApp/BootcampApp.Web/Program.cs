@@ -28,7 +28,19 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder => containerBuilder.RegisterModule(new RepoServiceModule()));
 
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    var cookieBuilder=new CookieBuilder();
+    cookieBuilder.Name = "BootcampAppCookie";
 
+    options.LoginPath = new PathString("/Home");
+    options.ExpireTimeSpan = TimeSpan.FromDays(15);
+
+    //Kullanýcý her giriþ yaptugunda ömrunu otamatýk yenýler
+    options.SlidingExpiration = true;
+
+
+});
 
 
 //Identity
