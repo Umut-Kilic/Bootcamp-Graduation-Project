@@ -7,7 +7,6 @@ namespace BootcampApp.Core.ViewModels
         public List<Post> Posts { get; set; }
         public List<Category> Categories { get; set; } = new List<Category>();
         public SliderViewModel SliderViewModel { get; set; }
-        public SignInViewModel SignInViewModel { get; set; }
-        public SignUpViewModel SignUpViewModel { get; set; }
+
     }
 }

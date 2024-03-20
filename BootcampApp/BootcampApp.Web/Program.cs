@@ -1,11 +1,15 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using BootcampApp.Core.Models;
+using BootcampApp.Core.Services;
 using BootcampApp.Repository;
 using BootcampApp.Repository.Seeds;
 using BootcampApp.Service.Mapping;
+using BootcampApp.Service.Services;
 using BootcampApp.Web.Extenisons;
 using BootcampApp.Web.Filters;
 using BootcampApp.Web.Modules;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,8 +23,19 @@ builder.Services.AddDbContext<BootcampAppDbContext>(x =>
     x.UseSqlServer(builder.Configuration.GetConnectionString("SqlCon"));
 });
 
+//Security eklememýn sebebi kullanýcý kritik bilgilerde güncelleme yyaptýgýnda 30 dkda bir bakarak kullanýcýn login sayfasýna yonlendýrýlmesý diðer türlü
+//kullanýcý baþka cýhazdan býlgýlerýný guncellese bile cookie omru kadar eski býlgýlerý gorurdurk.
+builder.Services.Configure<SecurityStampValidatorOptions>(options =>
+{
+    options.ValidationInterval=TimeSpan.FromMinutes(30);
+});
+
+
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+
 builder.Services.AddAutoMapper(typeof(MapProfile));
 builder.Services.AddScoped(typeof(NotFoundFilter<>));
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
@@ -30,10 +45,11 @@ builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder => containerB
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
-    var cookieBuilder=new CookieBuilder();
+    var cookieBuilder = new CookieBuilder();
     cookieBuilder.Name = "BootcampAppCookie";
 
-    options.LoginPath = new PathString("/Home");
+    options.LoginPath = new PathString("/Home/Index");
+    options.LogoutPath = new PathString("/Member/logout");
     options.ExpireTimeSpan = TimeSpan.FromDays(15);
 
     //Kullanýcý her giriþ yaptugunda ömrunu otamatýk yenýler
@@ -66,7 +82,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 

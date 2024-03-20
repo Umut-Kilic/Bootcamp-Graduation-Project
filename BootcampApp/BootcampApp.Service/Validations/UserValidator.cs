@@ -17,10 +17,6 @@ namespace AspNetCoreIdentityApp.Web.CustomValidations
                 errors.Add(new() { Code = "UserNameContainFirstLetterDigit", Description = "Kullanıcı adının ilk karekteri sayısal bir karakter içeremez" });
             }
 
-            if (user.UserName != user.UserName.ToLower())
-            {
-                errors.Add(new() { Code = "UserNameContainUpperLetter", Description = "Kullanıcı adında sadece küçük harfler kullanılmalıdır." });
-            }
 
             if (Regex.IsMatch(user.UserName, "[İıÇçŞşĞğÜüÖö]"))
             {

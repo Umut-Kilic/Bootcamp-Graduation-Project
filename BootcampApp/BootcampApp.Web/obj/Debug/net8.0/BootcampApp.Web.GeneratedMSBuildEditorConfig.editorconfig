@@ -62,8 +62,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Umut K/Documents/GitHub/Bootcamp-Graduation-Project/BootcampApp/BootcampApp.Web/Views/Home/SignUp.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxTaWduVXAuY3NodG1s
+[C:/Users/Umut K/Documents/GitHub/Bootcamp-Graduation-Project/BootcampApp/BootcampApp.Web/Views/Home/ResetPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxSZXNldFBhc3N3b3JkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Umut K/Documents/GitHub/Bootcamp-Graduation-Project/BootcampApp/BootcampApp.Web/Views/Member/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Umut K/Documents/GitHub/Bootcamp-Graduation-Project/BootcampApp/BootcampApp.Web/Views/Shared/Components/SignUp/Default.cshtml]

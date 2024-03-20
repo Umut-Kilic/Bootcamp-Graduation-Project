@@ -1,14 +1,10 @@
 using AutoMapper;
-using Azure.Core;
 using BootcampApp.Core.Models;
 using BootcampApp.Core.Services;
 using BootcampApp.Core.ViewModels;
 using BootcampApp.Web.Extenisons;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.Extensions.Hosting;
-using System.Security.Claims;
 
 namespace BootcampApp.Web.Controllers
 {
@@ -21,7 +17,8 @@ namespace BootcampApp.Web.Controllers
         private readonly SignInManager<User> _signInManager;
         private readonly IMapper _mapper;
         private readonly IWebHostEnvironment _hostEnvironment;
-        public HomeController(IPostService postService, ICommentService commentService, IUserService userService, UserManager<User> userManager, IMapper mapper, IWebHostEnvironment hostEnvironment, SignInManager<User> signInManager)
+        private readonly IEmailService _emailService;
+        public HomeController(IPostService postService, ICommentService commentService, IUserService userService, UserManager<User> userManager, IMapper mapper, IWebHostEnvironment hostEnvironment, SignInManager<User> signInManager, IEmailService emailService)
         {
             _postService = postService;
             _commentService = commentService;
@@ -30,6 +27,7 @@ namespace BootcampApp.Web.Controllers
             _mapper = mapper;
             _hostEnvironment = hostEnvironment;
             _signInManager = signInManager;
+            _emailService = emailService;
         }
 
         public async Task<IActionResult> Index()
@@ -44,125 +42,156 @@ namespace BootcampApp.Web.Controllers
             {
                 Images = imageNames
             };
-            return View(new PostViewModel
+
+            return View(new IndexViewModel
             {
                 Posts = posts.ToList(),
                 SliderViewModel = sliderViewModel
             });
         }
 
-
         [HttpPost]
-        public async Task<IActionResult> SignUp(PostViewModel request)
+        public async Task<IActionResult> SignUp(SignUpViewModel request)
         {
-            var posts = await _postService.GetAllAsync();
-            var sliderImagePath = Path.Combine(_hostEnvironment.WebRootPath, "img", "sliderimages");
-            var imageNames = Directory.GetFiles(sliderImagePath)
-                                       .Select(Path.GetFileName)
-                                       .ToList();
-            var sliderViewModel = new SliderViewModel
+            if (!request.PermissionAllow)
             {
-                Images = imageNames
-            };
-
-            var signUpViewModelState = ModelState.GetFieldValidationState("SignUpViewModel");
-            if (signUpViewModelState == ModelValidationState.Invalid)
-            {
-                return RedirectToAction(nameof(HomeController.Index), new PostViewModel
-                {
-                    Posts = posts.ToList(),
-                    SliderViewModel = sliderViewModel
-                });
+                ModelState.AddModelError(string.Empty, "Kullanýcý sözleþmesini kabul etmek zorundasýnýz");
+                var signUpErrors = ModelState.SelectMany(x => x.Value.Errors).Select(x => x.ErrorMessage).ToList();
+                return Json(new { success = false, errors = signUpErrors, isCheck = false });
             }
-           // var userValidationResult = await _userValidator.ValidateAsync(_userManager, newUser);
 
+            if (!ModelState.IsValid)
+            {
+                var signUpErrors = ModelState.SelectMany(x => x.Value.Errors).Select(x => x.ErrorMessage).ToList();
+                return Json(new { success = false, errors = signUpErrors, isCheck = true });
+            }
 
-
-            var identityResult = await _userManager.CreateAsync(new() { UserName = request.SignUpViewModel.UserName, Email = request.SignUpViewModel.Email }, request.SignUpViewModel.PasswordConfirm);
-
+            var identityResult = await _userManager.CreateAsync(new() { UserName = request.UserName, Email = request.Email }, request.PasswordConfirm);
 
             if (!identityResult.Succeeded)
             {
-                ModelState.AddModelErrorList(identityResult.Errors.Select(x => x.Description).ToList());
-                return View(nameof(HomeController.Index), new PostViewModel
-                {
-                    Posts = posts.ToList(),
-                    SliderViewModel = sliderViewModel
-                });
-            }        
+                var signUpErrors = identityResult.Errors.Select(x => x.Description).ToList();
+                return Json(new { success = false, errors = signUpErrors, isCheck = true });
+            }
 
-            var user = await _userManager.FindByNameAsync(request.SignUpViewModel.UserName);
+            var user = await _userManager.FindByNameAsync(request.UserName);
 
-            
-            return RedirectToAction(nameof(HomeController.Index), new PostViewModel
-            {
-                Posts = posts.ToList(),
-                SliderViewModel = sliderViewModel
-            });
+            return Json(new { success = true, user, isCheck = true });
         }
 
         [HttpPost]
-        public async Task<IActionResult> SignIn(PostViewModel reguest, string? returnUrl = null)
+        public async Task<IActionResult> ForgetPassword(ForgetPasswordViewModel request)
         {
-            var posts = await _postService.GetAllAsync();
-            var sliderImagePath = Path.Combine(_hostEnvironment.WebRootPath, "img", "sliderimages");
-            var imageNames = Directory.GetFiles(sliderImagePath)
-                                       .Select(Path.GetFileName)
-                                       .ToList();
-            var sliderViewModel = new SliderViewModel
+            if (!ModelState.IsValid)
             {
-                Images = imageNames
-            };
+                var resetPasswordErrors = ModelState.SelectMany(x => x.Value.Errors).Select(x => x.ErrorMessage).ToList();
+                return Json(new { success = false, errors = resetPasswordErrors, isCheck = true });
+            }
+            var hasUser = await _userManager.FindByEmailAsync(request.Email);
+            if (hasUser == null)
+            {
+                ModelState.AddModelError(string.Empty, "Bu Email adresine sahip kullanýcý bulunamamýþtýr");
+                var resetPasswordErrors = ModelState.SelectMany(x => x.Value.Errors).Select(x => x.ErrorMessage).ToList();
 
-            var signInViewModelState = ModelState.GetFieldValidationState("SignInViewModel");
-            if (signInViewModelState == ModelValidationState.Invalid)
-            {
-                return RedirectToAction(nameof(HomeController.Index), new PostViewModel
-                {
-                    Posts = posts.ToList(),
-                    SliderViewModel = sliderViewModel
-                });
+                return Json(new { success = false, errors = resetPasswordErrors });
             }
 
-            returnUrl ??= Url.Action("Index", "Home");
 
-            var hasUser = await _userManager.FindByEmailAsync(reguest.SignInViewModel.Email);
+            string passwordResetToken = await _userManager.GeneratePasswordResetTokenAsync(hasUser);
+
+            var passwordResetLink = Url.Action("ResetPassword", "Home", new { UserId = hasUser.Id, Token = passwordResetToken },
+                HttpContext.Request.Scheme);
+
+            await _emailService.SendResetPasswordEmailAsync(passwordResetLink, hasUser.Email);
+
+
+            return Json(new { success = true });
+        }
+
+
+        public async Task<IActionResult> ResetPassword(string userId, string token)
+        {
+            TempData["userId"] = userId;
+            TempData["token"] = token;      
+
+    
+
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel request ,string userId, string token)
+        {
+           
+
+            if (userId == null || token == null)
+            {
+                throw new Exception("Bir hata meydana geldi");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                var resetPasswordErrors = ModelState.SelectMany(x => x.Value.Errors).Select(x => x.ErrorMessage).ToList();
+                return Json(new { success = false, errors = resetPasswordErrors });
+            }
+            var hasUser = await _userManager.FindByIdAsync(userId.ToString()!);
 
             if (hasUser == null)
             {
-                ModelState.AddModelError(string.Empty, "Email veya þifre yanlýþ");
-                return RedirectToAction(nameof(HomeController.Index), new PostViewModel
-                {
-                    Posts = posts.ToList(),
-                    SliderViewModel = sliderViewModel
-                });
+                ModelState.AddModelError(String.Empty, "Kullanýcý bulunamamýþtýr.");
+                var resetPasswordErrors = ModelState.SelectMany(x => x.Value.Errors).Select(x => x.ErrorMessage).ToList();
+                return Json(new { success = false, errors = resetPasswordErrors });
             }
 
-            var signInResult = await _signInManager.PasswordSignInAsync(hasUser, reguest.SignInViewModel.Password, reguest.SignInViewModel.RememberMe, true);
+            IdentityResult result = await _userManager.ResetPasswordAsync(hasUser, token.ToString()!, request.Password);
+            if (!result.Succeeded)
+            {
+                var signUpErrors = result.Errors.Select(x => x.Description).ToList();
+                return Json(new { success = false, errors = signUpErrors });
+            }
 
+            return Json(new { success = true});
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SignIn(SignInViewModel request)
+        {
+
+
+            if (!ModelState.IsValid)
+            {
+                var signInErrors = ModelState.SelectMany(x => x.Value.Errors).Select(x => x.ErrorMessage).ToList();
+                return Json(new { success = false, errors = signInErrors });
+            }
+
+            var hasUser = await _userManager.FindByEmailAsync(request.Email);
+
+            if (hasUser == null || !(await _userManager.CheckPasswordAsync(hasUser, request.Password)))
+            {
+                ModelState.AddModelError(string.Empty, "Email veya þifre yanlýþ");
+                var signInErrors = ModelState.SelectMany(x => x.Value.Errors).Select(x => x.ErrorMessage).ToList();
+
+                return Json(new { success = false, errors = signInErrors });
+            }
+            var signInViewModelRememberMe = request.RememberMe;
+            var signInResult = await _signInManager.PasswordSignInAsync(hasUser, request.Password, request.RememberMe, true);
 
             if (signInResult.IsLockedOut)
             {
-                ModelState.AddModelErrorList(new List<string>() { "3 dakika boyunca giriþ yapamazsýnýz." });
-                return RedirectToAction(nameof(HomeController.Index), new PostViewModel
-                {
-                    Posts = posts.ToList(),
-                    SliderViewModel = sliderViewModel
-                });
+                ModelState.AddModelError(string.Empty, "3 dakika boyunca giriþ yapamazsýnýz.");
+                var signInErrors = ModelState.SelectMany(x => x.Value.Errors).Select(x => x.ErrorMessage).ToList();
+                return Json(new { success = false, errors = signInErrors });
             }
 
             if (!signInResult.Succeeded)
             {
-                ModelState.AddModelErrorList(new List<string>() { $"Email veya þifre yanlýþ", $"Baþarýsýz giriþ sayýsý = {await _userManager.GetAccessFailedCountAsync(hasUser)}" });
-                return RedirectToAction(nameof(HomeController.Index), new PostViewModel
-                {
-                    Posts = posts.ToList(),
-                    SliderViewModel = sliderViewModel
-                });
+                ModelState.AddModelError(string.Empty, "Email veya þifre yanlýþ");
+                var signInErrors = ModelState.SelectMany(x => x.Value.Errors).Select(x => x.ErrorMessage).ToList();
+                return Json(new { success = false, errors = signInErrors });
             }
 
-            return Redirect(returnUrl!);
-
+            // Baþarýlý giriþ durumu
+            return Json(new { success = true });
         }
 
 

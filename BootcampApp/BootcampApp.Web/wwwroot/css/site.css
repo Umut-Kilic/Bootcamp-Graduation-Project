@@ -22,9 +22,10 @@ body {
 }
 
 footer {
-    margin-top: 50px; 
-    padding-top: 20px;
-    padding-bottom: 20px;
+
+    bottom: 0;
+    width: 100%;
+    padding: 20px;
     background-color: #343a40;
     color: #ffffff;
 }
@@ -52,4 +53,73 @@ footer .list-inline-item a:hover {
 
 .modal-dama .bg-dark {
     background-color: #000 !important; /* Siyah arka plan rengi */
+}
+
+#customAlertOverlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+
+#customAlertBox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+}
+
+#customAlertHeader {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#customAlertFooter {
+    margin-top: 20px;
+    text-align: center;
+}
+
+
+#ChangePasswordAlert {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+
+#ChangePasswordAlertBox {
+    display: none;
+    position: fixed;
+    top: 15px; 
+    left: 50%;
+    transform: translateX(-50%);
+    max-width:30%; 
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+}
+
+#ChangePasswordAlertHeader {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#ChangePasswordAlertFooter {
+    margin-top: 20px;
+    text-align: center;
 }

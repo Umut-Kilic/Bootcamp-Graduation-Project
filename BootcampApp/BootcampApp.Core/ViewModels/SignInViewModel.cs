@@ -4,7 +4,7 @@ namespace BootcampApp.Core.ViewModels
 {
     public class SignInViewModel
     {
-        
+
         [Required(ErrorMessage = "Email alanı boş bırakılamaz.")]
         [EmailAddress(ErrorMessage = "Email formatı yanlıştır.")]
         [Display(Name = "Email :")]

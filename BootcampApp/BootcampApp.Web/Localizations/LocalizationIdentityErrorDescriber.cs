@@ -30,14 +30,14 @@ namespace BootcampApp.Web.Localizations
         }
         public override IdentityError InvalidEmail(string? email)
         {
-             return new() { Code = "InvalidEmail", Description = $"Geçersiz Email Formatı" };
+            return new() { Code = "InvalidEmail", Description = $"Geçersiz Email Formatı" };
         }
 
         public override IdentityError PasswordMismatch()
         {
             return new() { Code = "PasswordMismatch", Description = $"Hatalı Şifre veya kullanıcı adı" };
         }
-         
+
         public override IdentityError PasswordRequiresDigit()
         {
             return new() { Code = "PasswordRequiresDigit", Description = $"Şifre rakam içermelidir" };
@@ -45,6 +45,11 @@ namespace BootcampApp.Web.Localizations
         public override IdentityError PasswordRequiresNonAlphanumeric()
         {
             return new() { Code = "PasswordRequiresNonAlphanumeric", Description = $"Şifre özel karakter içermelidir(. * / vb)" };
+        }
+
+        public override IdentityError InvalidUserName(string? userName)
+        {
+            return new() { Code = "InvalidUserName", Description = $"Kulanıcı Adı Uygun değildir" };
         }
 
 

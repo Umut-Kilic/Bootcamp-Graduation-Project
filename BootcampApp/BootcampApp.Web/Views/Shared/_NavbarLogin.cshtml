@@ -1,5 +1,5 @@
 ﻿@using System.Security.Claims;
-@model PostViewModel
+@model IndexViewModel
 @if (User.Identity!.IsAuthenticated)
 {
     <ul class="navbar-nav me-0">
@@ -25,157 +25,382 @@
     </ul>
 }
 else
-
 {
-    
+    <button class="btn btn-outline-dark" data-bs-target="#signInModal" data-bs-toggle="modal"><i class="fa-solid fa-right-to-bracket" style="font-size:1rem; margin-right:0.5rem"></i> <span style="font-size:1.2rem;">Giriş Yap / Üye Ol</span> <i class="fa-solid fa-user-plus" style="font-size:1rem; margin-left:0.5rem"></i></button>
+
 
     <div class="modal fade" id="signInModal" tabindex="-1" aria-labelledby="signInModal" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
-                <div class="modal-content border-0">
-                    <form asp-controller="Home" asp-action="SignIn" method="post">
-                        <div class="row">
-                            <div class="col-2">
-                                <div class="modal-dama">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0">
+                <form id="signInForm" asp-route-returnUrl="@Context.Request.Query["returnUrl"]" method="post">
+                    <div class="row">
+                        <div class="col-2">
+                            <div class="modal-dama">
+                                @for (int i = 0; i < 2; i++)
+                                {
                                     <div class="kutu"></div>
                                     <div class="kutu bg-dark"></div>
                                     <div class="kutu bg-dark"></div>
                                     <div class="kutu "></div>
-                                    <div class="kutu "></div>
-                                    <div class="kutu bg-dark"></div>
-                                    <div class="kutu bg-dark"></div>
-                                    <div class="kutu"></div>
-                                </div>
-                            </div>
-
-
-                            <div class="col-10">
-                                <div class="modal-header border-0 mb-0">
-
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body border-0">
-                                    <div class="alert alert-danger" asp-validation-summary="ModelOnly"></div>
-                                    <div class="d-flex  justify-content-between  align-items-center mb-4">
-                                        <h1 class="modal-title fs-5" style="font-size: 2rem !important;">Giriş Yap</h1>
-
-                                        <a href="" data-bs-toggle="modal" data-bs-target="#signUpModal" id="signInLink">Hesabın Henüz Yok mu?</a>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <input class="form-control form-control-lg rounded-pill" asp-for="SignInViewModel.Email" placeholder="E-posta adresiniz">
-                                        <span class="text-danger" asp-validation-for="SignInViewModel.Email"></span>
-                                    </div>
-                                    <div class="mb-3">
-                                        <input class="form-control form-control-lg rounded-pill" asp-for="SignInViewModel.Password" placeholder="Şifreniz"></input>
-                                        <span class="text-danger" asp-validation-for="SignInViewModel.Password"></span>
-                                    </div>
-                                    <div class="form-check">
-                                        <input asp-for="SignInViewModel.RememberMe" class="form-check-input ms-1" style=" transform: scale(1.5);">
-                                        <label class="form-check-label ms-3" asp-for="SignInViewModel.RememberMe"></label>
-                                    </div>
-
-                                </div>
-                                <div class="modal-footer border-0">
-                                    <button type="submit" class="btn btn-success w-100">Giriş Yap</button>
-
-                                </div>
+                                }
+                                <div class="kutu"></div>
+                                <div class="kutu bg-dark"></div>
                             </div>
                         </div>
-                       
-                    </form>
-                </div>
-            </div>
-        </div>
 
-        <div class="modal fade" id="signUpModal" aria-hidden="true" aria-labelledby="signUpModal" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
-                <div class="modal-content border-0">
-                    <form asp-controller="Home" asp-action="SignUp" method="post">
-                        <div class="row">
-                            <div class="col-2">
-                                <div class="modal-dama">
-                                    <div class="kutu"></div>
-                                    <div class="kutu bg-dark"></div>
-                                    <div class="kutu bg-dark"></div>
-                                    <div class="kutu "></div>
-                                    <div class="kutu "></div>
-                                    <div class="kutu bg-dark"></div>
-                                    <div class="kutu bg-dark"></div>
-                                    <div class="kutu"></div>
-                                    <div class="kutu "></div>
-                                    <div class="kutu bg-dark"></div>
-                                    <div class="kutu bg-dark"></div>
-                                    <div class="kutu"></div>
-                                </div>
+
+                        <div class="col-10">
+                            <div class="modal-header border-0 mb-0">
+
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
+                            <div class="modal-body border-0">
+                                <div id="errorMessages" class="alert alert-danger" style="display: none;"></div>
+                                <div class="d-flex  justify-content-between  align-items-center mb-4">
+                                    <h1 class="modal-title fs-5" style="font-size: 2rem !important;">Giriş Yap</h1>
 
-                            <div class="col-10">
-                                <div class="modal-header border-0">
-
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <a href="" data-bs-toggle="modal" data-bs-target="#signUpModal" id="signInLink">Hesabın Henüz Yok mu?</a>
                                 </div>
-                                <div class="modal-body border-0">
-                                    <div class="alert alert-danger" asp-validation-summary="ModelOnly"></div>
-                                    <div class="d-flex justify-content-between  align-items-center mb-4">
 
-                                        <h1 class="modal-title fs-5" style="font-size: 2rem !important;">Üye Ol</h1>
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#signInModal" id="signUpLink">Hesabın Var mı?</a>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <input class="form-control form-control-lg rounded-pill" asp-for="@Model.SignUpViewModel.UserName" placeholder="Kullanıcı Adı">
-                                        <span class="text-danger" asp-validation-for="@Model.SignUpViewModel.UserName"></span>
-                                    </div>
-                                    <div class="mb-3">
-                                        <input class="form-control form-control-lg rounded-pill" asp-for="@Model.SignUpViewModel.Email" placeholder="E-posta Adresi">
-                                        <span class="text-danger" asp-validation-for="@Model.SignUpViewModel.Email"></span>
-                                    </div>
-                                    <div class="mb-3">
-                                        <input class="form-control form-control-lg rounded-pill" asp-for="@Model.SignUpViewModel.Password" placeholder="Şifre">
-                                        <span class="text-danger" asp-validation-for="@Model.SignUpViewModel.Password"></span>
-                                    </div>
-                                    <div class="mb-3">
-                                        <input class="form-control form-control-lg rounded-pill" asp-for="@Model.SignUpViewModel.PasswordConfirm" placeholder="Şifreyi Onayla">
-                                        <span class="text-danger" asp-validation-for="@Model.SignUpViewModel.PasswordConfirm"></span>
-                                    </div>
-
-                                    <div class="form-check">
-                                        <input asp-for="@Model.SignUpViewModel.PermissionAllow" class="form-check-input ms-1" style=" transform: scale(1.5);">
-                                        <label class="form-check-label ms-3" asp-for="@Model.SignUpViewModel.PermissionAllow"></label>
-                                    </div>
-
+                                <div class="mb-3">
+                                    <input id="Email" value="umut@gmail.com" class="form-control form-control-lg rounded-pill" asp-for="SignInViewModel.Email" placeholder="E-posta adresiniz">
+                                    <span class="text-danger" asp-validation-for="SignInViewModel.Email"></span>
                                 </div>
-                                <div class="modal-footer border-0">
-                                    <button type="submit" class="btn btn-success w-100">Üye Ol</button>
+                                <div class="mb-3">
+                                    <input id="Password" value="Password12*" class="form-control form-control-lg rounded-pill" asp-for="SignInViewModel.Password" placeholder="Şifreniz"></input>
+                                    <span class="text-danger" asp-validation-for="SignInViewModel.Password"></span>
                                 </div>
+                                <div class="form-check d-flex justify-content-between align-items-center">
+                                    <input id="RememberMe" asp-for="SignInViewModel.RememberMe" class="form-check-input " style="transform: scale(1.5);">
+
+                                    <label for="RememberMe" class="form-check-label ms-2" asp-for="SignInViewModel.RememberMe"></label>
+                                    <a href="" data-bs-toggle="modal" data-bs-target="#ForgetPasswordModal" id="ForgetPasswordLink" style="margin-left: auto;">Şifremi Unuttum</a>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer border-0">
+                                <button id="signInBtn" type="submit" class="btn btn-success w-100">Giriş Yap</button>
+
                             </div>
                         </div>
-                    </form>
-                </div>
+                    </div>
+
+                </form>
+
             </div>
         </div>
-        <button class="btn btn-outline-dark" data-bs-target="#signInModal" data-bs-toggle="modal"><i class="fa-solid fa-right-to-bracket" style="font-size:1rem; margin-right:0.5rem"></i> <span style="font-size:1.2rem;">Giriş Yap / Üye Ol</span> <i class="fa-solid fa-user-plus" style="font-size:1rem; margin-left:0.5rem"></i></button>
+    </div>
 
+    <div class="modal fade" id="ForgetPasswordModal" tabindex="-1" aria-labelledby="ForgetPasswordModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0">
+                <form id="ForgetPasswordForm" method="post">
+                    <div class="row">
+                        <div class="col-2">
+                            <div class="modal-dama">
+                                @for (int i = 0; i < 2; i++)
+                                {
+                                    <div class="kutu"></div>
+                                    <div class="kutu bg-dark"></div>
+                                    <div class="kutu bg-dark"></div>
+                                    <div class="kutu "></div>
+                                }
+                            </div>
+                        </div>
+
+
+                        <div class="col-10">
+                            <div class="modal-header border-0 mb-0">
+
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body border-0">
+                                <div id="ForgetPasswordErrorMessages" class="alert alert-danger" style="display: none;"></div>
+                                <div class="d-flex  justify-content-between  align-items-center mb-4">
+                                    <h1 class="modal-title fs-5" style="font-size: 2rem !important;">Şifremi Unuttum</h1>
+
+                                    <a href="" data-bs-toggle="modal" data-bs-target="#signUpModal" id="signInLink">Hesabın Henüz Yok mu?</a>
+                                </div>
+
+                                <div class="mb-3">
+                                    <input id="ForgetPasswordEmail" class="form-control form-control-lg rounded-pill" placeholder="E-posta adresiniz">
+                                    <span class="text-danger" asp-validation-for="ForgetPasswordViewModel.Email"></span>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer border-0">
+                                <button id="PasswordForgotBtn" type="submit" class="btn btn-success w-100">Gönder</button>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
     
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                var signInLink = document.getElementById('signInLink');
-                var signUpLink = document.getElementById('signUpLink');
+    
 
-                var signInModal = new bootstrap.Modal(document.getElementById('signInModal'));
-                var signUpModal = new bootstrap.Modal(document.getElementById('signUpModal'));
+    <div class="modal fade" id="signUpModal" aria-hidden="true" aria-labelledby="signUpModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0">
+                <form id="SignUpForm" method="post">
+                    <div class="row">
+                        <div class="col-2">
+                            <div class="modal-dama">
+                                @for (int i = 0; i < 3; i++)
+                                {
+                                    <div class="kutu"></div>
+                                    <div class="kutu bg-dark"></div>
+                                    <div class="kutu bg-dark"></div>
+                                    <div class="kutu "></div>
+                                }
 
-                signUpLink.addEventListener('click', function () {
-                    signInModal.show();
-                    signUpModal.hide();
-                });
+                            </div>
+                        </div>
 
-                signInLink.addEventListener('click', function () {
-                    signUpModal.show();
-                    signInModal.hide();
+                        <div class="col-10">
+                            <div class="modal-header border-0">
+
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body border-0">
+                                <div class="alert alert-danger" id="SignUpError" style="display: none;"></div>
+                                <div class="d-flex justify-content-between  align-items-center mb-4">
+
+                                    <h1 class="modal-title fs-5" style="font-size: 2rem !important;">Üye Ol</h1>
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#signInModal" id="signUpLink">Hesabın Var mı?</a>
+                                </div>
+
+                                <div class="mb-3">
+                                    <input id="SignUpUsername" class="form-control form-control-lg rounded-pill" placeholder="Kullanıcı Adı">
+                                    <span class="text-danger" asp-validation-for="@Model.SignUpViewModel.UserName"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <input id="SignUpEmail" class="form-control form-control-lg rounded-pill" placeholder="E-posta Adresi">
+                                    <span class="text-danger" asp-validation-for="@Model.SignUpViewModel.Email"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="password" id="SignUpPassword" class="form-control form-control-lg rounded-pill" placeholder="Şifre">
+                                    <span class="text-danger" asp-validation-for="@Model.SignUpViewModel.Password"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="password" id="SignUpPasswordConfirm" class="form-control form-control-lg rounded-pill" placeholder="Şifreyi Onayla">
+                                    <span class="text-danger" asp-validation-for="@Model.SignUpViewModel.PasswordConfirm"></span>
+                                </div>
+
+                                <div class="form-check">
+                                    <input id="SignUpPermissionAllow" asp-for="@Model.SignInViewModel.RememberMe" class="form-check-input ms-1" style=" transform: scale(1.5);">
+                                    <label for="SignUpPermissionAllow" class="form-check-label ms-3" asp-for="@Model.SignUpViewModel.PermissionAllow"></label>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer border-0">
+                                <button type="submit" class="btn btn-success w-100">Üye Ol</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="customAlertOverlay"></div>
+    <div id="customAlertBox">
+        <div class="text-center" id="customAlertHeader"> <h3>Uyarı</h3></div>
+        <div id="customAlertBody">Şifre yenileme linki, e-posta adresinize iletilecektir.</div>
+        <div id="customAlertFooter">
+            <button class="btn btn-sm btn-outline-secondary" id="customAlertCloseButton">Tamam</button>
+        </div>
+    </div>
+
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            var signInLink = $('#signInLink');
+            var signUpLink = $('#signUpLink');
+            var forgetPasswordLink = $('#ForgetPasswordLink');
+
+            var signInModal = new bootstrap.Modal($('#signInModal')[0]);
+            var signUpModal = new bootstrap.Modal($('#signUpModal')[0]);
+            var forgetPasswordModal = new bootstrap.Modal($('#ForgetPasswordModal')[0]);
+           
+
+            signUpLink.on('click', function () {
+                signUpModal.hide();
+                forgetPasswordModal.hide();
+                signInModal.show();
+            });
+
+            signInLink.on('click', function () {
+                  forgetPasswordModal.hide();
+                signInModal.hide();
+                signUpModal.show();
+            });
+
+            forgetPasswordLink.on('click', function () {
+                signUpModal.hide();
+                signInModal.hide();
+                forgetPasswordModal.show();
+            });
+
+
+            function showCustomAlert() {
+                $('#customAlertOverlay').fadeIn();
+                $('#customAlertBox').fadeIn();
+            }
+
+            function hideCustomAlert() {
+                $('#customAlertOverlay').fadeOut();
+                $('#customAlertBox').fadeOut();
+            }
+
+            $('#customAlertCloseButton').click(function () {
+                hideCustomAlert();
+            });
+
+
+            $('#signInForm').submit(function (event) {
+                    event.preventDefault();
+
+                    var email = $('#Email').val();
+                    var password = $('#Password').val();
+                    var rememberMe = $('#RememberMe').prop('checked');
+
+
+                    $.ajax({
+                        url: '@Url.Action("SignIn","Home")',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            "Email": email,
+                            "Password": password,
+                            "RememberMe": rememberMe,
+                            "returnUrl": '@Context.Request.Query["returnUrl"]'
+                        },
+                        success: function (response) {
+
+                            if (response.success) {
+                                window.location.href = "/Home/Index";
+                            } else {
+
+
+                                var errorMessagesContainer = $('#errorMessages');
+                                console.log(errorMessagesContainer)
+                                errorMessagesContainer.empty();
+                                response.errors.forEach(function (error) {
+                                    console.log(error)
+                                    errorMessagesContainer.append('<p>' + error + '</p>');
+                                });
+                                errorMessagesContainer.show()
+                            }
+                        },
+                        error: function (response) {
+                            console.log(response);
+                            alert("Bir hata oluştu. Lütfen tekrar deneyin.");
+                        }
+                    });
+            });
+
+            $('#ForgetPasswordForm').submit(function (event) {
+                event.preventDefault();
+                var forgetPasswordemail = $('#ForgetPasswordEmail').val();
+
+                // AJAX request
+                $.ajax({
+                        url: '@Url.Action("ForgetPassword", "Home")',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            "Email": forgetPasswordemail
+                        },
+                        success: function (response) {
+                            if (response.success) {
+                                showCustomAlert();
+
+                                $('#customAlertCloseButton').one('click', function () {
+                                    hideCustomAlert();
+                                    forgetPasswordModal.hide();
+                                    signInModal.show();
+
+                                });
+                            } else {
+                                var forgetErrorMessagesContainer = $('#ForgetPasswordErrorMessages');
+                                console.log(errorMessagesContainer)
+                                forgetErrorMessagesContainer.empty();
+                                response.errors.forEach(function (error) {
+                                    console.log(error)
+                                    forgetErrorMessagesContainer.append('<p>' + error + '</p>');
+                                });
+                                forgetErrorMessagesContainer.show()
+                            }
+                        },
+                        error: function (response) {
+                            console.log(response);
+                            alert("Bir hata oluştu. Lütfen tekrar deneyin.");
+                        }
                 });
             });
-        </script>
+
+
+
+            $('#SignUpForm').submit(function (event) {
+                event.preventDefault();
+
+                var SignUpusername = $('#SignUpUsername').val();
+                var SignUpemail = $('#SignUpEmail').val();
+                var SignUppassword = $('#SignUpPassword').val();
+                var SignUpPasswordConfirm = $('#SignUpPasswordConfirm').val();
+                var SignUpPermission = $('#SignUpPermissionAllow').prop('checked');
+
+
+                 $.ajax({
+                     url: '@Url.Action("SignUp","Home")',
+                     type: 'POST',
+                     dataType: 'json',
+                     data: {
+                         "UserName": SignUpusername,
+                         "Email": SignUpemail,
+                         "Password": SignUppassword,
+                         "PasswordConfirm": SignUpPasswordConfirm,
+                         "PermissionAllow": SignUpPermission,
+                     },
+                     success: function (response) {
+
+                         if (response.success) {
+                             window.location.href = "/Home/Index";
+
+                         } else {
+                             console.log(response)
+                             if (!response.isCheck) {
+                                 alert("Kullanıcı sözleşmesini kabul etmek zorunludur");
+                             }
+                             var errorMessagesContainer = $('#SignUpError');
+                             errorMessagesContainer.empty();
+                             response.errors.forEach(function (error) {
+                                 console.log(error)
+                                 errorMessagesContainer.append('<p>' + error + '</p>');
+                             });
+                             errorMessagesContainer.show()
+                         }
+                     },
+                     error: function (response) {
+                         alert("Bir hata oluştu. Lütfen tekrar deneyin.");
+                     }
+                 });
+            });
+
+        });
+
+    </script>
+
+
 
 }
 

@@ -41,6 +41,7 @@ namespace BootcampApp.Web.Extenisons
                .AddUserValidator<UserValidator>()
                .AddPasswordValidator<PasswordValidator>()
                .AddErrorDescriber<LocalizationIdentityErrorDescriber>()
+               .AddDefaultTokenProviders()
                .AddEntityFrameworkStores<BootcampAppDbContext>();
 
         }
