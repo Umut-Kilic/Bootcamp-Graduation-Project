@@ -7,7 +7,7 @@
 }
 
 <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-md-9">
 
 
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
@@ -40,7 +40,7 @@
                             </div>
                         </div>
                         <div class="card-body text-center border-0 bg-transparent">
-                            <h5 class="text-start">@Model.Posts.First().Title</h5>
+                            <h5 class="text-start">@Model.Posts!.First().Title</h5>
                         </div>
                         <div class="card-footer text-center border-0 bg-transparent">
                             <a href="#" class="btn btn-outline-success">
@@ -51,7 +51,7 @@
 
                     </div>
                 </div>
-                @foreach (var image in Model.SliderViewModel.Images)
+                @foreach (var image in Model.SliderViewModel!.Images)
                 {
                     <div class="carousel-item">
                         <div style=" border-radius: 30px;" class="card border-1 bg-transparent ">
@@ -70,7 +70,7 @@
                                 </div>
                             </div>
                             <div class="card-body text-center border-0 bg-transparent">
-                                <h5 class="text-start">@Model.Posts.First().Content</h5>
+                                <h5 class="text-start">@Model.Posts!.First().Content</h5>
                             </div>
                             <div class="card-footer text-center border-0 bg-transparent">
                                 <a href="#" class="btn btn-outline-success">
@@ -96,7 +96,7 @@
         <div class="bg-white p-4">
             <h1 class="h4 mb-4">Güncel Şikayetler</h1>
             <hr class="my-3">
-            @foreach (var post in Model.Posts)
+            @foreach (var post in Model.Posts!)
             {
                 <div class="card bg-transparent border-0 mb-3">
                     <div class="row">
@@ -116,7 +116,8 @@
 
 
     </div>
-    <div class="col-lg-3">
-
+    <div class="col-lg-3 p-4">
+        <vc:category-menu></vc:category-menu>
+        <vc:new-posts></vc:new-posts>
     </div>
 </div>

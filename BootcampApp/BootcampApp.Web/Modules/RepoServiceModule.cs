@@ -28,10 +28,10 @@ namespace BootcampApp.Web.Modules
             var repoAssembly = Assembly.GetAssembly(typeof(BootcampAppDbContext));
             var serviceAssembly = Assembly.GetAssembly(typeof(MapProfile));
 
-            builder.RegisterAssemblyTypes(webAssembly, repoAssembly, serviceAssembly).Where(x => x.Name.EndsWith("Repository"))
+            builder.RegisterAssemblyTypes(webAssembly, repoAssembly!, serviceAssembly!).Where(x => x.Name.EndsWith("Repository"))
                 .AsImplementedInterfaces().InstancePerLifetimeScope();
 
-            builder.RegisterAssemblyTypes(webAssembly, repoAssembly, serviceAssembly).Where(x => x.Name.EndsWith("Service"))
+            builder.RegisterAssemblyTypes(webAssembly, repoAssembly!, serviceAssembly!).Where(x => x.Name.EndsWith("Service"))
                 .AsImplementedInterfaces().InstancePerLifetimeScope();
 
 

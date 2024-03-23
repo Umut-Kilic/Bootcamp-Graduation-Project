@@ -1,23 +1,23 @@
 ﻿@using System.Security.Claims;
-@model IndexViewModel
+
 @if (User.Identity!.IsAuthenticated)
 {
     <ul class="navbar-nav me-0">
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link dropdown-toggle fw-bold" style="color:black;" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 @User.Identity.Name
             </a>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" asp-controller="Member" asp-action="Index">Profil</a></li>
-                <li><a class="dropdown-item" asp-controller="Member" asp-action="PasswordChange">Şifre değiştir</a></li>
+                <li><a class="dropdown-item fw-bold" asp-controller="Member" asp-action="Index">Profil</a></li>
+                <li><a class="dropdown-item fw-bold" asp-controller="Member" asp-action="PasswordChange">Şifre değiştir</a></li>
 
-                <li><a class="dropdown-item" asp-controller="Member" asp-action="UserEdit">Kullanıcı güncelle</a></li>
+                <li><a class="dropdown-item fw-bold" asp-controller="Member" asp-action="UserEdit">Kullanıcı güncelle</a></li>
 
                 @if (User.HasClaim(x => x.Type == ClaimTypes.Role && x.Value == "admin"))
                 {
-                    <li><a class="dropdown-item" asp-area="admin" asp-controller="Home" asp-action="Index">Admin</a></li>
+                    <li><a class="dropdown-item fw-bold" asp-area="admin" asp-controller="Home" asp-action="Index">Admin Panel</a></li>
                 }
-                <li><a class="dropdown-item" asp-route-returnurl="/Home/Index" asp-controller="Member" asp-action="logout">Çıkış yap</a></li>
+                <li><a class="dropdown-item fw-bold" asp-route-returnurl="/Home/Index" asp-controller="Member" asp-action="logout">Çıkış yap</a></li>
 
             </ul>
         </li>
@@ -63,17 +63,17 @@ else
                                 </div>
 
                                 <div class="mb-3">
-                                    <input id="Email" value="umut@gmail.com" class="form-control form-control-lg rounded-pill" asp-for="SignInViewModel.Email" placeholder="E-posta adresiniz">
-                                    <span class="text-danger" asp-validation-for="SignInViewModel.Email"></span>
+                                    <input id="Email"  class="form-control form-control-lg rounded-pill"  placeholder="E-posta adresiniz">
+                                    
                                 </div>
                                 <div class="mb-3">
-                                    <input id="Password" value="Password12*" class="form-control form-control-lg rounded-pill" asp-for="SignInViewModel.Password" placeholder="Şifreniz"></input>
-                                    <span class="text-danger" asp-validation-for="SignInViewModel.Password"></span>
+                                    <input type="password" id="Password"  class="form-control form-control-lg rounded-pill" placeholder="Şifreniz">
+                                   
                                 </div>
                                 <div class="form-check d-flex justify-content-between align-items-center">
-                                    <input id="RememberMe" asp-for="SignInViewModel.RememberMe" class="form-check-input " style="transform: scale(1.5);">
+                                    <input type="checkbox" id="RememberMe"  class="form-check-input " style="transform: scale(1.5); ">
 
-                                    <label for="RememberMe" class="form-check-label ms-2" asp-for="SignInViewModel.RememberMe"></label>
+                                    <label for="RememberMe" class="form-check-label ms-3">Beni Hatırla</label>
                                     <a href="" data-bs-toggle="modal" data-bs-target="#ForgetPasswordModal" id="ForgetPasswordLink" style="margin-left: auto;">Şifremi Unuttum</a>
                                 </div>
 
@@ -124,7 +124,7 @@ else
 
                                 <div class="mb-3">
                                     <input id="ForgetPasswordEmail" class="form-control form-control-lg rounded-pill" placeholder="E-posta adresiniz">
-                                    <span class="text-danger" asp-validation-for="ForgetPasswordViewModel.Email"></span>
+                                   
                                 </div>
 
                             </div>
@@ -176,24 +176,20 @@ else
 
                                 <div class="mb-3">
                                     <input id="SignUpUsername" class="form-control form-control-lg rounded-pill" placeholder="Kullanıcı Adı">
-                                    <span class="text-danger" asp-validation-for="@Model.SignUpViewModel.UserName"></span>
                                 </div>
                                 <div class="mb-3">
                                     <input id="SignUpEmail" class="form-control form-control-lg rounded-pill" placeholder="E-posta Adresi">
-                                    <span class="text-danger" asp-validation-for="@Model.SignUpViewModel.Email"></span>
                                 </div>
                                 <div class="mb-3">
                                     <input type="password" id="SignUpPassword" class="form-control form-control-lg rounded-pill" placeholder="Şifre">
-                                    <span class="text-danger" asp-validation-for="@Model.SignUpViewModel.Password"></span>
                                 </div>
                                 <div class="mb-3">
                                     <input type="password" id="SignUpPasswordConfirm" class="form-control form-control-lg rounded-pill" placeholder="Şifreyi Onayla">
-                                    <span class="text-danger" asp-validation-for="@Model.SignUpViewModel.PasswordConfirm"></span>
                                 </div>
 
                                 <div class="form-check">
-                                    <input id="SignUpPermissionAllow" asp-for="@Model.SignInViewModel.RememberMe" class="form-check-input ms-1" style=" transform: scale(1.5);">
-                                    <label for="SignUpPermissionAllow" class="form-check-label ms-3" asp-for="@Model.SignUpViewModel.PermissionAllow"></label>
+                                    <input type="checkbox" id="SignUpPermissionAllow"  class="form-check-input ms-1" style=" transform: scale(1.5);">
+                                    <label for="SignUpPermissionAllow" class="form-check-label ms-3">Kullanıcı Sözleşmesi ve aydınlatma metni</label>
                                 </div>
 
                             </div>
@@ -273,7 +269,6 @@ else
                     var password = $('#Password').val();
                     var rememberMe = $('#RememberMe').prop('checked');
 
-
                     $.ajax({
                         url: '@Url.Action("SignIn","Home")',
                         type: 'POST',
@@ -289,20 +284,15 @@ else
                             if (response.success) {
                                 window.location.href = "/Home/Index";
                             } else {
-
-
                                 var errorMessagesContainer = $('#errorMessages');
-                                console.log(errorMessagesContainer)
                                 errorMessagesContainer.empty();
                                 response.errors.forEach(function (error) {
-                                    console.log(error)
                                     errorMessagesContainer.append('<p>' + error + '</p>');
                                 });
                                 errorMessagesContainer.show()
                             }
                         },
                         error: function (response) {
-                            console.log(response);
                             alert("Bir hata oluştu. Lütfen tekrar deneyin.");
                         }
                     });
@@ -312,7 +302,6 @@ else
                 event.preventDefault();
                 var forgetPasswordemail = $('#ForgetPasswordEmail').val();
 
-                // AJAX request
                 $.ajax({
                         url: '@Url.Action("ForgetPassword", "Home")',
                         type: 'POST',
@@ -326,16 +315,19 @@ else
 
                                 $('#customAlertCloseButton').one('click', function () {
                                     hideCustomAlert();
+                                    var errorMessagesContainer = $('#errorMessages');
+                                    errorMessagesContainer.empty();
+                                    errorMessagesContainer.hide();
                                     forgetPasswordModal.hide();
-                                    signInModal.show();
+                                    $('#Email').val(forgetPasswordemail);
+                                    $('#Password').val("")
+                                    signInModal.show();                             
 
                                 });
                             } else {
                                 var forgetErrorMessagesContainer = $('#ForgetPasswordErrorMessages');
-                                console.log(errorMessagesContainer)
                                 forgetErrorMessagesContainer.empty();
                                 response.errors.forEach(function (error) {
-                                    console.log(error)
                                     forgetErrorMessagesContainer.append('<p>' + error + '</p>');
                                 });
                                 forgetErrorMessagesContainer.show()
@@ -349,7 +341,6 @@ else
             });
 
 
-
             $('#SignUpForm').submit(function (event) {
                 event.preventDefault();
 
@@ -358,7 +349,7 @@ else
                 var SignUppassword = $('#SignUpPassword').val();
                 var SignUpPasswordConfirm = $('#SignUpPasswordConfirm').val();
                 var SignUpPermission = $('#SignUpPermissionAllow').prop('checked');
-
+                var errorMessagesContainer = $('#SignUpError');
 
                  $.ajax({
                      url: '@Url.Action("SignUp","Home")',
@@ -374,17 +365,25 @@ else
                      success: function (response) {
 
                          if (response.success) {
-                             window.location.href = "/Home/Index";
+                             signUpModal.hide();
+                             $('#Email').val(SignUpemail);
+                             SignUpusername.val("");
+                             SignUpemail.val("");
+                             SignUppassword.val("");
+                             SignUpPasswordConfirm.val("");
+                             SignUpPermission.prop('checked', false);
+                             errorMessagesContainer = $('#SignUpError');
+                             errorMessagesContainer.empty();
+                             errorMessagesContainer.hide();
+                             signInModal.show();
 
                          } else {
-                             console.log(response)
                              if (!response.isCheck) {
                                  alert("Kullanıcı sözleşmesini kabul etmek zorunludur");
                              }
-                             var errorMessagesContainer = $('#SignUpError');
+                             
                              errorMessagesContainer.empty();
                              response.errors.forEach(function (error) {
-                                 console.log(error)
                                  errorMessagesContainer.append('<p>' + error + '</p>');
                              });
                              errorMessagesContainer.show()

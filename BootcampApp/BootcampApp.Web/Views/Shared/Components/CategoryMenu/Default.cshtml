@@ -1,0 +1,20 @@
+@model List<Category>
+    
+<div class="card mb-4">
+            <div class="card-header">
+                <h5 class="card-title">Kategoriler</h5>
+            </div>
+            <div class="card-body">
+         
+
+                <ul class="list-inline d-flex flex-column align-items-center gap-2">
+                    @foreach(var tag in Model)
+                    {
+                    <li class="list-inline-item w-100 m-0">
+                        @*<a href="/posts/tag/@tag.Url" class="btn btn-outline-secondary btn-sm">@tag.Text</a>*@
+                        <a href="" class="btn btn-outline-secondary btn-block w-100 ">@tag.Text</a>
+                    </li>
+                    }
+                </ul>
+            </div>
+</div>

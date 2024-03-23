@@ -297,6 +297,18 @@
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
+      "Id": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\wwwroot\\userpictures\\144576d7-5dbb-46cf-a940-d91342a77483.png",
+      "PackagePath": "staticwebassets\\userpictures\\144576d7-5dbb-46cf-a940-d91342a77483.png"
+    },
+    {
+      "Id": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\wwwroot\\userpictures\\239d8c87-3026-4b25-9c29-ac09159df7e6.png",
+      "PackagePath": "staticwebassets\\userpictures\\239d8c87-3026-4b25-9c29-ac09159df7e6.png"
+    },
+    {
+      "Id": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\wwwroot\\userpictures\\default.png",
+      "PackagePath": "staticwebassets\\userpictures\\default.png"
+    },
+    {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.BootcampApp.Web.Microsoft.AspNetCore.StaticWebAssets.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
     },

@@ -1,0 +1,118 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+@model List<AdminModel.RoleViewModel>
+
+
+<div class="row">
+    <div class="col-md-6 offset-md-2">
+        <h2>Roller</h2>
+    </div>
+    <div class="col-md-2">
+        <a class="btn btn-primary" asp-controller="Roles" asp-action="RoleCreate" asp-area="admin">Role Ekle</a>
+    </div>
+
+</div>
+<div class="row" style="min-height:500px;">
+
+    <div class="col-md-8 offset-md-2">
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-info" role="alert">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="text-left">Role ismi</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="align-middle">@item.Name</td>
+                        <td class="text-right align-middle">
+                            <div class="d-flex justify-content-end">
+                                <a class="btn btn-success btn-sm " style="margin-right:15px;" asp-area="admin" asp-controller="roles" asp-action="roleupdate" asp-route-id="@item.Id">Rol güncelle</a>
+                                <a class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmModal" data-role-id="@item.Id">Rol sil</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+
+
+
+    </div>
+    <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="d-flex align-items-center justify-content-center w-100">
+                        <h2 class="modal-title">
+                            <span class="text-danger me-2"><i class="fa-solid fa-triangle-exclamation"></i></span> Uyarı
+                        </h2>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center text-black" style="font-size:1.2rem;">
+                    Bu rolü silmek istediğinizden emin misiniz?
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">İptal</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Sil</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript">
+   $(document).ready(function () {
+        $('#confirmModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // tıklanan buton elementi
+            var roleId = button.data('role-id'); // tıklanan butondan roleId değerini al
+
+            $('#confirmDeleteBtn').click(function () {
+                $.ajax({
+                    url: "@Url.Action("RoleDelete", "Roles")",
+                    type: 'POST',
+                    data: {
+                        "id": roleId
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        $('#confirmModal').modal('hide');
+                    },
+                    error: function (xhr, status, error) {
+                        alert(error);
+                        console.log(error);
+                    }
+                });
+            });
+        });
+
+        // Modal kapanma olayını dinleyerek alert fonksiyonunu çağırma
+        $('#confirmModal').on('hidden.bs.modal', function () {
+            alert("Rol başarıyla silinmiştir.");
+             window.location.href = '@Url.Action("Index", "Roles")';
+        });
+    });
+
+
+
+</script>
+
+

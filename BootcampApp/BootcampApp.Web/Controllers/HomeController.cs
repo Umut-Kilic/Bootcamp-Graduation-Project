@@ -2,7 +2,6 @@ using AutoMapper;
 using BootcampApp.Core.Models;
 using BootcampApp.Core.Services;
 using BootcampApp.Core.ViewModels;
-using BootcampApp.Web.Extenisons;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,14 +32,13 @@ namespace BootcampApp.Web.Controllers
         public async Task<IActionResult> Index()
         {
             var posts = await _postService.GetAllAsync();
-            //var postViewModel = _mapper.Map<PostViewModel>(products);
             var sliderImagePath = Path.Combine(_hostEnvironment.WebRootPath, "img", "sliderimages");
             var imageNames = Directory.GetFiles(sliderImagePath)
                                        .Select(Path.GetFileName)
                                        .ToList();
             var sliderViewModel = new SliderViewModel
             {
-                Images = imageNames
+                Images = imageNames!
             };
 
             return View(new IndexViewModel
@@ -56,13 +54,13 @@ namespace BootcampApp.Web.Controllers
             if (!request.PermissionAllow)
             {
                 ModelState.AddModelError(string.Empty, "Kullanýcý sözleþmesini kabul etmek zorundasýnýz");
-                var signUpErrors = ModelState.SelectMany(x => x.Value.Errors).Select(x => x.ErrorMessage).ToList();
+                var signUpErrors = ModelState.SelectMany(x => x.Value!.Errors).Select(x => x.ErrorMessage).ToList();
                 return Json(new { success = false, errors = signUpErrors, isCheck = false });
             }
 
             if (!ModelState.IsValid)
             {
-                var signUpErrors = ModelState.SelectMany(x => x.Value.Errors).Select(x => x.ErrorMessage).ToList();
+                var signUpErrors = ModelState.SelectMany(x => x.Value!.Errors).Select(x => x.ErrorMessage).ToList();
                 return Json(new { success = false, errors = signUpErrors, isCheck = true });
             }
 
@@ -84,14 +82,14 @@ namespace BootcampApp.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var resetPasswordErrors = ModelState.SelectMany(x => x.Value.Errors).Select(x => x.ErrorMessage).ToList();
+                var resetPasswordErrors = ModelState.SelectMany(x => x.Value!.Errors).Select(x => x.ErrorMessage).ToList();
                 return Json(new { success = false, errors = resetPasswordErrors, isCheck = true });
             }
-            var hasUser = await _userManager.FindByEmailAsync(request.Email);
+            var hasUser = await _userManager.FindByEmailAsync(request.Email!);
             if (hasUser == null)
             {
                 ModelState.AddModelError(string.Empty, "Bu Email adresine sahip kullanýcý bulunamamýþtýr");
-                var resetPasswordErrors = ModelState.SelectMany(x => x.Value.Errors).Select(x => x.ErrorMessage).ToList();
+                var resetPasswordErrors = ModelState.SelectMany(x => x.Value!.Errors).Select(x => x.ErrorMessage).ToList();
 
                 return Json(new { success = false, errors = resetPasswordErrors });
             }
@@ -102,7 +100,7 @@ namespace BootcampApp.Web.Controllers
             var passwordResetLink = Url.Action("ResetPassword", "Home", new { UserId = hasUser.Id, Token = passwordResetToken },
                 HttpContext.Request.Scheme);
 
-            await _emailService.SendResetPasswordEmailAsync(passwordResetLink, hasUser.Email);
+            await _emailService.SendResetPasswordEmailAsync(passwordResetLink!, hasUser.Email!);
 
 
             return Json(new { success = true });
@@ -112,17 +110,14 @@ namespace BootcampApp.Web.Controllers
         public async Task<IActionResult> ResetPassword(string userId, string token)
         {
             TempData["userId"] = userId;
-            TempData["token"] = token;      
-
-    
-
+            TempData["token"] = token;
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel request ,string userId, string token)
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel request, string userId, string token)
         {
-           
+
 
             if (userId == null || token == null)
             {
@@ -131,7 +126,7 @@ namespace BootcampApp.Web.Controllers
 
             if (!ModelState.IsValid)
             {
-                var resetPasswordErrors = ModelState.SelectMany(x => x.Value.Errors).Select(x => x.ErrorMessage).ToList();
+                var resetPasswordErrors = ModelState.SelectMany(x => x.Value!.Errors).Select(x => x.ErrorMessage).ToList();
                 return Json(new { success = false, errors = resetPasswordErrors });
             }
             var hasUser = await _userManager.FindByIdAsync(userId.ToString()!);
@@ -139,7 +134,7 @@ namespace BootcampApp.Web.Controllers
             if (hasUser == null)
             {
                 ModelState.AddModelError(String.Empty, "Kullanýcý bulunamamýþtýr.");
-                var resetPasswordErrors = ModelState.SelectMany(x => x.Value.Errors).Select(x => x.ErrorMessage).ToList();
+                var resetPasswordErrors = ModelState.SelectMany(x => x.Value!.Errors).Select(x => x.ErrorMessage).ToList();
                 return Json(new { success = false, errors = resetPasswordErrors });
             }
 
@@ -150,7 +145,7 @@ namespace BootcampApp.Web.Controllers
                 return Json(new { success = false, errors = signUpErrors });
             }
 
-            return Json(new { success = true});
+            return Json(new { success = true });
         }
 
         [HttpPost]
@@ -160,33 +155,33 @@ namespace BootcampApp.Web.Controllers
 
             if (!ModelState.IsValid)
             {
-                var signInErrors = ModelState.SelectMany(x => x.Value.Errors).Select(x => x.ErrorMessage).ToList();
+                var signInErrors = ModelState.SelectMany(x => x.Value!.Errors).Select(x => x.ErrorMessage).ToList();
                 return Json(new { success = false, errors = signInErrors });
             }
 
-            var hasUser = await _userManager.FindByEmailAsync(request.Email);
+            var hasUser = await _userManager.FindByEmailAsync(request.Email!);
 
-            if (hasUser == null || !(await _userManager.CheckPasswordAsync(hasUser, request.Password)))
+            if (hasUser == null || !(await _userManager.CheckPasswordAsync(hasUser, request.Password!)))
             {
                 ModelState.AddModelError(string.Empty, "Email veya þifre yanlýþ");
-                var signInErrors = ModelState.SelectMany(x => x.Value.Errors).Select(x => x.ErrorMessage).ToList();
+                var signInErrors = ModelState.SelectMany(x => x.Value!.Errors).Select(x => x.ErrorMessage).ToList();
 
                 return Json(new { success = false, errors = signInErrors });
             }
             var signInViewModelRememberMe = request.RememberMe;
-            var signInResult = await _signInManager.PasswordSignInAsync(hasUser, request.Password, request.RememberMe, true);
+            var signInResult = await _signInManager.PasswordSignInAsync(hasUser, request.Password!, request.RememberMe, true);
 
             if (signInResult.IsLockedOut)
             {
                 ModelState.AddModelError(string.Empty, "3 dakika boyunca giriþ yapamazsýnýz.");
-                var signInErrors = ModelState.SelectMany(x => x.Value.Errors).Select(x => x.ErrorMessage).ToList();
+                var signInErrors = ModelState.SelectMany(x => x.Value!.Errors).Select(x => x.ErrorMessage).ToList();
                 return Json(new { success = false, errors = signInErrors });
             }
 
             if (!signInResult.Succeeded)
             {
                 ModelState.AddModelError(string.Empty, "Email veya þifre yanlýþ");
-                var signInErrors = ModelState.SelectMany(x => x.Value.Errors).Select(x => x.ErrorMessage).ToList();
+                var signInErrors = ModelState.SelectMany(x => x.Value!.Errors).Select(x => x.ErrorMessage).ToList();
                 return Json(new { success = false, errors = signInErrors });
             }
 
@@ -194,19 +189,11 @@ namespace BootcampApp.Web.Controllers
             return Json(new { success = true });
         }
 
-
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        /*[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error(ErrorViewModel errorViewModel)
         {
+            var errors=errorViewModel.Errors.ToList();
             return View(errorViewModel);
-        }
+        }*/
     }
 }

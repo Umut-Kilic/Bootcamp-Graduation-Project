@@ -44,7 +44,7 @@ namespace BootcampApp.Core.ViewModels
 
 
 
-        [Display(Name = "Kullanıcı Sözleşmesi ve aydınlatma metni ")]
+
         public bool PermissionAllow { get; set; }
     }
 }

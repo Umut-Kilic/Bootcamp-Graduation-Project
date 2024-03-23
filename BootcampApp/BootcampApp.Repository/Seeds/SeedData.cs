@@ -26,7 +26,7 @@ namespace BootcampApp.Repository.Seeds
                 }
 
 
-                if (!context.Categories.Any())
+                if (!context!.Categories.Any())
                 {
                     context.Categories.AddRange(
                          new Category() { Text = "Elekronik" },
@@ -82,7 +82,7 @@ namespace BootcampApp.Repository.Seeds
                             Image = "yazilimMuzik.jpg",
                             IsActive = true,
                             PublishedDate = DateTime.Now.AddDays(-10),
-                            UserId = context.Users.Where(x => x.UserName.Contains("AhmetKayaHoca")).Select(x => x.Id).FirstOrDefault()
+                            UserId = context.Users.Where(x => x.UserName!.Contains("AhmetKayaHoca")).Select(x => x.Id).FirstOrDefault()
                         }
                     ); ;
 

@@ -11,12 +11,11 @@ using BootcampApp.Web.Filters;
 using BootcampApp.Web.Modules;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
-//.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<PostViewModelValidator>());
 
 builder.Services.AddDbContext<BootcampAppDbContext>(x =>
 {
@@ -27,9 +26,10 @@ builder.Services.AddDbContext<BootcampAppDbContext>(x =>
 //kullanýcý baþka cýhazdan býlgýlerýný guncellese bile cookie omru kadar eski býlgýlerý gorurdurk.
 builder.Services.Configure<SecurityStampValidatorOptions>(options =>
 {
-    options.ValidationInterval=TimeSpan.FromMinutes(30);
+    options.ValidationInterval = TimeSpan.FromMinutes(30);
 });
 
+builder.Services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Directory.GetCurrentDirectory()));
 
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 
@@ -50,6 +50,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 
     options.LoginPath = new PathString("/Home/Index");
     options.LogoutPath = new PathString("/Member/logout");
+    options.AccessDeniedPath = new PathString("/Member/AccessDenied");
     options.ExpireTimeSpan = TimeSpan.FromDays(15);
 
     //Kullanýcý her giriþ yaptugunda ömrunu otamatýk yenýler
@@ -58,8 +59,6 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 });
 
-
-//Identity
 
 builder.Services.AddIdentityWithExt();
 
@@ -84,6 +83,25 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+
+
+app.MapControllerRoute(
+    name: "post_details",
+    pattern: "posts/details/{url}",
+    defaults: new { controller = "Posts", action = "Details" }
+);
+app.MapControllerRoute(
+    name: "posts_by_tag",
+    pattern: "posts/tag/{tag}",
+    defaults: new { controller = "Posts", action = "Index" }
+);
+app.MapControllerRoute(
+    name: "user_profile",
+    pattern: "profile/{username}",
+    defaults: new { controller = "User", action = "Profile" }
+);
+
+
 
 
 app.MapControllerRoute(

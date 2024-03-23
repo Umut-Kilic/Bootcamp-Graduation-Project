@@ -7,28 +7,42 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/BootcampApp.Web.styles.css" asp-append-version="true" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js" integrity="sha512-GWzVrcGlo0TxTRvz9ttioyYJ+Wwk9Ck0G81D+eO63BaqHaJ3YZX9wuqjwgfcV/MrB2PhaVX9DkYVhbFpStnqpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BootcampApp.Web</a>
+                <a class="navbar-brand" asp-area="Admin" asp-controller="Home" asp-action="Index" style="display: flex; align-items: center;">
+                    <i class="far fa-comments d-inline" style="font-size: 2.5em; margin-right: 5px;"></i>
+                    <div>
+                        <p class="fw-bold m-0" style="font-size: 1.4em;">Şikayetimiz Var! Admin Sayfası</p>
+                    </div>
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
+
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="Admin" asp-controller="Home" asp-action="Index">Admin Anasayfa</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="Admin" asp-controller="Home" asp-action="UserList">Kullanıcı Listesi</a>
+                            <a class="nav-link " asp-area="Admin" asp-controller="Home" asp-action="Index">Admin Anasayfa</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Ana Sayfaya Dön</a>
+                            <a class="nav-link " asp-area="Admin" asp-controller="Home" asp-action="UserList">Üye liste</a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="admin" asp-controller="Roles" asp-action="Index">Roller</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link " asp-area="" asp-controller="Home" asp-action="INdex">Ana Sayfaya dön</a>
+                        </li>
+
                     </ul>
                 </div>
             </div>
@@ -40,9 +54,51 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="bg-dark text-light py-4">
         <div class="container">
-            &copy; 2024 - BootcampApp.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="row">
+                <div class="col-md-3">
+                    <h5 class="text-center">ŞikayetimVar</h5>
+                    <p>Şikayetlerinizi paylaşabileceğiniz ve çözüm bulabileceğiniz platform.</p>
+                </div>
+                <div class="col-md-3 text-center">
+                    <h5 class="text-light">Linkler</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light text-decoration-none">Anasayfa</a></li>
+                        <li><a href="#" class="text-light text-decoration-none">Hakkımızda</a></li>
+                        <li><a href="#" class="text-light text-decoration-none">Şikayetler</a></li>
+                        <li><a href="#" class="text-light text-decoration-none">İletişim</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-3 social-icons">
+                    <h5>Sosyal Medyadan bize ulaşın</h5>
+
+                    <a href="#" class="text-light" style="font-size: 2.75rem; margin-right:1.5rem"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-light" style="font-size: 3rem; margin-right:1.5rem"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-light" style="font-size: 3rem; margin-right:1.5rem"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-light" style="font-size: 3rem;"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="text-center">İletişim Bilgileri</h5>
+                    <p>Adres: Örnek Mah. Örnek Cad. No: 123, Örnek Şehir</p>
+                    <p>Telefon: 123 456 78 90</p>
+                    <p>E-posta: info@sikayetimvar.com</p>
+
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>&copy; 2024 ŞikayetimVar! Tüm hakları saklıdır.</p>
+                </div>
+                <div class="col-md-6">
+                    <ul class="list-inline text-end">
+                        <li class="list-inline-item"><a href="#" class="text-light text-decoration-none">Gizlilik Politikası</a></li>
+                        <li class="list-inline-item"><a href="#" class="text-light text-decoration-none">Kullanım Koşulları</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
