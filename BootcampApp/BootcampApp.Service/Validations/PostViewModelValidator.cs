@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace NLayerApp.Service.Validations
 {
-    public class PostViewModelValidator : AbstractValidator<PostViewModel>
+    public class PostViewModelValidator : AbstractValidator<PostsViewModel>
     {
         public PostViewModelValidator()
         {

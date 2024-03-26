@@ -1,37 +1,84 @@
 ﻿@model UserViewModel
 
-<div class="row">
-  
-    <div class="col-md-6 offset-md-3 text-center">
-        <h1>Kullanıcı Bilgilerim</h1>
-        <user-picture-thumbnail class="rounded" style="width:200px" picture-url="@Model.PictureUrl"></user-picture-thumbnail>
+<div class="container" style="min-height:380px;">
+    <div class="row mt-4">
+
+        <div class="col-9">
+
+            <div class="card ">
+                <div class="card-header">
+                    <h2 class="card-title text-center">Kullanıcı Bilgileri</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="offset-md-1 offset-1 col-md-4 col-11">
+                            <user-picture-thumbnail class="avatar rounded-circle w-75" picture-url="@Model.PictureUrl"></user-picture-thumbnail>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="d-flex align-items-center justify-content-center h-100">
+                                <!-- Yeni stil: h-100 -->
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <th>Kullanıcı Adı:</th>
+                                            <td>@Model.UserName</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Email:</th>
+                                            <td>@Model.Email</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="row mt-4">
+                <h3 class="text-center">Şikayetleri</h3>
+                @if (Model.PostsViewModel!=null && Model.PostsViewModel.Posts.Count() > 0)
+                {
+
+                    @foreach (var post in Model.PostsViewModel!.Posts)
+                    {
+                        <div class="card bg-transparent border-0 mb-3">
+                            <div class="row">
+                                <div class="col-8">
+                                    <h5><a asp-controller="Posts" asp-action="Details" asp-route-Url="@post.Url" class="fw-bold">@post.Title</a></h5>
+                                    <p>@post.Content</p>
+                                    @foreach (var category in post.Categories)
+                                    {
+                                        <a href="/posts/category/@category.Url" class="badge bg-@category.Color bg-opacity-10 text-@category.Color mb-2 fw-bold">@category.Text</a>
+                                     
+                                    }
+                                </div>
+                                <div class="col-4">
+                                    <img src="~/postspictures/@post.Image" class="img-fluid rounded" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="my-3">
+                    }
+                }
+                else
+                {
+                    <p class="text-center">@Model.UserName adlı kuullanıcının henüz bir şikayeti yok</p>
+                }
+
+            </div>
+                
+            
+        </div>
+
+        <div class="col-3">
+            <vc:category-menu></vc:category-menu>
+            <vc:new-posts></vc:new-posts>
+        </div>
+
     </div>
 </div>
 
-<div class="row" style="min-height:350px;">
-
-    <div class="col-md-6 offset-md-3">
-       
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Kulllanıcı Adı</th>
-                    <th>Email</th>
-                    <th>Telefon No</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                        <td>@Model.UserName</td>
-                        <td>@Model.Email</td>
-                        <td>@Model.PhoneNumber</td>
-                    </tr>
-
-
-            </tbody>
-        </table>
-
-    </div>
-
-
-</div>

@@ -4,6 +4,8 @@ using BootcampApp.Core.Services;
 using BootcampApp.Core.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.EntityFrameworkCore;
 
 namespace BootcampApp.Web.Controllers
 {
@@ -31,20 +33,40 @@ namespace BootcampApp.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var posts = await _postService.GetAllAsync();
-            var sliderImagePath = Path.Combine(_hostEnvironment.WebRootPath, "img", "sliderimages");
-            var imageNames = Directory.GetFiles(sliderImagePath)
-                                       .Select(Path.GetFileName)
-                                       .ToList();
-            var sliderViewModel = new SliderViewModel
+            var posts = _postService.GetAll().OrderByDescending(p => p.PublishedDate)
+                .Include(p => p.Categories) 
+                .Include(p => p.User) ;
+        
+            var sliderPosts=_postService.GetAll().Include(p => p.Comments).OrderByDescending(p=>p.Comments.Count()).Include(p=>p.User).Take(5);
+       
+            var sliderPostss = new PostsViewModel
             {
-                Images = imageNames!
+
+                Posts=await sliderPosts.ToListAsync(),
+               
             };
+         
 
             return View(new IndexViewModel
             {
-                Posts = posts.ToList(),
-                SliderViewModel = sliderViewModel
+                Posts = await posts.ToListAsync(),
+                PostsViewModel = sliderPostss
+            });
+
+           
+        }
+
+        public async Task<IActionResult> TopPosts()
+        {
+           
+            var posts=await _postService
+                .GetAll()
+                .OrderByDescending(p => p.LikeCount)
+                .Include(p => p.Categories)
+               .Include(p => p.User).Take(10).ToListAsync();
+            return View(new PostsViewModel
+            {
+                Posts=posts
             });
         }
 
@@ -189,11 +211,11 @@ namespace BootcampApp.Web.Controllers
             return Json(new { success = true });
         }
 
-        /*[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error(ErrorViewModel errorViewModel)
         {
             var errors=errorViewModel.Errors.ToList();
             return View(errorViewModel);
-        }*/
+        }
     }
 }

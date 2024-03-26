@@ -13,22 +13,6 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
-      "Id": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\wwwroot\\img\\avatar1.png",
-      "PackagePath": "staticwebassets\\img\\avatar1.png"
-    },
-    {
-      "Id": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\wwwroot\\img\\avatar2.png",
-      "PackagePath": "staticwebassets\\img\\avatar2.png"
-    },
-    {
-      "Id": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\wwwroot\\img\\avatar3.png",
-      "PackagePath": "staticwebassets\\img\\avatar3.png"
-    },
-    {
-      "Id": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\wwwroot\\img\\avatar4.png",
-      "PackagePath": "staticwebassets\\img\\avatar4.png"
-    },
-    {
       "Id": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\wwwroot\\img\\sliderimages\\avatar1.png",
       "PackagePath": "staticwebassets\\img\\sliderimages\\avatar1.png"
     },
@@ -47,14 +31,6 @@
     {
       "Id": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\wwwroot\\img\\unity.png",
       "PackagePath": "staticwebassets\\img\\unity.png"
-    },
-    {
-      "Id": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\wwwroot\\img\\user1.png",
-      "PackagePath": "staticwebassets\\img\\user1.png"
-    },
-    {
-      "Id": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\wwwroot\\img\\user2.png",
-      "PackagePath": "staticwebassets\\img\\user2.png"
     },
     {
       "Id": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\wwwroot\\img\\xiaomisarj.jpg",
@@ -297,16 +273,76 @@
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
+      "Id": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\wwwroot\\postspictures\\33a5c8d2-4daa-4870-aa52-ce3bff5a7528.png",
+      "PackagePath": "staticwebassets\\postspictures\\33a5c8d2-4daa-4870-aa52-ce3bff5a7528.png"
+    },
+    {
+      "Id": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\wwwroot\\postspictures\\9b433351-b113-4f19-bc2c-5cf761edcb76.jpg",
+      "PackagePath": "staticwebassets\\postspictures\\9b433351-b113-4f19-bc2c-5cf761edcb76.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\wwwroot\\postspictures\\unity.png",
+      "PackagePath": "staticwebassets\\postspictures\\unity.png"
+    },
+    {
+      "Id": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\wwwroot\\postspictures\\xiaomisarj.jpg",
+      "PackagePath": "staticwebassets\\postspictures\\xiaomisarj.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\wwwroot\\postspictures\\yazilimMuzik.jpg",
+      "PackagePath": "staticwebassets\\postspictures\\yazilimMuzik.jpg"
+    },
+    {
       "Id": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\wwwroot\\userpictures\\144576d7-5dbb-46cf-a940-d91342a77483.png",
       "PackagePath": "staticwebassets\\userpictures\\144576d7-5dbb-46cf-a940-d91342a77483.png"
+    },
+    {
+      "Id": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\wwwroot\\userpictures\\1844830f-c447-45e0-b6b8-8a569603bcd4.png",
+      "PackagePath": "staticwebassets\\userpictures\\1844830f-c447-45e0-b6b8-8a569603bcd4.png"
+    },
+    {
+      "Id": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\wwwroot\\userpictures\\22601b81-4abd-465a-a1af-c302ef3001b0.png",
+      "PackagePath": "staticwebassets\\userpictures\\22601b81-4abd-465a-a1af-c302ef3001b0.png"
     },
     {
       "Id": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\wwwroot\\userpictures\\239d8c87-3026-4b25-9c29-ac09159df7e6.png",
       "PackagePath": "staticwebassets\\userpictures\\239d8c87-3026-4b25-9c29-ac09159df7e6.png"
     },
     {
-      "Id": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\wwwroot\\userpictures\\default.png",
-      "PackagePath": "staticwebassets\\userpictures\\default.png"
+      "Id": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\wwwroot\\userpictures\\56fb95e1-485b-4e95-b953-8040a5c1ff59.png",
+      "PackagePath": "staticwebassets\\userpictures\\56fb95e1-485b-4e95-b953-8040a5c1ff59.png"
+    },
+    {
+      "Id": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\wwwroot\\userpictures\\67496a84-49a8-4a53-a2e2-0680b6fb28c7.png",
+      "PackagePath": "staticwebassets\\userpictures\\67496a84-49a8-4a53-a2e2-0680b6fb28c7.png"
+    },
+    {
+      "Id": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\wwwroot\\userpictures\\avatar1.png",
+      "PackagePath": "staticwebassets\\userpictures\\avatar1.png"
+    },
+    {
+      "Id": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\wwwroot\\userpictures\\avatar2.png",
+      "PackagePath": "staticwebassets\\userpictures\\avatar2.png"
+    },
+    {
+      "Id": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\wwwroot\\userpictures\\avatar3.png",
+      "PackagePath": "staticwebassets\\userpictures\\avatar3.png"
+    },
+    {
+      "Id": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\wwwroot\\userpictures\\avatar4.png",
+      "PackagePath": "staticwebassets\\userpictures\\avatar4.png"
+    },
+    {
+      "Id": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\wwwroot\\userpictures\\default_user_picture.png",
+      "PackagePath": "staticwebassets\\userpictures\\default_user_picture.png"
+    },
+    {
+      "Id": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\wwwroot\\userpictures\\user1.png",
+      "PackagePath": "staticwebassets\\userpictures\\user1.png"
+    },
+    {
+      "Id": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\wwwroot\\userpictures\\user2.png",
+      "PackagePath": "staticwebassets\\userpictures\\user2.png"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.BootcampApp.Web.Microsoft.AspNetCore.StaticWebAssets.props",

@@ -8,6 +8,7 @@
         public string? Image { get; set; }
         public int LikeCount { get; set; }
         public DateTime PublishedDate { get; set; }
+        public string Url { get; set; }
         public bool IsActive { get; set; }
         public string? UserId { get; set; }
         public User User { get; set; } = null!;

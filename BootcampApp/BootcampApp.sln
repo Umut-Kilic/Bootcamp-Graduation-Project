@@ -5,11 +5,11 @@ VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootcampApp.Core", "BootcampApp.Core\BootcampApp.Core.csproj", "{78F1B978-B7AC-44A6-B59A-FC3047374CBE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootcampApp.Repository", "BootcampApp.Repository\BootcampApp.Repository.csproj", "{A967557A-1B9E-4BF0-B117-AFC465DE578C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootcampApp.Repository", "BootcampApp.Repository\BootcampApp.Repository.csproj", "{A967557A-1B9E-4BF0-B117-AFC465DE578C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootcampApp.Service", "BootcampApp.Service\BootcampApp.Service.csproj", "{5FBBE3DB-73D5-4400-BD1D-4AEC11EEE08D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootcampApp.Service", "BootcampApp.Service\BootcampApp.Service.csproj", "{5FBBE3DB-73D5-4400-BD1D-4AEC11EEE08D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootcampApp.Web", "BootcampApp.Web\BootcampApp.Web.csproj", "{22C71F0B-E63B-4D5E-BC1A-3566FFDE4E70}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootcampApp.Web", "BootcampApp.Web\BootcampApp.Web.csproj", "{22C71F0B-E63B-4D5E-BC1A-3566FFDE4E70}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

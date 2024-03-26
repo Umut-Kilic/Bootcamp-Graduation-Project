@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BootcampApp.Service")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9a3dea17eb7f78425086fe417c7329db29aac3bb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+39f0ecc7da3e0fff42e335118b4509f92d24c907")]
 [assembly: System.Reflection.AssemblyProductAttribute("BootcampApp.Service")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BootcampApp.Service")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

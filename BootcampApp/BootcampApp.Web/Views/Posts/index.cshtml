@@ -1,0 +1,47 @@
+@model PostsViewModel
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="bg-white p-4">
+                <h1 class="h4 mb-4">Popüler Postlar</h1>
+                <hr class="my-3">
+                @if (Model.Posts.Count > 0)
+                {
+                    @foreach (var post in Model.Posts)
+                    {
+                        <div class="card bg-transparent border-0 mb-3">
+                            <div class="row">
+                                <div class="col-8">
+                                    @foreach (var category in post.Categories)
+                                    {
+                                        <a href="/posts/tag/@category.Url" class="badge bg-@category.Color bg-opacity-10 text-@category.Color mb-2 fw-bold">@category.Text</a>
+                                    }
+                                    <h5><a href="/posts/details/@post.Url" class="fw-bold">@post.Title</a></h5>
+                                    <p>@Html.Raw(post.Content)</p>
+                                    <a href="#" class="badge bg-warning bg-opacity-8 text-danger mb-2 fw-bold tags">Web Geliştirme</a>
+                                </div>
+                                <div class="col-4">
+                                    <img src="~/postspictures/@post.Image" class="img-fluid rounded" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="my-3">
+                    }
+                 }
+                 else
+                 {
+                    <div class="row">
+                        <p>Bu kategoriye ait şikayet henüz bulunamamıştır</p>
+                    </div>
+                 }
+
+            </div>
+
+
+        </div>
+    <div class="col-lg-4">
+        <vc:category-menu></vc:category-menu>
+        <vc:new-posts></vc:new-posts>
+    </div>
+    </div>
+    
+    

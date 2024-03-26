@@ -8,7 +8,7 @@ namespace BootcampApp.Service.Mapping
     {
         public MapProfile()
         {
-            CreateMap<PostViewModel, Post>().ReverseMap();
+            CreateMap<PostsViewModel, Post>().ReverseMap();
         }
     }
 }

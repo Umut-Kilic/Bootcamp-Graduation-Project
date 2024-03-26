@@ -1,53 +1,80 @@
 ﻿using BootcampApp.Core.Models;
+using BootcampApp.Core.Services;
 using BootcampApp.Core.ViewModels;
 using BootcampApp.Web.Extenisons;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using System.Security.Claims;
 
 namespace BootcampApp.Web.Controllers
 {
-    [Authorize]
+  
     public class MemberController : Controller
     {
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
         private readonly IFileProvider _fileProvider;
+        private readonly IPostService _postService;
 
-        public MemberController(SignInManager<User> signInManager, UserManager<User> userManager, IFileProvider fileProvider)
+        public MemberController(SignInManager<User> signInManager, UserManager<User> userManager, IFileProvider fileProvider, IPostService postService)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _fileProvider = fileProvider;
+            _postService = postService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? userName)
         {
-            var currentUser = (await _userManager.FindByNameAsync(User.Identity!.Name!))!;
+            User currentUser;
+            if (string.IsNullOrEmpty(userName))
+            {
+                currentUser = (await _userManager.FindByNameAsync(User.Identity!.Name!))!;
+
+            }
+            else
+            {
+                currentUser = await _userManager.FindByNameAsync(userName);
+            }
+            if (currentUser == null)
+            {
+       
+                return NotFound();
+            }
+
+            var posts=await _postService.GetAll().Where(p=>p.User==currentUser).ToListAsync();
+            var postViewModel = new PostsViewModel
+            {
+                Posts = posts
+            };
             return View(new UserViewModel
             {
                 Email = currentUser.Email,
                 UserName = currentUser.UserName,
                 PhoneNumber = currentUser.PhoneNumber,
-                PictureUrl = currentUser.Picture
+                PictureUrl = currentUser.Picture,
+                PostsViewModel=postViewModel
             });
         }
 
+        [Authorize]
         public async Task Logout()
         {
             await _signInManager.SignOutAsync();
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> PasswordChange()
         {
             return View();
         }
 
-
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> PasswordChange(PasswordChangeViewModel request)
         {
@@ -83,6 +110,8 @@ namespace BootcampApp.Web.Controllers
             return View();
         }
 
+
+        [Authorize]
         public async Task<IActionResult> UserEdit()
         {
             ViewBag.genderList = new SelectList(Enum.GetNames(typeof(Gender)));
@@ -100,6 +129,7 @@ namespace BootcampApp.Web.Controllers
             return View(userEditViewModel);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> UserEdit(UserEditViewModel request)
         {
@@ -168,7 +198,7 @@ namespace BootcampApp.Web.Controllers
             return View(userEditViewModel);
         }
 
-
+        [Authorize]
         public IActionResult AccessDenied(string ReturnUrl)
         {
             string message = string.Empty;
@@ -179,6 +209,29 @@ namespace BootcampApp.Web.Controllers
 
             ViewBag.message = message;
             return View();
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> MyPosts()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var username = User.FindFirstValue(ClaimTypes.Name);
+            var user = await _userManager.FindByIdAsync(userId);
+           
+            if (user == null)
+            {
+                return NotFound();  
+            }
+            
+            var myPosts=_postService.GetAll().Where(p=>p.UserId == user.Id).ToList();
+           
+            return View(new PostsViewModel()
+            {
+                Posts=myPosts,
+                User=user
+                
+            });
         }
     }
 }

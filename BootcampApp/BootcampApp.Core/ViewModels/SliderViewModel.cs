@@ -2,6 +2,6 @@
 {
     public class SliderViewModel
     {
-        public List<string> Images { get; set; } = new List<string>();
+        public List<PostsViewModel> Posts { get; set; } = new List<PostsViewModel>();
     }
 }

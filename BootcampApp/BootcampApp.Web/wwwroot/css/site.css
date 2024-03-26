@@ -42,17 +42,17 @@ footer .list-inline-item a:hover {
 .modal-dama {
     display: flex;
     flex-wrap: wrap;
-    height: 100%; /* Modal yüksekliðine uyumlu olacak þekilde ayarlýyoruz */
+    height: 100%;
 }
 
 .modal-dama .kutu {
-    width: 50%; /* Yarýya bölerek iki kare oluþturuyoruz */
-    padding-bottom: 50%; /* Kare olmasý için yüksekliði geniþliðine eþit olacak þekilde ayarlýyoruz */
+    width: 50%;
+    padding-bottom: 50%; 
     height:6rem !important;
 }
 
 .modal-dama .bg-dark {
-    background-color: #000 !important; /* Siyah arka plan rengi */
+    background-color: #000 !important; 
 }
 
 #customAlertOverlay {
@@ -122,4 +122,50 @@ footer .list-inline-item a:hover {
 #ChangePasswordAlertFooter {
     margin-top: 20px;
     text-align: center;
+}
+
+.upload-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.upload-container label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.upload-container input[type="file"] {
+    display: none;
+}
+
+.upload-container .custom-file-upload {
+    border: 1px solid #ccc;
+    color: #333;
+    background-color: #f9f9f9;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.upload-container .custom-file-upload:hover {
+    background-color: #e9e9e9;
+}
+
+#thumbsUpIcon {
+    cursor: pointer; 
+    outline: none; 
+}
+
+#thumbsUpIcon:focus {
+    outline: none; 
+}
+
+#thumbsUpIcon.clicked {
+    color: blue !important; 
 }

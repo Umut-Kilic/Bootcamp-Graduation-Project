@@ -2,17 +2,15 @@
 
 <div class="card mb-4">
     <div class="card-header">
-        <h5 class="card-title">New Posts</h5>
+        <h5 class="card-title">Yeni Þikayetler</h5>
     </div>
     <div class="card-body">
         @foreach(var post in Model){
             <div class="mb-3">
-                @*<a href="/posts/details/@post.Url">
-                    <h6 class="mb-0">@post.Title</h6>
-                </a>*@
-                <a href="">
+                <a href="/posts/details/@post.Url">
                     <h6 class="mb-0">@post.Title</h6>
                 </a>
+                
             </div>
         }
     </div>

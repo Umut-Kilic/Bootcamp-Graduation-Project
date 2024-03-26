@@ -12,7 +12,7 @@ namespace BootcampApp.Web.TagHelpers
 
             if (string.IsNullOrEmpty(PictureUrl))
             {
-                output.Attributes.SetAttribute("src", "/userpictures/default_user_picture.jpg");
+                output.Attributes.SetAttribute("src", "/userpictures/default_user_picture.png");
             }
             else
 

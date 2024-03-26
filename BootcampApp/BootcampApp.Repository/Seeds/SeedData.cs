@@ -1,4 +1,5 @@
-﻿using BootcampApp.Core.Models;
+﻿using Azure;
+using BootcampApp.Core.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,11 +30,11 @@ namespace BootcampApp.Repository.Seeds
                 if (!context!.Categories.Any())
                 {
                     context.Categories.AddRange(
-                         new Category() { Text = "Elekronik" },
-                        new Category() { Text = "Gıda" },
-                        new Category() { Text = "Kitap" },
-                        new Category() { Text = "Yazılım" },
-                        new Category() { Text = "Müzik" }
+                        new Category() { Text = "Elekronik",Url = "elektronik", Color = CategoryColor.primary },
+                        new Category { Text = "Gıda", Url = "gida", Color = CategoryColor.success },
+                        new Category { Text = "Kitap", Url = "kitap", Color = CategoryColor.danger },
+                        new Category { Text = "Yazılım", Url = "yazilim", Color = CategoryColor.secondary },
+                        new Category { Text = "Müzik", Url = "muzik", Color = CategoryColor.warning }
                     );
                     context.SaveChanges();
                 }
@@ -43,17 +44,19 @@ namespace BootcampApp.Repository.Seeds
                         new User()
                         {
                             UserName = "UmutBey",
-                            Picture = "avatar1.png"
+                            Picture = "avatar1.png",
+                            Email = "umutbey@gmail.com",
                         },
                           new User()
                           {
                               UserName = "AhmetKayaHoca",
-                              Picture = "avatar2.png"
+                              Picture = "avatar2.png",
+                              Email = "info@ahmetkaya.com",
                           }
                    );
                     context.SaveChanges();
                 }
-                // DbContext içinde herhangi bir veri var mı kontrol edin
+
                 if (!context.Posts.Any())
                 {
                     context.Posts.AddRange(
@@ -62,27 +65,41 @@ namespace BootcampApp.Repository.Seeds
                             Title = "Elektronik Şarj cıhazı",
                             Content = "Xiaomı şarj cihazı çalışmıyor",
                             Image = "xiaomisarj.jpg",
+                            Url = "elektronik-sarj-cihazi",
                             IsActive = true,
                             PublishedDate = DateTime.Now.AddDays(-5),
-                            UserId = context.Users.First().Id
+                            UserId = context.Users.First().Id,
+                            LikeCount = 4,
+                            Categories = context.Categories.Take(2).ToList(),
+                            Comments = new List<Comment>{
+                            new Comment {Text = "Güzel bootcamp",PublishedDate = new DateTime(),UserId = context.Users.First().Id,},
+                            new Comment {Text = "Katılmayı düşünüyorum",PublishedDate = new DateTime(),UserId = context.Users.Skip(1).First().Id,},
+                        }
+
                         },
                         new Post
                         {
                             Title = "Unity İle geliştirmek ne kadar zor",
                             Content = "Unity ile oyun yapımaya çalışıyrum durmadan hata alıyorum",
                             Image = "unity.png",
+                            Url = "unity-gelistirme",
                             IsActive = true,
                             PublishedDate = DateTime.Now.AddDays(-7),
-                            UserId = context.Users.First().Id
+                            LikeCount = 2,
+                            UserId = context.Users.First().Id,
+                            Categories = context.Categories.Take(2).ToList(),
                         },
                         new Post
                         {
                             Title = "Yazılım ile Müzik",
                             Content = "Yazılım ile müzik geliştirmeyi nasıl yapıyorsunuz başım ağrıyor kod yazarken",
                             Image = "yazilimMuzik.jpg",
+                            Url = "yazilim-muzik",
+                            LikeCount = 1,
                             IsActive = true,
                             PublishedDate = DateTime.Now.AddDays(-10),
-                            UserId = context.Users.Where(x => x.UserName!.Contains("AhmetKayaHoca")).Select(x => x.Id).FirstOrDefault()
+                            UserId = context.Users.Where(x => x.UserName!.Contains("AhmetKayaHoca")).First().Id,
+                            Categories = context.Categories.Take(2).ToList(),
                         }
                     ); ;
 

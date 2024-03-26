@@ -125,7 +125,7 @@ namespace BootcampApp.Web.Areas.Admin.Controllers
         }
         public async Task<IActionResult> AssignRoleToUser(string id)
         {
-            var currentUser = (await _userManager.FindByIdAsync(id))!;
+            /*var currentUser = (await _userManager.FindByIdAsync(id))!;
             ViewBag.userId = id;
             var roles = await _roleManager.Roles.ToListAsync();
             var userRoles = await _userManager.GetRolesAsync(currentUser);
@@ -147,31 +147,38 @@ namespace BootcampApp.Web.Areas.Admin.Controllers
 
             }
 
-            return View(roleViewModelList);
+            return View(roleViewModelList);*/
+            ViewBag.userId = id;
+            if (id == null)            {                return RedirectToAction("Index");            }            var user = await _userManager.FindByIdAsync(id);            if (user != null)            {                ViewBag.Roles = await _roleManager.Roles.Select(i => i.Name).ToListAsync();                return View(new AssignRoleToUserViewModel
+                {                    Id = user.Id,                    Name = user.UserName,                    SelectedRoles = await _userManager.GetRolesAsync(user)                });            }
+
+            return RedirectToAction("Index");
+
         }
 
         [HttpPost]
-        public async Task<IActionResult> AssignRoleToUser(string userId, List<AssignRoleToUserViewModel> requestList)
+        public async Task<IActionResult> AssignRoleToUser(string userId, AssignRoleToUserViewModel request)
         {
 
-            var userToAssignRoles = (await _userManager.FindByIdAsync(userId))!;
+             var userToAssignRoles = (await _userManager.FindByIdAsync(userId))!;
 
-            if (userToAssignRoles != null)
-            {
-                foreach (var role in requestList)
-                {
-                    if (role.Exist)
+             if (userToAssignRoles != null)
+             {
+                    
+                    await _userManager.RemoveFromRolesAsync(userToAssignRoles, await _userManager.GetRolesAsync(userToAssignRoles));
+                    if (request.SelectedRoles != null)
                     {
-                        await _userManager.AddToRoleAsync(userToAssignRoles, role.Name);
+                        await _userManager.AddToRolesAsync(userToAssignRoles, request.SelectedRoles);
                     }
-                    else
-                    {
-                        await _userManager.RemoveFromRoleAsync(userToAssignRoles, role.Name);
-                    }
-                }
-            }
+                   
+                 
+             }
 
-            return RedirectToAction(nameof(HomeController.UserList), "Home");
+             return RedirectToAction(nameof(HomeController.UserList), "Home");
+
+
+           /* if (userId != request.Id)            {                return RedirectToAction("Index");            }            if (ModelState.IsValid)            {                var user = await _userManager.FindByIdAsync(model.Id);                if (user != null)                {                    user.Email = model.Email;                    user.FullName = model.FullName;                    var result = await _userManager.UpdateAsync(user);                    if (result.Succeeded && !string.IsNullOrEmpty(model.Password))                    {                        await _userManager.RemovePasswordAsync(user);                        await _userManager.AddPasswordAsync(user, model.Password);                    }
+                    if (result.Succeeded)                    {                        await _userManager.RemoveFromRolesAsync(user, await _userManager.GetRolesAsync(user));                        if (model.SelectedRoles != null)                        {                            await _userManager.AddToRolesAsync(user, model.SelectedRoles);                        }                        return RedirectToAction("Index");                    }                    foreach (IdentityError err in result.Errors)                    {                        ModelState.AddModelError("", err.Description);                    }                }            }            return View(model);*/
         }
     }
 }

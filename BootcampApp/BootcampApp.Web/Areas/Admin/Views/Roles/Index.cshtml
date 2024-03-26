@@ -61,7 +61,7 @@
                             <span class="text-danger me-2"><i class="fa-solid fa-triangle-exclamation"></i></span> Uyarı
                         </h2>
                     </div>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button id="clsbtn" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center text-black" style="font-size:1.2rem;">
                     Bu rolü silmek istediğinizden emin misiniz?
@@ -80,7 +80,7 @@
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript">
-   $(document).ready(function () {
+    $(document).ready(function () {
         $('#confirmModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget); // tıklanan buton elementi
             var roleId = button.data('role-id'); // tıklanan butondan roleId değerini al
@@ -104,7 +104,7 @@
             });
         });
 
-        // Modal kapanma olayını dinleyerek alert fonksiyonunu çağırma
+       
         $('#confirmModal').on('hidden.bs.modal', function () {
             alert("Rol başarıyla silinmiştir.");
              window.location.href = '@Url.Action("Index", "Roles")';

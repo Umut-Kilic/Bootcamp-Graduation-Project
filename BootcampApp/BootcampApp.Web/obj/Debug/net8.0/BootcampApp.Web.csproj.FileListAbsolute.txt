@@ -250,7 +250,6 @@ C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\Bootcam
 C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\BootcampApp.Web\obj\Debug\net8.0\BootcampApp.Web.AssemblyInfoInputs.cache
 C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\BootcampApp.Web\obj\Debug\net8.0\BootcampApp.Web.AssemblyInfo.cs
 C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\BootcampApp.Web\obj\Debug\net8.0\BootcampApp.Web.csproj.CoreCompileInputs.cache
-C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\BootcampApp.Web\obj\Debug\net8.0\BootcampApp.Web.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\BootcampApp.Web\obj\Debug\net8.0\BootcampApp.Web.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\BootcampApp.Web\obj\Debug\net8.0\BootcampApp.Web.RazorAssemblyInfo.cache
 C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\BootcampApp.Web\obj\Debug\net8.0\BootcampApp.Web.RazorAssemblyInfo.cs
@@ -272,3 +271,4 @@ C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\Bootcam
 C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\BootcampApp.Web\obj\Debug\net8.0\BootcampApp.Web.pdb
 C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\BootcampApp.Web\obj\Debug\net8.0\BootcampApp.Web.genruntimeconfig.cache
 C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\BootcampApp.Web\obj\Debug\net8.0\ref\BootcampApp.Web.dll
+C:\Users\Umut K\Documents\GitHub\Bootcamp-Graduation-Project\BootcampApp\BootcampApp.Web\obj\Debug\net8.0\BootcampApp.Web.MvcApplicationPartsAssemblyInfo.cs

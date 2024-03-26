@@ -1,0 +1,76 @@
+@model PostCreateViewModel
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="display-4 text-center mb-4">Þikayet Oluþtur</h1>
+            <form asp-action="Create" method="post" enctype="multipart/form-data">
+                <div class="container">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="Title" class="form-label">Baþlýk</label>
+                        <input asp-for="Title" class="form-control">
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Url" class="form-label">URL</label>
+                        <input asp-for="Url" class="form-control">
+                        <span asp-validation-for="Url" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Content" class="form-label">Ýçerik</label>
+                        <input asp-for="Content" class="form-control" />
+                        <span asp-validation-for="Content" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="file-upload" class="form-label">Fotoðraf Yükle</label>
+                        <input type="file" id="file-upload" class="form-control" asp-for="Picture">
+                        <p id="file-name"></p>
+                        <div id="image-preview"></div>
+                    </div>
+
+                    <div class="row justify-content-center">
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-primary btn-lg">Kaydet</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.3/tinymce.min.js" integrity="sha512-VCEWnpOl7PIhbYMcb64pqGZYez41C2uws/M/mDdGPy+vtEJHd9BqbShE4/VNnnZdr7YCPOjd+CBmYca/7WWWCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+    tinymce.init({
+        selector: 'textarea#Content'
+    });
+
+    const fileUpload = document.getElementById('file-upload');
+    const fileNameDisplay = document.getElementById('file-name');
+    const imagePreview = document.getElementById('image-preview');
+
+    fileUpload.addEventListener('change', function () {
+        const file = this.files[0];
+        if (file) {
+            fileNameDisplay.textContent = 'Seçilen Dosya: ' + file.name;
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const img = new Image();
+                img.src = e.target.result;
+                img.style.maxWidth = '100%';
+                imagePreview.innerHTML = '';
+                imagePreview.appendChild(img);
+            };
+            reader.readAsDataURL(file);
+        } else {
+            fileNameDisplay.textContent = 'Dosya Seçilmedi';
+            imagePreview.innerHTML = '';
+        }
+    });
+</script>

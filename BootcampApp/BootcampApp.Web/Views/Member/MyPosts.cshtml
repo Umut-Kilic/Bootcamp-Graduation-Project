@@ -1,0 +1,65 @@
+﻿@model PostsViewModel
+
+<div class="row">
+    <h2 class="text-center">Şikayetlerim</h2>
+    <div class="my-3 d-flex justify-content-center">
+        <a asp-controller="Posts" asp-action="Create" class="btn btn-primary"><i class="fas fa-plus-circle me-2"></i>Yeni şikayet ekle</a>
+    </div>
+
+
+
+    @if (Model.Posts.Any())
+    {
+        <ul>
+            @foreach (var post in Model.Posts)
+            {
+                <div class="row">
+                    <div class="col-lg-8 offset-lg-2">
+                        <div class="bg-white p-4">
+                            <h1 class="h4 mb-4">@post.Title</h1>
+                            <div class="categories">
+                                @foreach (var category in post.Categories)
+                                {
+                                    <a href="/posts/tag/@category.Url" class="badge bg-@category.Color bg-opacity-10 text-@category.Color mb-2 fw-bold">@category.Text</a>
+                                }
+                            </div>
+                            <img src="~/postspictures/@post.Image" class="img-fluid rounded w-100" alt="" style="max-height:19.5rem">
+                            <ul class="list-inline">
+                                <li class="list-inline-item"><i class="bi bi-calendar"></i>@post.PublishedDate.ToString()</li>
+                                <li class="list-inline-item"><i class="bi bi-person-circle"></i><a href="/profile/@Model.User.UserName">@Model.User.UserName</a></li>
+                            </ul>
+                            <div>@Html.Raw(post.Content)</div>
+                        </div>
+                        <div class="bg-white mt-3">
+                            <div class="card border-0">
+                                <div class="card-header" style="display: flex; justify-content: space-between;">
+                                    <div style="display: flex; align-items: center;">
+                                        <i class="fa-regular fa-message" style="margin-right: 0.75rem; font-size:1.5rem;"></i>
+                                        <h4><span id="commentCount"> @post.Comments.Count()</span> Yorum</h4>
+                                    </div>
+                                    <div style="display: flex; align-items: center;">
+
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            <a style="text-decoration:none"><i class="fa-regular fa-thumbs-up" style="margin-right: 0.75rem; font-size: 1.5rem;"></i></a>
+                                        }
+                                        else
+                                        {
+                                            <i class="fa-regular fa-thumbs-up" style="margin-right: 0.75rem; font-size: 1.5rem;"></i>
+
+                                        }
+                                        <h4><span id="likeCount"> @post.LikeCount</span> Beğeni</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>Henüz hiç şikayet postu bulunmamaktadır.</p>
+    }
+

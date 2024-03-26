@@ -87,18 +87,18 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "post_details",
-    pattern: "posts/details/{url}",
+    pattern: "posts/details/{categoryId}",
     defaults: new { controller = "Posts", action = "Details" }
 );
 app.MapControllerRoute(
-    name: "posts_by_tag",
-    pattern: "posts/tag/{tag}",
+    name: "posts_by_category",
+    pattern: "posts/category/{url}",
     defaults: new { controller = "Posts", action = "Index" }
 );
 app.MapControllerRoute(
     name: "user_profile",
     pattern: "profile/{username}",
-    defaults: new { controller = "User", action = "Profile" }
+    defaults: new { controller = "Member", action = "Index" }
 );
 
 
