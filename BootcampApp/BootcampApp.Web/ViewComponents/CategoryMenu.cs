@@ -4,7 +4,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BootcampApp.ViewComponents
 {
-    public class CategoryMenu : ViewComponent{
+    public class CategoryMenu : ViewComponent
+    {
         private ICategoryService _categoryService;
 
         public CategoryMenu(ICategoryService categoryService)
@@ -12,8 +13,9 @@ namespace BootcampApp.ViewComponents
             _categoryService = categoryService;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(){
-            return View( await _categoryService.GetAll().ToListAsync());
+        public async Task<IViewComponentResult> InvokeAsync()
+        {
+            return View(await _categoryService.GetAll().ToListAsync());
         }
     }
 }

@@ -4,7 +4,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BootcampApp.ViewComponents
 {
-    public class NewPosts : ViewComponent{
+    public class NewPosts : ViewComponent
+    {
         private IPostService _postService;
 
         public NewPosts(IPostService postService)
@@ -12,13 +13,14 @@ namespace BootcampApp.ViewComponents
             _postService = postService;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(){
+        public async Task<IViewComponentResult> InvokeAsync()
+        {
             return View(await _postService
                 .GetAll()
                 .OrderByDescending(p => p.PublishedDate)
                 .Take(5)
                 .ToListAsync());
-                        
+
         }
     }
 }

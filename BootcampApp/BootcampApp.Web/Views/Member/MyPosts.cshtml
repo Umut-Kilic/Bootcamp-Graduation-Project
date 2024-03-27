@@ -1,65 +1,117 @@
 ﻿@model PostsViewModel
 
-<div class="row">
-    <h2 class="text-center">Şikayetlerim</h2>
-    <div class="my-3 d-flex justify-content-center">
-        <a asp-controller="Posts" asp-action="Create" class="btn btn-primary"><i class="fas fa-plus-circle me-2"></i>Yeni şikayet ekle</a>
-    </div>
 
+<div class="container" style="min-height:550px;">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-center mb-4">Şikayetlerim</h2>
+            <div class="text-center mb-4">
+                <a asp-controller="Posts" asp-action="Create" class="btn btn-primary"><i class="fas fa-plus-circle me-2"></i>Yeni Şikayet Ekle</a>
+            </div>
 
-
-    @if (Model.Posts.Any())
-    {
-        <ul>
-            @foreach (var post in Model.Posts)
+            @if (Model.Posts.Any())
             {
-                <div class="row">
-                    <div class="col-lg-8 offset-lg-2">
-                        <div class="bg-white p-4">
-                            <h1 class="h4 mb-4">@post.Title</h1>
-                            <div class="categories">
+                @foreach (var post in Model.Posts)
+                {
+                    <div class="card mb-4" id="post_@post.PostId">
+                        <div class="card-body mb-0">
+                            <h3 class="card-title">@post.Title</h3>
+                            <div class="categories mb-3">
                                 @foreach (var category in post.Categories)
                                 {
-                                    <a href="/posts/tag/@category.Url" class="badge bg-@category.Color bg-opacity-10 text-@category.Color mb-2 fw-bold">@category.Text</a>
+                                    <a href="/posts/category/@category.Url" class="badge bg-@category.Color bg-opacity-10 text-@category.Color me-1">@category.Text</a>
                                 }
                             </div>
-                            <img src="~/postspictures/@post.Image" class="img-fluid rounded w-100" alt="" style="max-height:19.5rem">
-                            <ul class="list-inline">
-                                <li class="list-inline-item"><i class="bi bi-calendar"></i>@post.PublishedDate.ToString()</li>
-                                <li class="list-inline-item"><i class="bi bi-person-circle"></i><a href="/profile/@Model.User.UserName">@Model.User.UserName</a></li>
-                            </ul>
-                            <div>@Html.Raw(post.Content)</div>
-                        </div>
-                        <div class="bg-white mt-3">
-                            <div class="card border-0">
-                                <div class="card-header" style="display: flex; justify-content: space-between;">
-                                    <div style="display: flex; align-items: center;">
-                                        <i class="fa-regular fa-message" style="margin-right: 0.75rem; font-size:1.5rem;"></i>
-                                        <h4><span id="commentCount"> @post.Comments.Count()</span> Yorum</h4>
-                                    </div>
-                                    <div style="display: flex; align-items: center;">
-
-                                        @if (User.Identity.IsAuthenticated)
-                                        {
-                                            <a style="text-decoration:none"><i class="fa-regular fa-thumbs-up" style="margin-right: 0.75rem; font-size: 1.5rem;"></i></a>
-                                        }
-                                        else
-                                        {
-                                            <i class="fa-regular fa-thumbs-up" style="margin-right: 0.75rem; font-size: 1.5rem;"></i>
-
-                                        }
-                                        <h4><span id="likeCount"> @post.LikeCount</span> Beğeni</h4>
-                                    </div>
+                            <img src="~/postspictures/@post.Image" class="card-img-top mb-3" alt="@post.Title" style="max-height:15rem;">
+                            <p class="card-text">@Html.Raw(post.Content)</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="text-muted">
+                                    <i class="bi bi-calendar"></i> @post.PublishedDate.ToString("d")
+                                </div>
+                                <div>
+                                    <i class="fa-regular fa-message me-1"></i> <span class="me-3">@post.Comments.Count() Yorum</span>
+                                    <i class="fa-regular fa-thumbs-up me-1"></i> <span>@post.LikeCount Beğeni</span>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            }
-        </ul>
-    }
-    else
-    {
-        <p>Henüz hiç şikayet postu bulunmamaktadır.</p>
-    }
+                        <div class="card-footer text-center mt-0 border-0">
+                            <a asp-controller="Posts" asp-action="Edit" asp-route-id="@post.PostId" class="btn btn-primary me-4">
+                                <i class="fas fa-edit me-1"></i> Şikayeti Düzenle
+                            </a>
 
+                            <a data-post-id="@post.PostId" class="btn btn-danger deleteBtn">
+                                <i class="fa-regular fa-trash-can me-1"></i> Şikayeti Sil
+                            </a>
+                        </div>
+
+
+                    </div>
+                }
+            }
+            else
+            {
+                <p class="text-center">Henüz hiç şikayet postu bulunmamaktadır.</p>
+            }
+        </div>
+    </div>
+</div>
+
+
+<div class="modal  fade" id="confirmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog border-0">
+        <div class="modal-content">
+            <div class="modal-header ">
+                <h2 class="modal-title text-center w-100">
+                    <i class="fa-solid fa-triangle-exclamation text-warning"></i> Uyarı
+                </h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+
+            <div class="modal-body">
+                <h5 class="text-center">Emin misiniz?</h5> 
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button style="width:6rem" type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                <button style="width: 6rem" type="button" class="btn btn-danger btn-confirm ">Sil</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+        $(".deleteBtn").click(function () {
+
+            var postid = $(this).data("post-id");
+            var modal = $("#confirmModal");
+            var confirmButton = modal.find(".btn-confirm");
+
+            modal.modal("show");
+
+
+            confirmButton.click(function () {
+                $.ajax({
+                    url: "@Url.Action("Delete","Posts")",
+                    type: "POST",
+                    data: {
+                        postId: postid
+                    },
+                    dataType: "json",
+                    success: function (response) {
+
+                        $("#post_" + postid).remove();
+                        modal.modal("hide");
+                    },
+                    error: function (xhr, status, error) {
+                       
+                        modal.modal("hide"); 
+                    }
+                });
+            });
+        });
+    });
+</script>

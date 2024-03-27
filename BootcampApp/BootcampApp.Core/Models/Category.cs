@@ -2,7 +2,7 @@
 {
     public enum CategoryColor
     {
-        primary, danger, warning, success, secondary
+        primary, danger, warning, success, secondary, info
     }
     public class Category
     {

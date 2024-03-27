@@ -4,7 +4,6 @@ using BootcampApp.Core.Services;
 using BootcampApp.Core.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.EntityFrameworkCore;
 
 namespace BootcampApp.Web.Controllers
@@ -34,18 +33,18 @@ namespace BootcampApp.Web.Controllers
         public async Task<IActionResult> Index()
         {
             var posts = _postService.GetAll().OrderByDescending(p => p.PublishedDate)
-                .Include(p => p.Categories) 
-                .Include(p => p.User) ;
-        
-            var sliderPosts=_postService.GetAll().Include(p => p.Comments).OrderByDescending(p=>p.Comments.Count()).Include(p=>p.User).Take(5);
-       
+                .Include(p => p.Categories)
+                .Include(p => p.User);
+
+            var sliderPosts = _postService.GetAll().Include(p => p.Comments).OrderByDescending(p => p.Comments.Count()).Include(p => p.User).Take(5);
+
             var sliderPostss = new PostsViewModel
             {
 
-                Posts=await sliderPosts.ToListAsync(),
-               
+                Posts = await sliderPosts.ToListAsync(),
+
             };
-         
+
 
             return View(new IndexViewModel
             {
@@ -53,20 +52,21 @@ namespace BootcampApp.Web.Controllers
                 PostsViewModel = sliderPostss
             });
 
-           
+
         }
 
         public async Task<IActionResult> TopPosts()
         {
-           
-            var posts=await _postService
+
+            var posts = await _postService
                 .GetAll()
                 .OrderByDescending(p => p.LikeCount)
+                .Include(p => p.Comments)
                 .Include(p => p.Categories)
                .Include(p => p.User).Take(10).ToListAsync();
             return View(new PostsViewModel
             {
-                Posts=posts
+                Posts = posts
             });
         }
 
@@ -214,7 +214,7 @@ namespace BootcampApp.Web.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error(ErrorViewModel errorViewModel)
         {
-            var errors=errorViewModel.Errors.ToList();
+            var errors = errorViewModel.Errors.ToList();
             return View(errorViewModel);
         }
     }

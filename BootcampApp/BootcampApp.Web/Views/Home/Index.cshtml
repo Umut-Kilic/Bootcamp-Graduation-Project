@@ -9,56 +9,23 @@
 <div class="row justify-content-center">
     <div class="col-md-9">
 
-
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <button style="margin-bottom:16rem" class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                <i class="fa-solid fa-arrow-left" style="font-size: 1.5rem; color: black;"></i>
+            </button>
+            <h3 class="text-center flex-grow-1 mt-4">Popüler Şikayetler</h3>
+            <button style="margin-bottom:16rem" class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                <i class="fa-solid fa-arrow-right" style="font-size: 1.5rem; color: black;"></i>
+            </button>
             <div class="carousel-inner">
-                <div class="d-flex align-items-start">
-                    <button style="margin-bottom:11.65rem" class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                        <i class="fa-solid fa-arrow-left" style="font-size: 1.5rem; color: blue;"></i>
-                    </button>
-
-                    <h3 class="text-center flex-grow-1">Popüler Şikayetler</h3>
-
-                    <button style="margin-bottom:11.65rem" class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                        <i class="fa-solid fa-arrow-right-long" style="font-size: 1.5rem; color: blue;"></i>
-                    </button>
-                </div>
-                <div class="carousel-item active">
-                    <div style=" border-radius: 30px;" class="card border-1 bg-transparent ">
-                        <div class="card-header border-0 bg-transparent">
-                            <div class="row align-items-center">
-                                <div class="col-auto">
-                                    <img src="~/userpictures/@(Model.PostsViewModel.Posts[0].User.Picture)" class="d-block" style="width:3rem; max-height: 3rem;" alt="...">
-                                </div>
-                                <div class="col text-start">
-                                    <h5 class="mb-0">@(Model.PostsViewModel.Posts[0].User.UserName)</h5>
-                                    <p class="text-muted mb-0">@(Model.PostsViewModel.Posts[0].PublishedDate.ToString("d"))</p>
-                                </div>
-                                <div class="col text-end">
-                                    <p class="mb-0">@(Model.PostsViewModel.Posts[0].Comments.Count())  Yorum</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body text-center border-0 bg-transparent">
-                            <h5 class="text-start">@(Model.PostsViewModel.Posts[0].Content)</h5>
-                        </div>
-                        <div class="card-footer text-center border-0 bg-transparent">
-                            <a href="posts/details/@(Model.PostsViewModel.Posts[0].Url)" class="btn btn-outline-success">
-                                <i class="fa-solid fa-arrow-right-long"></i>Detaylar
-                            </a>
-                        </div>
-
-
-                    </div>
-                </div>
-                @for (int i = 1 ; i < Model.PostsViewModel!.Posts.Count(); i++)
+                @for (int i = 0; i < Model.PostsViewModel!.Posts.Count(); i++)
                 {
-                    <div class="carousel-item">
-                        <div style=" border-radius: 30px;" class="card border-1 bg-transparent ">
-                            <div class="card-header border-0 bg-transparent">
+                    <div class="carousel-item @(i == 0 ? "active" : "")">
+                        <div style="border-radius: 30px;" class="card border-1 bg-transparent p-3">
+                            <div class="card-header border-0 bg-transparent ">
                                 <div class="row align-items-center">
                                     <div class="col-auto">
-                                        <img src="~/userpictures/@(Model.PostsViewModel.Posts[i].User.Picture)" class="d-block" style="width:3rem; max-height: 3rem;" alt="...">
+                                        <img src="/userpictures/@(Model.PostsViewModel.Posts[i].User.Picture)" class="avatar rounded-circle float-start me-3" style="width: 4rem; object-fit: contain; height: 3rem;">
                                     </div>
                                     <div class="col text-start">
                                         <h5 class="mb-0">@(Model.PostsViewModel.Posts[i].User.UserName)</h5>
@@ -69,43 +36,59 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-body text-center border-0 bg-transparent">
-                                <h5 class="text-start">@(Model.PostsViewModel.Posts[i].Content)</h5>
-                            </div>
+                            @if (Model.PostsViewModel.Posts[i].Content.Length > 140)
+                            {
+                                <h5 class="text-start mt-4">@Html.Raw(Model.PostsViewModel.Posts[i].Content.Substring(0, 140) + " ...")</h5>
+                            }
+                            else
+                            {
+                                <h5 class="text-start mt-4">@Html.Raw(Model.PostsViewModel.Posts[i].Content)</h5>
+                            }
                             <div class="card-footer text-center border-0 bg-transparent">
-                                <a href="posts/details/@(Model.PostsViewModel.Posts[i].Url)" class="btn btn-outline-success">
+                                <a href="posts/details/@(Model.PostsViewModel.Posts[i].PostId)" class="btn btn-outline-success">
                                     <i class="fa-solid fa-arrow-right-long"></i>Detaylar
                                 </a>
                             </div>
-
-
                         </div>
-
                     </div>
                 }
             </div>
-
-
         </div>
     </div>
-
 </div>
+
+
+
 
 <div class="row">
     <div class="col-lg-9">
-        <div class="bg-white p-4">
-            <h1 class="h4 mb-4">Güncel Şikayetler</h1>
+        <div class="bg-white px-4 pb-4 pt-5">
+            <h1 class="h4 mb-4">Yeni Şikayetler</h1>
             <hr class="my-3">
             @foreach (var post in Model.Posts!)
             {
                 <div class="card bg-transparent border-0 mb-3">
                     <div class="row">
                         <div class="col-8">
-                            <h5><a asp-controller="Posts" asp-action="Details" asp-route-Url="@post.Url" class="fw-bold">@post.Title</a></h5>
-                            <p>@Html.Raw(@post.Content)</p>
+                            <h5><a asp-controller="Posts" asp-action="Details" asp-route-postId="@post.PostId" class="fw-bold">@post.Title</a></h5>
+
+                            @if (Model.PostsViewModel.Posts[0].Content.Length > 180)
+                            {
+                                <h5 class="text-start mt-4">
+                                    @Html.Raw(post.Content!.Substring(0, 180) + "   ...")
+                                </h5>
+                            }
+                            else
+                            {
+                                <h5 class="text-start mt-4">
+                                    <p>@Html.Raw(@post.Content)</p>
+                                </h5>
+                            }
+
+
                             @foreach (var category in post.Categories)
                             {
-                                <a href="/post/details/@category.Url" class="badge bg-@category.Color bg-opacity-10 text-@category.Color mb-2 fw-bold">@category.Text</a>                           
+                                <a href="/posts/category/@category.CategoryId" class="badge bg-@category.Color bg-opacity-10 text-@category.Color mb-2 fw-bold">@category.Text</a>
                             }
                         </div>
                         <div class="col-4">
@@ -119,7 +102,7 @@
 
 
     </div>
-    <div class="col-lg-3 p-4">
+    <div class="col-lg-3 px-4 pb-4 pt-5">
         <vc:category-menu></vc:category-menu>
         <vc:new-posts></vc:new-posts>
     </div>

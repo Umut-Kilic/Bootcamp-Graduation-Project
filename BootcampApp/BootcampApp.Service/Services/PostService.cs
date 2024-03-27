@@ -3,7 +3,6 @@ using BootcampApp.Core.IUnitOfWorks;
 using BootcampApp.Core.Models;
 using BootcampApp.Core.Repositories;
 using BootcampApp.Core.Services;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace BootcampApp.Service.Services
 {
@@ -20,22 +19,19 @@ namespace BootcampApp.Service.Services
 
         public async Task EditPostAsync(Post post, int[] categoryIds)
         {
-            var entity=await _postRepository.GetByIdAsync(post.PostId);
+            var entity = await _postRepository.GetByIdAsync(post.PostId);
             if (entity != null)
             {
-               
+
                 if (!categoryIds.Any())
                 {
-                    await _postRepository.EditPostAsync(entity);
+                    await _postRepository.EditPostAsync(post);
                 }
                 else
                 {
-                    await _postRepository.EditPostAsync(entity, categoryIds);
+                    await _postRepository.EditPostAsync(post, categoryIds);
                 }
             }
-           
-            
-   
         }
     }
 }

@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-lg-8">
             <div class="bg-white p-4">
-                <h1 class="h4 mb-4">Popüler Postlar</h1>
+                <h1 class="h2 mb-4">Postlar</h1>
                 <hr class="my-3">
                 @if (Model.Posts.Count > 0)
                 {
@@ -13,11 +13,11 @@
                                 <div class="col-8">
                                     @foreach (var category in post.Categories)
                                     {
-                                        <a href="/posts/tag/@category.Url" class="badge bg-@category.Color bg-opacity-10 text-@category.Color mb-2 fw-bold">@category.Text</a>
+                                        <a href="/posts/category/@category.CategoryId" class="badge bg-@category.Color bg-opacity-10 text-@category.Color mb-2 fw-bold">@category.Text</a>
                                     }
-                                    <h5><a href="/posts/details/@post.Url" class="fw-bold">@post.Title</a></h5>
+                                    <h5><a href="/posts/details/@post.PostId" class="fw-bold">@post.Title</a></h5>
                                     <p>@Html.Raw(post.Content)</p>
-                                    <a href="#" class="badge bg-warning bg-opacity-8 text-danger mb-2 fw-bold tags">Web Geliştirme</a>
+                                   
                                 </div>
                                 <div class="col-4">
                                     <img src="~/postspictures/@post.Image" class="img-fluid rounded" alt="">
@@ -30,7 +30,7 @@
                  else
                  {
                     <div class="row">
-                        <p>Bu kategoriye ait şikayet henüz bulunamamıştır</p>
+                        <h4>Bu kategoriye ait şikayet henüz bulunamamıştır</h4>
                     </div>
                  }
 

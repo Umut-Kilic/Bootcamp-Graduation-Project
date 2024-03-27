@@ -169,3 +169,9 @@ footer .list-inline-item a:hover {
 #thumbsUpIcon.clicked {
     color: blue !important; 
 }
+.user-link:hover .user-name {
+    color: black; 
+    font-weight:bold;
+    font-size:1.5rem;
+
+}

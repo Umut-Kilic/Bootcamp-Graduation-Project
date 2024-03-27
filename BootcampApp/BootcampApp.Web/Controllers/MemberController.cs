@@ -12,7 +12,7 @@ using System.Security.Claims;
 
 namespace BootcampApp.Web.Controllers
 {
-  
+
     public class MemberController : Controller
     {
         private readonly SignInManager<User> _signInManager;
@@ -42,11 +42,11 @@ namespace BootcampApp.Web.Controllers
             }
             if (currentUser == null)
             {
-       
+
                 return NotFound();
             }
 
-            var posts=await _postService.GetAll().Where(p=>p.User==currentUser).ToListAsync();
+            var posts = await _postService.GetAll().Where(p => p.User == currentUser).ToListAsync();
             var postViewModel = new PostsViewModel
             {
                 Posts = posts
@@ -55,9 +55,10 @@ namespace BootcampApp.Web.Controllers
             {
                 Email = currentUser.Email,
                 UserName = currentUser.UserName,
+                Gender=currentUser.Gender,
                 PhoneNumber = currentUser.PhoneNumber,
                 PictureUrl = currentUser.Picture,
-                PostsViewModel=postViewModel
+                PostsViewModel = postViewModel
             });
         }
 
@@ -218,19 +219,19 @@ namespace BootcampApp.Web.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var username = User.FindFirstValue(ClaimTypes.Name);
             var user = await _userManager.FindByIdAsync(userId);
-           
+
             if (user == null)
             {
-                return NotFound();  
+                return NotFound();
             }
-            
-            var myPosts=_postService.GetAll().Where(p=>p.UserId == user.Id).ToList();
-           
+
+            var myPosts = _postService.GetAll().Where(p => p.UserId == user.Id).ToList();
+
             return View(new PostsViewModel()
             {
-                Posts=myPosts,
-                User=user
-                
+                Posts = myPosts,
+                User = user
+
             });
         }
     }

@@ -1,5 +1,4 @@
-﻿using Azure;
-using BootcampApp.Core.Models;
+﻿using BootcampApp.Core.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,7 +29,7 @@ namespace BootcampApp.Repository.Seeds
                 if (!context!.Categories.Any())
                 {
                     context.Categories.AddRange(
-                        new Category() { Text = "Elekronik",Url = "elektronik", Color = CategoryColor.primary },
+                        new Category() { Text = "Elekronik", Url = "elektronik", Color = CategoryColor.primary },
                         new Category { Text = "Gıda", Url = "gida", Color = CategoryColor.success },
                         new Category { Text = "Kitap", Url = "kitap", Color = CategoryColor.danger },
                         new Category { Text = "Yazılım", Url = "yazilim", Color = CategoryColor.secondary },
@@ -65,7 +64,6 @@ namespace BootcampApp.Repository.Seeds
                             Title = "Elektronik Şarj cıhazı",
                             Content = "Xiaomı şarj cihazı çalışmıyor",
                             Image = "xiaomisarj.jpg",
-                            Url = "elektronik-sarj-cihazi",
                             IsActive = true,
                             PublishedDate = DateTime.Now.AddDays(-5),
                             UserId = context.Users.First().Id,
@@ -82,7 +80,6 @@ namespace BootcampApp.Repository.Seeds
                             Title = "Unity İle geliştirmek ne kadar zor",
                             Content = "Unity ile oyun yapımaya çalışıyrum durmadan hata alıyorum",
                             Image = "unity.png",
-                            Url = "unity-gelistirme",
                             IsActive = true,
                             PublishedDate = DateTime.Now.AddDays(-7),
                             LikeCount = 2,
@@ -94,7 +91,6 @@ namespace BootcampApp.Repository.Seeds
                             Title = "Yazılım ile Müzik",
                             Content = "Yazılım ile müzik geliştirmeyi nasıl yapıyorsunuz başım ağrıyor kod yazarken",
                             Image = "yazilimMuzik.jpg",
-                            Url = "yazilim-muzik",
                             LikeCount = 1,
                             IsActive = true,
                             PublishedDate = DateTime.Now.AddDays(-10),

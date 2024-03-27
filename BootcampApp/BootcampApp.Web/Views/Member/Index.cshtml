@@ -12,11 +12,11 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="offset-md-1 offset-1 col-md-4 col-11">
-                            <user-picture-thumbnail class="avatar rounded-circle w-75" picture-url="@Model.PictureUrl"></user-picture-thumbnail>
+                            <user-picture-thumbnail class="avatar rounded-circle w-75" style="height:12rem;" picture-url="@Model.PictureUrl"></user-picture-thumbnail>
                         </div>
                         <div class="col-md-5">
                             <div class="d-flex align-items-center justify-content-center h-100">
-                                <!-- Yeni stil: h-100 -->
+                       
                                 <table class="table">
                                     <tbody>
                                         <tr>
@@ -24,8 +24,16 @@
                                             <td>@Model.UserName</td>
                                         </tr>
                                         <tr>
-                                            <th>Email:</th>
-                                            <td>@Model.Email</td>
+                                            <th>Cinsiyet:</th>
+                                            @if (Model.Gender != null)
+                                            {
+                                                <td>@Model.Gender</td>
+                                            }
+                                            else
+                                            {
+                                                <td>Cinsiyeti belirtilmemiş</td>
+                                            }
+
                                         </tr>
                                     </tbody>
                                 </table>
@@ -38,18 +46,18 @@
 
 
             </div>
-            <div class="row mt-4">
+            <div class="row mt-5">
                 <h3 class="text-center">Şikayetleri</h3>
                 @if (Model.PostsViewModel!=null && Model.PostsViewModel.Posts.Count() > 0)
                 {
 
                     @foreach (var post in Model.PostsViewModel!.Posts)
                     {
-                        <div class="card bg-transparent border-0 mb-3">
+                        <div class="card bg-transparent border-0 mb-3 mt-4">
                             <div class="row">
                                 <div class="col-8">
-                                    <h5><a asp-controller="Posts" asp-action="Details" asp-route-Url="@post.Url" class="fw-bold">@post.Title</a></h5>
-                                    <p>@post.Content</p>
+                                    <h5><a asp-controller="Posts" asp-action="Details" asp-route-postId="@post.PostId" class="fw-bold">@post.Title</a></h5>
+                                    <p>@Html.Raw(post.Content)</p>
                                     @foreach (var category in post.Categories)
                                     {
                                         <a href="/posts/category/@category.Url" class="badge bg-@category.Color bg-opacity-10 text-@category.Color mb-2 fw-bold">@category.Text</a>
@@ -57,7 +65,7 @@
                                     }
                                 </div>
                                 <div class="col-4">
-                                    <img src="~/postspictures/@post.Image" class="img-fluid rounded" alt="">
+                                    <img src="~/postspictures/@post.Image" style="height:15rem;" class="img-fluid rounded w-100" alt="">
                                 </div>
                             </div>
                         </div>

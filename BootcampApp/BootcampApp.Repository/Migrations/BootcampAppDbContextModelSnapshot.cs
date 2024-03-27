@@ -42,7 +42,7 @@ namespace BootcampApp.Repository.Migrations
 
                     b.HasKey("CategoryId");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("BootcampApp.Core.Models.Comment", b =>
@@ -74,7 +74,7 @@ namespace BootcampApp.Repository.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comments", (string)null);
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("BootcampApp.Core.Models.Post", b =>
@@ -103,10 +103,6 @@ namespace BootcampApp.Repository.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
@@ -114,7 +110,7 @@ namespace BootcampApp.Repository.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Posts", (string)null);
+                    b.ToTable("Posts");
                 });
 
             modelBuilder.Entity("BootcampApp.Core.Models.Role", b =>
@@ -133,7 +129,7 @@ namespace BootcampApp.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles", (string)null);
+                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("BootcampApp.Core.Models.User", b =>
@@ -194,7 +190,7 @@ namespace BootcampApp.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("CategoryPost", b =>
@@ -209,7 +205,7 @@ namespace BootcampApp.Repository.Migrations
 
                     b.HasIndex("PostsPostId");
 
-                    b.ToTable("CategoryPost", (string)null);
+                    b.ToTable("CategoryPost");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -231,7 +227,7 @@ namespace BootcampApp.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RoleClaims", (string)null);
+                    b.ToTable("RoleClaims");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -253,7 +249,7 @@ namespace BootcampApp.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserClaims", (string)null);
+                    b.ToTable("UserClaims");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -274,7 +270,7 @@ namespace BootcampApp.Repository.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("UserLogins", (string)null);
+                    b.ToTable("UserLogins");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -287,7 +283,7 @@ namespace BootcampApp.Repository.Migrations
 
                     b.HasKey("RoleId");
 
-                    b.ToTable("UserRoles", (string)null);
+                    b.ToTable("UserRoles");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -308,7 +304,7 @@ namespace BootcampApp.Repository.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("UserTokens", (string)null);
+                    b.ToTable("UserTokens");
                 });
 
             modelBuilder.Entity("BootcampApp.Core.Models.Comment", b =>

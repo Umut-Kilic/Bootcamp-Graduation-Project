@@ -1,22 +1,35 @@
 @model Post
 <div class="row">
     <div class="col-lg-8">
-        <div class="bg-white p-4">
-            <h1 class="h3 mb-4">@Model.Title</h1>
+        <div class="bg-white ps-3 pe-4 ">
+            <h1 class="h2 mb-4">@Model.Title</h1>
             <div class="categories">
                 @foreach (var category in Model.Categories)
                 {
-                    <a href="/posts/category/@category.Url" class="badge bg-@category.Color bg-opacity-10 text-@category.Color mb-2 fw-bold">@category.Text</a>
+                    <a href="/posts/category/@category.CategoryId" class="badge bg-@category.Color bg-opacity-10 text-@category.Color mb-2 fw-bold">@category.Text</a>
                 }
             </div>
-            <img src="~/postspictures/@Model.Image" style="max-height:10rem;" class="img-fluid rounded w-100" alt="">
-            <ul class="list-inline">
-                <li class="list-inline-item"><i class="bi bi-calendar"></i>@Model.PublishedDate.ToString("d")</li>
-                <li class="list-inline-item"><i class="bi bi-person-circle"></i><a href="/profile/@Model.User.UserName">@Model.User.UserName</a></li>
-            </ul>
-            <div>@Html.Raw(@Model.Content)</div>
+            <img src="~/postspictures/@Model.Image" style="height:20rem;" class="img-fluid rounded w-100" alt="">
+
+
+
+
+            <div class="row mb-4 mt-3">
+                <div class="d-flex align-items-center">
+                    <user-picture-thumbnail class="avatar rounded-circle me-2" style="width:55px; height:5rem;" picture-url="@Model.User.Picture"></user-picture-thumbnail>
+                    <a href="/profile/@Model.User.UserName" class="user-link text-decoration-none text-black" style=" font-size: 1.25rem;">
+                        <span class="user-name">@Model.User.UserName</span>
+                    </a>
+                </div>
+            </div>
+
+
+            <div class="mb-4">@Html.Raw(@Model.Content)</div>
+            <p style="font-size:1.15rem;">
+                <i class="fas fa-calendar-alt"></i><span class="ms-1">@Model.PublishedDate.ToString()</span>
+            </p>
         </div>
-        <div class="bg-white mt-3">
+        <div class="bg-white mt-0">
             <div class="card border-0">
                 <div class="card-header" style="display: flex; justify-content: space-between;">
                     <div style="display: flex; align-items: center;">
@@ -41,11 +54,16 @@
                         @foreach (var comment in Model.Comments)
                         {
                             <div class="my-4 d-flex">
-                                <user-picture-thumbnail class="avatar rounded-circle float-start me-3" style="width:50px;" picture-url="@comment.User.Picture"></user-picture-thumbnail>
+                                <user-picture-thumbnail class="avatar rounded-circle float-start me-3" style="width: 55px; height: 5rem;" picture-url="@comment.User.Picture"></user-picture-thumbnail>
 
                                 <div>
                                     <div class="mb-2 d-flex">
-                                        <h6 class="me-2"><a href="/profile/@comment.User.UserName">@comment.User.UserName</a></h6>
+                                        <h6 class="me-2">
+                                            <a href="/profile/@comment.User.UserName" class="user-link text-decoration-none text-black" style=" font-size: 1.25rem;">
+                                                <span class="user-name">@comment.User.UserName</span>
+                                            </a>
+                                          
+                                        </h6>
                                         <span>@comment.PublishedDate.ToString("d")</span>
                                     </div>
                                     <p>@comment.Text</p>
@@ -110,7 +128,7 @@
                 likeCount--;
                 unlikePost(postId, likeCount);
             }
-         
+
             isClicked = !isClicked;
         });
 
@@ -163,7 +181,11 @@
                     <img style="width:50px;" src="/userpictures/${yorum.avatar}" class="avatar rounded-circle float-start me-3" alt="">
                     <div>
                     <div class="mb-2 d-flex">
-                    <h6 class="me-2"><a href="/profile/${yorum.username}">${yorum.username}</a></h6>
+                    <h6 class="me-2">
+                    <a href="/profile/${yorum.username}" class="user-link text-decoration-none text-black" style=" font-size: 1.25rem; height: 5rem;">
+                        <span class="user-name">${yorum.username}</span>
+                    </a>
+                    </h6>
                     <span>${date.toLocaleDateString()}</span>
                     </div>
                     <p>${yorum.text}</p>

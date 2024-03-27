@@ -125,29 +125,7 @@ namespace BootcampApp.Web.Areas.Admin.Controllers
         }
         public async Task<IActionResult> AssignRoleToUser(string id)
         {
-            /*var currentUser = (await _userManager.FindByIdAsync(id))!;
-            ViewBag.userId = id;
-            var roles = await _roleManager.Roles.ToListAsync();
-            var userRoles = await _userManager.GetRolesAsync(currentUser);
-            var roleViewModelList = new List<AssignRoleToUserViewModel>();
-
-            foreach (var role in roles)
-            {
-
-                var assignRoleToUserViewModel = new AssignRoleToUserViewModel() { Id = role.Id, Name = role.Name! };
-
-
-                if (userRoles.Contains(role.Name!))
-                {
-                    assignRoleToUserViewModel.Exist = true;
-                }
-
-                roleViewModelList.Add(assignRoleToUserViewModel);
-
-
-            }
-
-            return View(roleViewModelList);*/
+          
             ViewBag.userId = id;
             if (id == null)            {                return RedirectToAction("Index");            }            var user = await _userManager.FindByIdAsync(id);            if (user != null)            {                ViewBag.Roles = await _roleManager.Roles.Select(i => i.Name).ToListAsync();                return View(new AssignRoleToUserViewModel
                 {                    Id = user.Id,                    Name = user.UserName,                    SelectedRoles = await _userManager.GetRolesAsync(user)                });            }
@@ -159,26 +137,30 @@ namespace BootcampApp.Web.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> AssignRoleToUser(string userId, AssignRoleToUserViewModel request)
         {
+            if (userId == null)
+            {
+                return RedirectToAction("Index");
+            }
 
-             var userToAssignRoles = (await _userManager.FindByIdAsync(userId))!;
+            var userToAssignRoles = await _userManager.FindByIdAsync(userId);
 
-             if (userToAssignRoles != null)
-             {
-                    
-                    await _userManager.RemoveFromRolesAsync(userToAssignRoles, await _userManager.GetRolesAsync(userToAssignRoles));
-                    if (request.SelectedRoles != null)
+            if (userToAssignRoles != null)
+            {
+                var userRoles = await _userManager.GetRolesAsync(userToAssignRoles);
+                await _userManager.RemoveFromRolesAsync(userToAssignRoles, userRoles.ToArray());
+
+                if (request.SelectedRoles != null && request.SelectedRoles.Any())
+                {
+                    foreach (var role in request.SelectedRoles)
                     {
-                        await _userManager.AddToRolesAsync(userToAssignRoles, request.SelectedRoles);
+                        await _userManager.AddToRoleAsync(userToAssignRoles, role);
+
                     }
-                   
-                 
-             }
+                }
+            }
 
-             return RedirectToAction(nameof(HomeController.UserList), "Home");
-
-
-           /* if (userId != request.Id)            {                return RedirectToAction("Index");            }            if (ModelState.IsValid)            {                var user = await _userManager.FindByIdAsync(model.Id);                if (user != null)                {                    user.Email = model.Email;                    user.FullName = model.FullName;                    var result = await _userManager.UpdateAsync(user);                    if (result.Succeeded && !string.IsNullOrEmpty(model.Password))                    {                        await _userManager.RemovePasswordAsync(user);                        await _userManager.AddPasswordAsync(user, model.Password);                    }
-                    if (result.Succeeded)                    {                        await _userManager.RemoveFromRolesAsync(user, await _userManager.GetRolesAsync(user));                        if (model.SelectedRoles != null)                        {                            await _userManager.AddToRolesAsync(user, model.SelectedRoles);                        }                        return RedirectToAction("Index");                    }                    foreach (IdentityError err in result.Errors)                    {                        ModelState.AddModelError("", err.Description);                    }                }            }            return View(model);*/
+            return RedirectToAction(nameof(HomeController.UserList), "Home");
         }
+
     }
 }

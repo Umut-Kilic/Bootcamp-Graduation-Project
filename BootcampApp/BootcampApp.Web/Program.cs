@@ -66,7 +66,7 @@ builder.Services.AddIdentityWithExt();
 
 var app = builder.Build();
 
-SeedData.Initialize(app);
+//SeedData.Initialize(app);
 
 app.UseExceptionHandler("/Home/Error");
 // Configure the HTTP request pipeline.
@@ -87,12 +87,12 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "post_details",
-    pattern: "posts/details/{categoryId}",
+    pattern: "posts/details/{postId}",
     defaults: new { controller = "Posts", action = "Details" }
 );
 app.MapControllerRoute(
     name: "posts_by_category",
-    pattern: "posts/category/{url}",
+    pattern: "posts/category/{categoryId}",
     defaults: new { controller = "Posts", action = "Index" }
 );
 app.MapControllerRoute(

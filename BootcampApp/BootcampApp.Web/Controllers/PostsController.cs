@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Azure.Core;
 using BootcampApp.Core.Models;
 using BootcampApp.Core.Services;
 using BootcampApp.Core.ViewModels;
+using BootcampApp.ViewComponents;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -33,35 +33,37 @@ namespace BootcampApp.Web.Controllers
             _fileProvider = fileProvider;
         }
 
-        public async Task<IActionResult> Index(string? url)
-        {
-            List<Post> posts;
-            if(string.IsNullOrEmpty(url))
-            {
-                posts = await _postService.GetAll().ToListAsync();
+        public async Task<IActionResult> Index(int? categoryId)
+        {        
 
-            }
-            else
+            IQueryable<Post> postsQuery = _postService.GetAll().Include(p => p.Categories);
+
+            if (categoryId != null)
             {
-                posts=await _postService.GetAll().Where(x=>x.Url.ToLower().Contains(url.ToLower())).ToListAsync();
+                postsQuery = postsQuery.Where(p => p.Categories.Any(c => c.CategoryId == categoryId)).Include(p=>p.Categories);
             }
+
+            List<Post> posts = await postsQuery.ToListAsync();
+
             return View(new PostsViewModel
             {
-                Posts= posts
+                Posts = posts
             });
         }
 
-        public async Task<IActionResult> Details(string url)
+        public async Task<IActionResult> Details(int postId)
         {
             var post = await _postService
-                              .GetAll()
-                              .Include(x => x.User)
-                              .Include(x => x.Categories)
-                              .Include(x => x.Comments)
-                              .ThenInclude(x => x.User)
-                              .FirstOrDefaultAsync(p => p.Url == url);
+                            .GetAll()
+                            .Include(x => x.User)
+                            .Include(x => x.Categories)
+                            .Include(x => x.Comments)
+                            .ThenInclude(x => x.User)
+                            .FirstOrDefaultAsync(p => p.PostId == postId);
+
             return View(post);
         }
+
 
         [HttpPost]
         public async Task<JsonResult> AddComment(int PostId, string Text)
@@ -69,7 +71,7 @@ namespace BootcampApp.Web.Controllers
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var username = User.FindFirstValue(ClaimTypes.Name);
-            var user=await _userManager.FindByIdAsync(userId);
+            var user = await _userManager.FindByIdAsync(userId);
             var avatar = user!.Picture;
             var entity = new Comment
             {
@@ -78,16 +80,16 @@ namespace BootcampApp.Web.Controllers
                 PublishedDate = DateTime.Now,
                 UserId = userId,
                 LikeCount = 0
-                
+
             };
-            await  _commentService.AddAsync(entity);
+            await _commentService.AddAsync(entity);
             return Json(new
             {
                 username,
                 Text,
                 entity.PublishedDate,
                 avatar,
-                likeCount=entity.LikeCount
+                likeCount = entity.LikeCount
             });
         }
 
@@ -103,7 +105,7 @@ namespace BootcampApp.Web.Controllers
             post.LikeCount = Count;
             await _postService.UpdateAsync(post);
 
-            return Json(new { success = true,Like=post.LikeCount });
+            return Json(new { success = true, Like = post.LikeCount });
         }
 
         [Authorize]
@@ -115,7 +117,7 @@ namespace BootcampApp.Web.Controllers
             {
                 return Json(new { success = false });
             }
-            post.LikeCount =Count;
+            post.LikeCount = Count;
             await _postService.UpdateAsync(post);
 
             return Json(new { success = true, Like = post.LikeCount });
@@ -123,9 +125,12 @@ namespace BootcampApp.Web.Controllers
 
         [Authorize]
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            return View(new PostCreateViewModel
+            {
+                Categories=await _categoryService.GetAll().ToListAsync(), 
+            });
         }
 
         [HttpPost]
@@ -136,7 +141,7 @@ namespace BootcampApp.Web.Controllers
             if (ModelState.IsValid)
             {
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                var currentUser=await _userManager.FindByIdAsync(userId);
+                var currentUser = await _userManager.FindByIdAsync(userId);
 
                 if (request.Picture != null && request.Picture.Length > 0)
                 {
@@ -149,25 +154,31 @@ namespace BootcampApp.Web.Controllers
                     using var stream = new FileStream(newPicturePath, FileMode.Create);
 
                     await request.Picture.CopyToAsync(stream);
-                    
-                    
-                    await _postService.AddAsync(new Post
-                        {
-                            Title = request.Title,
-                            Content = request.Content,
-                            Url = request.Url,                      
-                            UserId = userId,
-                            PublishedDate = DateTime.Now,
-                            Image = randomFileName,
-                            IsActive = true
-                        });
+
+
+                    var newPost = new Post
+                    {
+                        Title = request.Title,
+                        Content = request.Content,
+                        UserId = userId,
+                        PublishedDate = DateTime.Now,
+                        Image = randomFileName,
+                        IsActive = true
+                    };
+
+                    foreach (var categoryId in request.SelectedCategories)
+                    {
+                        var category= await _categoryService.GetByIdAsync(categoryId);  
+                        newPost.Categories.Add(category);
+                    }
+
+                    await _postService.AddAsync(newPost);
                     return RedirectToAction("MyPosts", "Member");
                 }
                 await _postService.AddAsync(new Post
                 {
                     Title = request.Title,
                     Content = request.Content,
-                    Url = request.Url,
                     UserId = userId,
                     PublishedDate = DateTime.Now,
                     IsActive = true
@@ -180,21 +191,6 @@ namespace BootcampApp.Web.Controllers
             return View(request);
         }
 
-        [Authorize]
-        public async Task<IActionResult> List()
-        {
-
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "";
-            var role = User.FindFirstValue(ClaimTypes.Role);
-
-            var posts = _postService.GetAll();
-
-            if (string.IsNullOrEmpty(role))
-            {
-                posts = posts.Where(i => i.UserId == userId);
-            }
-            return View(await posts.ToListAsync());
-        }
 
         [Authorize]
         public async Task<IActionResult> Edit(int? id)
@@ -209,14 +205,14 @@ namespace BootcampApp.Web.Controllers
                 return NotFound();
             }
 
-             ViewBag.Categories =await _categoryService.GetAll().ToListAsync();
+
+            ViewBag.Categories = await _categoryService.GetAll().ToListAsync();
 
             return View(new PostCreateViewModel
             {
                 PostId = post.PostId,
                 Title = post.Title,
                 Content = post.Content,
-                Url = post.Url,
                 IsActive = post.IsActive,
                 Categories = post.Categories
             });
@@ -233,7 +229,6 @@ namespace BootcampApp.Web.Controllers
                     PostId = model.PostId,
                     Title = model.Title,
                     Content = model.Content,
-                    Url = model.Url
                 };
 
                 if (User.HasClaim(x => x.Type == ClaimTypes.Role && x.Value == "admin"))
@@ -242,12 +237,29 @@ namespace BootcampApp.Web.Controllers
                 }
 
                 await _postService.EditPostAsync(entityToUpdate, categoryIds);
-                return RedirectToAction("List");
+                return RedirectToAction("MyPosts", "Member");
             }
             ViewBag.Categories = await _categoryService.GetAll().ToListAsync();
             return View(model);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Delete(int? postId)
+        {
+            if (postId == null)
+            {
+                return Json(new { Success=false, Error=new string("Böyle bir idye sahip post bulunamadı")});
+            }
+            var post=await _postService.GetByIdAsync(postId);
+
+            if (post == null)
+            {
+                return Json(new { Success = false, Error = new string("Böyle bir post bulunamadı") });
+            }
+            await _postService.RemoveAsync(post);
+
+            return Json(new { Success = true });
+        }
 
 
     }
