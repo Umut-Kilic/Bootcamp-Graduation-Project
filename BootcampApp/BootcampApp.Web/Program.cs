@@ -21,8 +21,6 @@ builder.Services.AddDbContext<BootcampAppDbContext>(x =>
     x.UseSqlServer(builder.Configuration.GetConnectionString("SqlCon"));
 });
 
-//Security eklememýn sebebi kullanýcý kritik bilgilerde güncelleme yyaptýgýnda 30 dkda bir bakarak kullanýcýn login sayfasýna yonlendýrýlmesý diðer türlü
-//kullanýcý baþka cýhazdan býlgýlerýný guncellese bile cookie omru kadar eski býlgýlerý gorurdurk.
 builder.Services.Configure<SecurityStampValidatorOptions>(options =>
 {
     options.ValidationInterval = TimeSpan.FromMinutes(30);
@@ -52,7 +50,6 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.AccessDeniedPath = new PathString("/Member/AccessDenied");
     options.ExpireTimeSpan = TimeSpan.FromDays(15);
 
-    //Kullanýcý her giriþ yaptugunda ömrunu otamatýk yenýler
     options.SlidingExpiration = true;
 
 
@@ -65,7 +62,6 @@ builder.Services.AddIdentityWithExt();
 
 var app = builder.Build();
 
-//SeedData.Initialize(app);
 
 app.UseExceptionHandler("/Home/Error");
 // Configure the HTTP request pipeline.
@@ -101,18 +97,14 @@ app.MapControllerRoute(
 );
 
 
-
-
 app.MapControllerRoute(
     name: "areas",
    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
 
-
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
 
 
 app.Run();
