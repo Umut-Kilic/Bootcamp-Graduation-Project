@@ -3,8 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{22C71F0B-E63B-4D5E-BC1A-3566FFDE4E70}|BootcampApp.Web\\BootcampApp.Web.csproj|c:\\users\\umut k\\documents\\github\\bootcamp-graduation-project\\bootcampapp\\bootcampapp.web\\areas\\admin\\views\\posts\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{22C71F0B-E63B-4D5E-BC1A-3566FFDE4E70}|BootcampApp.Web\\BootcampApp.Web.csproj|solutionrelative:bootcampapp.web\\areas\\admin\\views\\posts\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22C71F0B-E63B-4D5E-BC1A-3566FFDE4E70}|BootcampApp.Web\\BootcampApp.Web.csproj|c:\\users\\umut k\\documents\\github\\bootcamp-graduation-project\\bootcampapp\\bootcampapp.web\\controllers\\membercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{22C71F0B-E63B-4D5E-BC1A-3566FFDE4E70}|BootcampApp.Web\\BootcampApp.Web.csproj|solutionrelative:bootcampapp.web\\controllers\\membercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22C71F0B-E63B-4D5E-BC1A-3566FFDE4E70}|BootcampApp.Web\\BootcampApp.Web.csproj|c:\\users\\umut k\\documents\\github\\bootcamp-graduation-project\\bootcampapp\\bootcampapp.web\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{22C71F0B-E63B-4D5E-BC1A-3566FFDE4E70}|BootcampApp.Web\\BootcampApp.Web.csproj|solutionrelative:bootcampapp.web\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{22C71F0B-E63B-4D5E-BC1A-3566FFDE4E70}|BootcampApp.Web\\BootcampApp.Web.csproj|c:\\users\\umut k\\documents\\github\\bootcamp-graduation-project\\bootcampapp\\bootcampapp.web\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{22C71F0B-E63B-4D5E-BC1A-3566FFDE4E70}|BootcampApp.Web\\BootcampApp.Web.csproj|solutionrelative:bootcampapp.web\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78F1B978-B7AC-44A6-B59A-FC3047374CBE}|BootcampApp.Core\\BootcampApp.Core.csproj|c:\\users\\umut k\\documents\\github\\bootcamp-graduation-project\\bootcampapp\\bootcampapp.core\\models\\post.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78F1B978-B7AC-44A6-B59A-FC3047374CBE}|BootcampApp.Core\\BootcampApp.Core.csproj|solutionrelative:bootcampapp.core\\models\\post.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{22C71F0B-E63B-4D5E-BC1A-3566FFDE4E70}|BootcampApp.Web\\BootcampApp.Web.csproj|c:\\users\\umut k\\documents\\github\\bootcamp-graduation-project\\bootcampapp\\bootcampapp.web\\extenisons\\startupextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -59,19 +75,71 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\Areas\\Admin\\Views\\Posts\\Edit.cshtml",
+              "RelativeDocumentMoniker": "BootcampApp.Web\\Areas\\Admin\\Views\\Posts\\Edit.cshtml",
+              "ToolTip": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\Areas\\Admin\\Views\\Posts\\Edit.cshtml",
+              "RelativeToolTip": "BootcampApp.Web\\Areas\\Admin\\Views\\Posts\\Edit.cshtml",
+              "ViewState": "AQIAAAgAAAAAAAAAAAAqwBYAAABSAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-03-27T14:04:37.548Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MemberController.cs",
+              "DocumentMoniker": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\Controllers\\MemberController.cs",
+              "RelativeDocumentMoniker": "BootcampApp.Web\\Controllers\\MemberController.cs",
+              "ToolTip": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\Controllers\\MemberController.cs",
+              "RelativeToolTip": "BootcampApp.Web\\Controllers\\MemberController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-27T14:02:48.981Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "BootcampApp.Web\\Controllers\\HomeController.cs",
+              "ToolTip": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "BootcampApp.Web\\Controllers\\HomeController.cs",
+              "ViewState": "AQIAAM0AAAAAAAAAAADwv0MAAAAqAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-27T14:01:00.627Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Post.cs",
+              "DocumentMoniker": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Core\\Models\\Post.cs",
+              "RelativeDocumentMoniker": "BootcampApp.Core\\Models\\Post.cs",
+              "ToolTip": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Core\\Models\\Post.cs",
+              "RelativeToolTip": "BootcampApp.Core\\Models\\Post.cs",
+              "ViewState": "AQIAAAIAAAAAAAAAAAAxwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-27T13:57:08.677Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\Views\\Home\\Index.cshtml",
               "RelativeDocumentMoniker": "BootcampApp.Web\\Views\\Home\\Index.cshtml",
               "ToolTip": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\Views\\Home\\Index.cshtml",
               "RelativeToolTip": "BootcampApp.Web\\Views\\Home\\Index.cshtml",
-              "ViewState": "AQIAABsAAAAAAAAAAAAAADAAAABQAAAA",
+              "ViewState": "AQIAADYAAAAAAAAAAAAcwEUAAAA/AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-03-27T13:50:46.645Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "StartupExtensions.cs",
               "DocumentMoniker": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\Extenisons\\StartupExtensions.cs",
               "RelativeDocumentMoniker": "BootcampApp.Web\\Extenisons\\StartupExtensions.cs",
@@ -79,12 +147,11 @@
               "RelativeToolTip": "BootcampApp.Web\\Extenisons\\StartupExtensions.cs",
               "ViewState": "AQIAAAkAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-27T13:50:01.628Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-27T13:50:01.628Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 7,
               "Title": "PasswordValidator.cs",
               "DocumentMoniker": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Service\\Validations\\PasswordValidator.cs",
               "RelativeDocumentMoniker": "BootcampApp.Service\\Validations\\PasswordValidator.cs",
@@ -92,12 +159,11 @@
               "RelativeToolTip": "BootcampApp.Service\\Validations\\PasswordValidator.cs",
               "ViewState": "AQIAABMAAAAAAAAAAAAQwAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-27T13:49:28.786Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-27T13:49:28.786Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 8,
               "Title": "UserValidator.cs",
               "DocumentMoniker": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Service\\Validations\\UserValidator.cs",
               "RelativeDocumentMoniker": "BootcampApp.Service\\Validations\\UserValidator.cs",
@@ -105,12 +171,11 @@
               "RelativeToolTip": "BootcampApp.Service\\Validations\\UserValidator.cs",
               "ViewState": "AQIAAAYAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-27T13:49:14.633Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-27T13:49:14.633Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 9,
               "Title": "EmailService.cs",
               "DocumentMoniker": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Service\\Services\\EmailService.cs",
               "RelativeDocumentMoniker": "BootcampApp.Service\\Services\\EmailService.cs",
@@ -118,25 +183,23 @@
               "RelativeToolTip": "BootcampApp.Service\\Services\\EmailService.cs",
               "ViewState": "AQIAABIAAAAAAAAAAAAYwAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-27T13:49:06.662Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-27T13:49:06.662Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "BootcampApp.Web",
+              "DocumentIndex": 10,
+              "Title": "BootcampApp.Web.csproj",
               "DocumentMoniker": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\BootcampApp.Web.csproj",
               "RelativeDocumentMoniker": "BootcampApp.Web\\BootcampApp.Web.csproj",
               "ToolTip": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\BootcampApp.Web.csproj",
               "RelativeToolTip": "BootcampApp.Web\\BootcampApp.Web.csproj",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAfAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-03-27T13:42:26.643Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-27T13:42:26.643Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "RepoServiceModule.cs",
               "DocumentMoniker": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\Modules\\RepoServiceModule.cs",
               "RelativeDocumentMoniker": "BootcampApp.Web\\Modules\\RepoServiceModule.cs",
@@ -144,38 +207,35 @@
               "RelativeToolTip": "BootcampApp.Web\\Modules\\RepoServiceModule.cs",
               "ViewState": "AQIAAAkAAAAAAAAAAAAAABQAAABfAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-27T13:37:45.954Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-27T13:37:45.954Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "BootcampApp.Service",
+              "DocumentIndex": 11,
+              "Title": "BootcampApp.Service.csproj",
               "DocumentMoniker": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Service\\BootcampApp.Service.csproj",
               "RelativeDocumentMoniker": "BootcampApp.Service\\BootcampApp.Service.csproj",
               "ToolTip": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Service\\BootcampApp.Service.csproj",
               "RelativeToolTip": "BootcampApp.Service\\BootcampApp.Service.csproj",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-03-27T13:37:31.16Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-27T13:37:31.16Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "BootcampApp.Repository",
+              "DocumentIndex": 13,
+              "Title": "BootcampApp.Repository.csproj",
               "DocumentMoniker": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Repository\\BootcampApp.Repository.csproj",
               "RelativeDocumentMoniker": "BootcampApp.Repository\\BootcampApp.Repository.csproj",
               "ToolTip": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Repository\\BootcampApp.Repository.csproj",
               "RelativeToolTip": "BootcampApp.Repository\\BootcampApp.Repository.csproj",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAfAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-03-27T13:33:21.199Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-27T13:33:21.199Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 14,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Web\\Program.cs",
               "RelativeDocumentMoniker": "BootcampApp.Web\\Program.cs",
@@ -183,21 +243,19 @@
               "RelativeToolTip": "BootcampApp.Web\\Program.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAhAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-27T13:32:53.525Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-27T13:32:53.525Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "BootcampApp.Core",
+              "DocumentIndex": 12,
+              "Title": "BootcampApp.Core.csproj",
               "DocumentMoniker": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Core\\BootcampApp.Core.csproj",
               "RelativeDocumentMoniker": "BootcampApp.Core\\BootcampApp.Core.csproj",
               "ToolTip": "C:\\Users\\Umut K\\Documents\\GitHub\\Bootcamp-Graduation-Project\\BootcampApp\\BootcampApp.Core\\BootcampApp.Core.csproj",
               "RelativeToolTip": "BootcampApp.Core\\BootcampApp.Core.csproj",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAArAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-03-27T13:30:47.766Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-27T13:30:47.766Z"
             }
           ]
         }

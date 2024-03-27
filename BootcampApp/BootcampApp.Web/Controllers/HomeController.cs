@@ -32,11 +32,11 @@ namespace BootcampApp.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var posts = _postService.GetAll().OrderByDescending(p => p.PublishedDate)
+            var posts = _postService.GetAll().Where(p => p.IsActive).OrderByDescending(p => p.PublishedDate)
                 .Include(p => p.Categories)
                 .Include(p => p.User);
 
-            var sliderPosts = _postService.GetAll().Include(p => p.Comments).OrderByDescending(p => p.Comments.Count()).Include(p => p.User).Take(5);
+            var sliderPosts = _postService.GetAll().Where(p => p.IsActive).Include(p => p.Comments).OrderByDescending(p => p.Comments.Count()).Include(p => p.User).Take(5);
 
             var sliderPostss = new PostsViewModel
             {
@@ -60,6 +60,7 @@ namespace BootcampApp.Web.Controllers
 
             var posts = await _postService
                 .GetAll()
+                .Where(p => p.IsActive)
                 .OrderByDescending(p => p.LikeCount)
                 .Include(p => p.Comments)
                 .Include(p => p.Categories)

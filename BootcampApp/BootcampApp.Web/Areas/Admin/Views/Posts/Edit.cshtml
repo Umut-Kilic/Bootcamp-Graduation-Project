@@ -22,12 +22,15 @@
                 </div>
                 @if (User.HasClaim(x => x.Type == ClaimTypes.Role && x.Value == "admin"))
                 {
-                   <div class="form-check mb-3">
-                       <input asp-for="IsActive" class="form-check-input">
-                       <label asp-for="IsActive" class="form-check-label"></label>
-                   </div>
+                    <div class="form-check mb-3">
+                        <input asp-for="IsActive" class="form-check-input" style="transform: scale(1.5);">
+                        <label asp-for="IsActive" class="form-check-label" style="font-size: 1.25rem;"></label>
+                    </div>
+
                 }
-                <button type="submit" class="btn btn-primary text-center">Kaydet</button>
+                <div class="d-grid justify-content-center">
+                    <button type="submit" class="btn btn-primary text-center" style="width: 200px;">Kaydet</button>
+                </div>
             </div>
         </div>
         <div class="col-3">
