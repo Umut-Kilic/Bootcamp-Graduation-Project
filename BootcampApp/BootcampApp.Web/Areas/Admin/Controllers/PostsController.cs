@@ -1,12 +1,9 @@
 ﻿using BootcampApp.Core.Models;
 using BootcampApp.Core.Services;
 using BootcampApp.Core.ViewModels;
-using BootcampApp.Service.Services;
-using BootcampApp.Web.Areas.Admin.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
 using PostsViewModel = BootcampApp.Web.Areas.Admin.Models.PostsViewModel;
 
 namespace BootcampApp.Web.Areas.Admin.Controllers
@@ -68,7 +65,7 @@ namespace BootcampApp.Web.Areas.Admin.Controllers
                     Content = model.Content,
                 };
 
-                    entityToUpdate.IsActive = model.IsActive;
+                entityToUpdate.IsActive = model.IsActive;
 
                 await _postService.EditPostAsync(entityToUpdate, categoryIds);
                 return RedirectToAction("Lists", "Posts");
@@ -82,9 +79,9 @@ namespace BootcampApp.Web.Areas.Admin.Controllers
         {
             if (postId == null)
             {
-                return Json(new { Success=false, Error=new string("Böyle bir idye sahip post bulunamadı")});
+                return Json(new { Success = false, Error = new string("Böyle bir idye sahip post bulunamadı") });
             }
-            var post=await _postService.GetByIdAsync(postId);
+            var post = await _postService.GetByIdAsync(postId);
 
             if (post == null)
             {

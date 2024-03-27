@@ -3,7 +3,6 @@ using Autofac.Extensions.DependencyInjection;
 using BootcampApp.Core.Models;
 using BootcampApp.Core.Services;
 using BootcampApp.Repository;
-using BootcampApp.Repository.Seeds;
 using BootcampApp.Service.Mapping;
 using BootcampApp.Service.Services;
 using BootcampApp.Web.Extenisons;

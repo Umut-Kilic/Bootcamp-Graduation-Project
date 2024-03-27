@@ -25,7 +25,7 @@
                             <div class="card-header border-0 bg-transparent ">
                                 <div class="row align-items-center">
                                     <div class="col-auto">
-                                        <img src="/userpictures/@(Model.PostsViewModel.Posts[i].User.Picture)" class="avatar rounded-circle float-start me-3" style="width: 4rem; object-fit: contain; height: 3rem;">
+                                        <img src="/userpictures/@(Model.PostsViewModel.Posts[i].User.Picture)" class="avatar rounded-circle float-start me-3" style="width: 4rem; object-fit: fill; height: 3rem;">
                                     </div>
                                     <div class="col text-start">
                                         <h5 class="mb-0">@(Model.PostsViewModel.Posts[i].User.UserName)</h5>
@@ -45,7 +45,7 @@
                                 <h5 class="text-start mt-4">@Html.Raw(Model.PostsViewModel.Posts[i].Content)</h5>
                             }
                             <div class="card-footer text-center border-0 bg-transparent">
-                                <a href="posts/details/@(Model.PostsViewModel.Posts[i].PostId)" class="btn btn-outline-success">
+                                <a asp-controller="Posts" asp-action="details" asp-route-postId="@Model.PostsViewModel.Posts[i].PostId"  class="btn btn-outline-success">
                                     <i class="fa-solid fa-arrow-right-long"></i>Detaylar
                                 </a>
                             </div>

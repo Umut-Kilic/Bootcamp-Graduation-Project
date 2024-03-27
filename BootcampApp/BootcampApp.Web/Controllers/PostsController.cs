@@ -2,7 +2,6 @@
 using BootcampApp.Core.Models;
 using BootcampApp.Core.Services;
 using BootcampApp.Core.ViewModels;
-using BootcampApp.ViewComponents;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -34,13 +33,13 @@ namespace BootcampApp.Web.Controllers
         }
 
         public async Task<IActionResult> Index(int? categoryId)
-        {        
+        {
 
             IQueryable<Post> postsQuery = _postService.GetAll().Include(p => p.Categories);
 
             if (categoryId != null)
             {
-                postsQuery = postsQuery.Where(p => p.Categories.Any(c => c.CategoryId == categoryId)).Include(p=>p.Categories);
+                postsQuery = postsQuery.Where(p => p.Categories.Any(c => c.CategoryId == categoryId)).Include(p => p.Categories);
             }
 
             List<Post> posts = await postsQuery.ToListAsync();
@@ -129,7 +128,7 @@ namespace BootcampApp.Web.Controllers
         {
             return View(new PostCreateViewModel
             {
-                Categories=await _categoryService.GetAll().ToListAsync(), 
+                Categories = await _categoryService.GetAll().ToListAsync(),
             });
         }
 
@@ -168,7 +167,7 @@ namespace BootcampApp.Web.Controllers
 
                     foreach (var categoryId in request.SelectedCategories)
                     {
-                        var category= await _categoryService.GetByIdAsync(categoryId);  
+                        var category = await _categoryService.GetByIdAsync(categoryId);
                         newPost.Categories.Add(category);
                     }
 
@@ -248,9 +247,9 @@ namespace BootcampApp.Web.Controllers
         {
             if (postId == null)
             {
-                return Json(new { Success=false, Error=new string("Böyle bir idye sahip post bulunamadı")});
+                return Json(new { Success = false, Error = new string("Böyle bir idye sahip post bulunamadı") });
             }
-            var post=await _postService.GetByIdAsync(postId);
+            var post = await _postService.GetByIdAsync(postId);
 
             if (post == null)
             {

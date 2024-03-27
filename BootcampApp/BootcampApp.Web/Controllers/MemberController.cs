@@ -55,7 +55,7 @@ namespace BootcampApp.Web.Controllers
             {
                 Email = currentUser.Email,
                 UserName = currentUser.UserName,
-                Gender=currentUser.Gender,
+                Gender = currentUser.Gender,
                 PhoneNumber = currentUser.PhoneNumber,
                 PictureUrl = currentUser.Picture,
                 PostsViewModel = postViewModel

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BootcampApp.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a4c5e4340c8561aa010ba2c71d5b31d25cafa3d3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1261df64f3555d34b9518b27e91007fad4de7732")]
 [assembly: System.Reflection.AssemblyProductAttribute("BootcampApp.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BootcampApp.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
